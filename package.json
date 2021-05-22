@@ -1,0 +1,20 @@
+{
+  "name": "message",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "dev": "./node_modules/.bin/parcel static/index.html",
+    "build": "./node_modules/.bin/parcel build static/index.html",
+    "start": ""
+  },
+  "devDependencies": {
+    "express": "4.17.1"
+  },
+  "dependencies": {
+    "parcel-bundler": "^1.12.5"
+  }
+}
