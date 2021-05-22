@@ -1,0 +1,10 @@
+.module-cache
+.DS_Store
+jspm_packages/
+.idea
+*.swp
+*.log
+atlassian-ide-plugin.xml
+.eslintcache
+node_modules/
+*.lock
