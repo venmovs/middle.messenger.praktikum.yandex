@@ -2,3 +2,4 @@
     <p> <strong> npm run build </strong> - сборка прод версии </p>
     <p> npm run start - запуск сервера на nodejs </p> 
     <p> npm run dev - запуск локального хоста <p>  
+    версия node - 12.16.0
