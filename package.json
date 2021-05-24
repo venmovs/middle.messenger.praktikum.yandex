@@ -12,9 +12,11 @@
     "start": ""
   },
   "devDependencies": {
-    "express": "4.17.1"
+    "express": "4.17.1",
+    "sass": "^1.34.0"
   },
   "dependencies": {
-    "parcel-bundler": "^1.12.5"
+    "lodash.template": "4.5.0",
+    "parcel-bundler": "1.12.5"
   }
 }
