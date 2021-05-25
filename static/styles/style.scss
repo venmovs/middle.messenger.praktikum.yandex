@@ -1,0 +1,15 @@
+@import "button";
+@import "utils";
+@import "variables";
+@import "mixins";
+
+* {
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  background-color: #2B5CDA;
+  padding: 0;
+  margin: 0;
+}

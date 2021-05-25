@@ -7,8 +7,8 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "dev": "./node_modules/.bin/parcel static/index.html",
-    "build": "./node_modules/.bin/parcel build static/index.html",
+    "dev": "./node_modules/.bin/parcel static/pages/chat/chat.html",
+    "build": "./node_modules/.bin/parcel build static/pages/chat/chat.html",
     "start": ""
   },
   "devDependencies": {
