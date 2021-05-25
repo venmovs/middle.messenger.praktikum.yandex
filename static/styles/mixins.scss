@@ -1,0 +1,14 @@
+@mixin avatar {
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 100%;
+  background-color: grey;
+  width: 60px;
+  height: 60px;
+}
+
+@mixin text-normal {
+  font-style: normal;
+  font-weight: normal;
+  line-height: 130%;
+}
