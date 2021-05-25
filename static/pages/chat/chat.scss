@@ -11,6 +11,12 @@
   align-items: center;
   padding: 10px;
 
+  &__search{
+    position: sticky;
+    overflow: hidden;
+    bottom: 0;
+  }
+
   &__user {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid #FFFFFF;
@@ -21,9 +27,10 @@
     padding: 10px;
     cursor: pointer;
     display: grid;
+    grid-template-columns: 80px auto 50px;
     position: relative;
-    grid-template-areas: "avatar name name  name time"
-                         "avatar message message  message notification";
+    grid-template-areas: "avatar name time"
+                         "avatar message notification";
     transition: background 0.2s ease;
     &:hover {
       background: #FFFFFF;
@@ -38,20 +45,15 @@
 
     &__name {
       grid-area: name;
-      @include text-normal;
       font-size: 18px;
     }
 
     &__message {
       grid-area: message;
-      @include text-normal;
-      font-size: 14px;
       color: #858585;
     }
 
     &__time{
-      @include text-normal;
-      font-size: 14px;
       text-align: center;
       grid-area: time;
       position: absolute;
@@ -68,8 +70,6 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      @include text-normal;
-      font-size: 14px;
       color: #FFFFFF;
       position: absolute;
       right: 0;
@@ -81,14 +81,35 @@
 
 .bg-blur {
   backdrop-filter: $backdrop-filter;
+  background: rgba(255, 255, 255, 0.33);
   display: block;
-  overflow-y: hidden;
   height: 100%;
-  width: 100%;
   margin: 5px;
   border-radius: $border-radius-primary;
   padding: 20px;
+  position: relative;
+  &_small {
+    overflow: auto;
+    width: 80%;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  &_big {
+    width: 100%;
+    overflow: hidden;
+  }
 }
+
+.message {
+  border-radius: $border-radius-secondary;
+  background-color: #FFFFFF;
+  box-shadow: $box-shadow;
+  height: 80%;
+  width: 100%;
+}
+
+
 
 .user-info {
   &__avatar {
@@ -98,7 +119,6 @@
     margin-bottom: 30px;
   }
   &__name{
-    @include text-normal;
     font-size: 18px;
   }
 }

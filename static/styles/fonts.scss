@@ -1,0 +1,15 @@
+@import "mixins";
+
+.text-primary {
+  @include text-normal();
+  font-size: 14px;
+  color: black;
+  line-height: 24px;
+  &_white{
+    color: #FFFFFF;
+  }
+}
+
+.text-secondary {
+
+}
