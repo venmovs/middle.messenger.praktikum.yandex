@@ -5,14 +5,40 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../styles/style.scss">
+    <link rel="stylesheet" href="./login.scss">
     <title>login</title>
 </head>
 <body>
 <main>
-    <section class="login">
-        Hello
-    </section>
+    <main class="login flex justify-content-center align-item-center">
+        <section class="login__wrapper">
+            <div class="login__bg">
+                <div class="login__active-part flex direction-column space-between align-item-center">
+                    <h1 class="h1">Вход</h1>
 
+                    <form class="flex direction-column align-item-center">
+                        <label class="flex direction-column align-item-center mb-1">
+                            <span class="text-primary text-primary_white">Логин</span>
+                            <input placeholder="Укажите логин" class="custom-text-input text-primary" type="text">
+                        </label>
+
+                        <label class="flex direction-column align-item-center mb-1">
+                            <span class="text-primary text-primary_white">Пароль</span>
+                            <input placeholder="Пароль" class="custom-text-input text-primary" type="password">
+                        </label>
+
+
+                        <button class="button button_big ">
+                            авторизоваться
+                        </button>
+
+                    </form>
+                </div>
+            </div>
+
+        </section>
+    </main>
 </main>
 </body>
 </html>

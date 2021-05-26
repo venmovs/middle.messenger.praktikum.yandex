@@ -11,72 +11,73 @@
   align-items: center;
   padding: 10px;
 
-  &__search{
+  &__search {
     position: sticky;
     overflow: hidden;
     bottom: 0;
   }
+}
 
-  &__user {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid #FFFFFF;
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-    height: 90px;
-    width: 100%;
-    border-radius: $border-radius-secondary;
-    padding: 10px;
-    cursor: pointer;
-    display: grid;
-    grid-template-columns: 80px auto 50px;
-    position: relative;
-    grid-template-areas: "avatar name time"
+.chat-user {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid #FFFFFF;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  height: 90px;
+  width: 100%;
+  border-radius: $border-radius-secondary;
+  padding: 10px;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 80px auto 50px;
+  position: relative;
+  grid-template-areas: "avatar name time"
                          "avatar message notification";
-    transition: background 0.2s ease;
-    &:hover {
-      background: #FFFFFF;
-    }
+  transition: background 0.2s ease;
 
-    &__avatar {
-      @include avatar();
-      grid-area: avatar;
-      background-image: url("../../images/avatar/test-avatar.jpg");
-      margin: auto auto;
-    }
-
-    &__name {
-      grid-area: name;
-      font-size: 18px;
-    }
-
-    &__message {
-      grid-area: message;
-      color: #858585;
-    }
-
-    &__time{
-      text-align: center;
-      grid-area: time;
-      position: absolute;
-      top: 0;
-      right: 0;
-    }
-
-    &__notification{
-      grid-area: notification;
-      background-color: #5E81FF;
-      border-radius: 100%;
-      height: 25px;
-      width: 25px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #FFFFFF;
-      position: absolute;
-      right: 0;
-      bottom: 0;
-    }
-
+  &:hover {
+    background: #FFFFFF;
   }
+
+  &__avatar {
+    @include avatar();
+    grid-area: avatar;
+    background-image: url("../../images/avatar/test-avatar.jpg");
+    margin: auto auto;
+  }
+
+  &__name {
+    grid-area: name;
+    font-size: 18px;
+  }
+
+  &__message {
+    grid-area: message;
+    color: #858585;
+  }
+
+  &__time {
+    text-align: center;
+    grid-area: time;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+
+  &__notification {
+    grid-area: notification;
+    background-color: #5E81FF;
+    border-radius: 100%;
+    height: 25px;
+    width: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+
 }
 
 .bg-blur {
@@ -88,20 +89,26 @@
   border-radius: $border-radius-primary;
   padding: 20px;
   position: relative;
+
   &_small {
     overflow: auto;
     width: 80%;
+
     &::-webkit-scrollbar {
       display: none;
     }
   }
+
   &_big {
     width: 100%;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
 }
 
-.message {
+.message-field {
   border-radius: $border-radius-secondary;
   background-color: #FFFFFF;
   box-shadow: $box-shadow;
@@ -109,6 +116,27 @@
   width: 100%;
 }
 
+.entry-field {
+  display: grid;
+  width: 100%;
+  grid-template-columns: 60px auto 60px;
+  grid-template-areas: 'file text send';
+  position: relative;
+
+  &__file {
+    grid-area: file;
+  }
+
+  &__text {
+    grid-area: text;
+  }
+
+  &__send {
+    grid-area: send;
+    position: absolute;
+    right: 0;
+  }
+}
 
 
 .user-info {
@@ -118,7 +146,41 @@
     margin-right: 10px;
     margin-bottom: 30px;
   }
-  &__name{
+
+  &__name {
     font-size: 18px;
   }
+}
+
+.message-field {
+  padding: 20px;
+  width: 100%;
+  overflow-y: scroll;
+  border: 10px solid rgba(255, 255, 255, 0.8);
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.message-plate {
+  max-width: 70%;
+  padding: 10px;
+  display: inline-block;
+  margin-bottom: 10px;
+  color: #FFFFFF;
+
+  &_blue {
+    background: $color-primary;
+    border-radius: 13px 13px 13px 0;
+  }
+
+  &_green {
+    background: $color-secondary;
+    border-radius: 13px 13px 0 13px;
+  }
+
+  &__wrapper {
+    margin-bottom: 20px;
+  }
+
 }

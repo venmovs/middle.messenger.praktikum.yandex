@@ -1,11 +1,18 @@
 .button {
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
-  background: #FFFFFF;
-  border: 1px solid #FFFFFF;
   border-radius: 13px;
   cursor: pointer;
   &_small {
+    background: #FFFFFF;
+    border: 1px solid #FFFFFF;
     height: 48px;
     width: 48px;
+  }
+  &_big {
+    border: none;
+    color: #FFFFFF;
+    height: 60px;
+    width: 360px;
+    background: linear-gradient(0deg, #5E81FF, #5E81FF);
   }
 }
