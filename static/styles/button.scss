@@ -1,3 +1,5 @@
+@import "variables";
+
 .button {
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
   border-radius: 13px;
@@ -13,6 +15,18 @@
     color: #FFFFFF;
     height: 60px;
     width: 360px;
-    background: linear-gradient(0deg, #5E81FF, #5E81FF);
+    background: $color-primary;
+    transition: 0.2s ease;
+    &:hover {
+      background: #5570e8;
+    }
+  }
+}
+
+.link {
+  color: white;
+  transition: 0.2s ease;
+  &:hover {
+    text-decoration: none;
   }
 }

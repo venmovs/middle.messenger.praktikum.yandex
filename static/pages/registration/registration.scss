@@ -1,0 +1,30 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+
+.registration {
+  @include maxVhVw;
+
+  &__wrapper {
+    width: 1361px;
+    height: 700px;
+  }
+
+  &__bg {
+    @include sign-background;
+    background: url("../../images/background/registration-background.jpg") no-repeat center center fixed;
+  }
+
+  &__active-part {
+    @include sign-active-part;
+    width: 80%;
+  }
+
+  &__form {
+    width: 800px;
+  }
+
+  &__button {
+    @include sign-btn;
+  }
+}

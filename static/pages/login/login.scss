@@ -1,8 +1,8 @@
 @import "../../styles/variables";
+@import "../../styles/mixins";
 
 .login {
-  height: 100vh;
-  width: 100vw;
+  @include maxVhVw;
 
   &__wrapper {
     width: 1194px;
@@ -10,25 +10,19 @@
   }
 
   &__bg {
-    border-radius: $border-radius-primary;
-    height: 100%;
-    width: 100%;
+   @include sign-background;
     background: url("../../images/background/login-background.jpg") no-repeat center center fixed;
-    background-size: cover;
-    position: relative;
-    box-shadow: $box-shadow;
   }
 
   &__active-part {
-    position: absolute;
-    right: 0;
-    display: inline-block;
-    backdrop-filter: $backdrop-filter;
-    background: rgba(255, 255, 255, 0.33);
-    height: 100%;
+    @include sign-active-part;
     width: 50%;
-    border-radius: 0 22px 22px 0;
-    padding: 20px;
+  }
+
+  &__form {}
+
+  &__button {
+    @include sign-btn;
   }
 
 }
