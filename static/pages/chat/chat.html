@@ -15,8 +15,6 @@
 
     <section class="bg-blur bg-blur_small">
 
-        <a href="../error/error.html"> error </a>
-
         <div class="flex space-between">
 
             <div class="user-info flex justify-content-center">
@@ -24,9 +22,11 @@
                 <div class="user-info__name text-primary">Виген Мовсисян</div>
             </div>
 
+            <a href="../login/login.html">
             <button class="button button_small flex justify-content-center align-item-center">
                 <img src="../../images/icons/editor.svg" class="icon" alt="editor">
             </button>
+            </a>
 
         </div>
 
@@ -110,7 +110,8 @@
             <label class="entry-field__file custom-file-upload flex justify-content-center align-item-center">
                 <input accept=".jpg, .jpeg, .png"
                        type="file"
-                       style="display: none">
+                       style="display: none"
+                       id="addFileBtn">
                 <img src="../../images/icons/file.svg" class="icon" alt="file">
             </label>
 
@@ -126,5 +127,7 @@
     </section>
 
 </main>
+
+<script src="chat.js"></script>
 </body>
 </html>

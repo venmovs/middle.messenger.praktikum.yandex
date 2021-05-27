@@ -17,20 +17,20 @@
             <div class="login__active-part flex direction-column space-between align-item-center">
                 <h1 class="h1">Вход</h1>
 
-                <form class="login__form flex direction-column align-item-center">
+                <form class="login__form flex direction-column align-item-center" name="login" id="loginForm">
                     <label class="flex direction-column align-item-center mb-1">
                         <span class="text-primary text-primary_white">Логин</span>
-                        <input placeholder="Укажите логин" class="custom-text-input text-primary" type="text">
+                        <input placeholder="Укажите логин" name="loginName" class="custom-text-input text-primary" type="text">
                     </label>
 
                     <label class="flex direction-column align-item-center mb-1">
                         <span class="text-primary text-primary_white">Пароль</span>
-                        <input placeholder="Пароль" class="custom-text-input text-primary" type="password">
+                        <input placeholder="Пароль" name="loginPassword" class="custom-text-input text-primary" type="password">
                     </label>
 
 
                     <div class="login__button flex direction-column align-item-center">
-                        <button onsubmit="return false;" class="button button_big mb-1">
+                        <button onsubmit="return false;" class="button button_big mb-1" id="loginButton">
                             авторизоваться
                         </button>
 
@@ -42,6 +42,8 @@
 
     </section>
 </main>
+
+<script src="login.js"></script>
 
 </body>
 </html>

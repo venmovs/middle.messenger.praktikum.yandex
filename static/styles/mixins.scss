@@ -46,3 +46,9 @@
   left: 50%;
   transform: translateX(-50%);
 }
+
+@mixin transform50 {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}

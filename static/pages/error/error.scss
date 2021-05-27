@@ -1,4 +1,5 @@
 @import "../../styles/variables";
+@import "../../styles/mixins";
 
 .error {
   background-image: url("../../images/background/error-background.jpg");
@@ -23,5 +24,20 @@
     font-weight: bold;
     font-size: 288px;
     color: #FFFFFF;
+    text-align: center;
+    margin: 0;
+  }
+
+  &__sub-tittle {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 48px;
+    text-align: center;
+    color: #FFFFFF;
+  }
+
+  &__link-button {
+    @include transform50;
+    bottom: 10%;
   }
 }

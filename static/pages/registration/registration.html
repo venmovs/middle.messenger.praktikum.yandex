@@ -14,44 +14,19 @@
 <main class="registration flex justify-content-center align-item-center">
     <section class="registration__wrapper">
         <div class="registration__bg">
-        <div class="registration__active-part flex direction-column align-item-center">
-            <h1 class="h1">Регистрация</h1>
+            <div class="registration__active-part flex direction-column align-item-center">
+                <h1 class="h1">Регистрация</h1>
 
-            <form class="registration__form">
-                <div class="flex space-between">
-                    <div>
+                <form class="registration__form" id="registrationForm">
+                    <div class="flex space-between wrap">
+
                         <label class="flex direction-column align-item-center mb-1">
                             <span class="text-primary text-primary_white">Логин</span>
-                            <input  class="custom-text-input text-primary" type="text">
+                            <input class="custom-text-input text-primary" type="text">
                         </label>
 
-                        <label class="flex direction-column align-item-center mb-1">
-                            <span class="text-primary text-primary_white">Пароль</span>
-                            <input  class="custom-text-input text-primary" type="password">
-                        </label>
-
-                        <label class="flex direction-column align-item-center mb-1">
-                            <span class="text-primary text-primary_white">Пароль(еще раз)</span>
-                            <input class="custom-text-input text-primary" type="password">
-                        </label>
-                    </div>
-
-                    <div>
                         <label class="flex direction-column align-item-center mb-1">
                             <span class="text-primary text-primary_white">Имя</span>
-                            <input class="custom-text-input text-primary" type="text">
-                        </label>
-
-                        <label class="flex direction-column align-item-center mb-1">
-                            <span class="text-primary text-primary_white">Фамилия</span>
-                            <input class="custom-text-input text-primary" type="text">
-                        </label>
-                    </div>
-
-                    <div>
-
-                        <label class="flex direction-column align-item-center mb-1">
-                            <span class="text-primary text-primary_white">Телефон</span>
                             <input class="custom-text-input text-primary" type="text">
                         </label>
 
@@ -60,24 +35,48 @@
                             <input class="custom-text-input text-primary" type="email">
                         </label>
 
+
+                        <label class="flex direction-column align-item-center mb-1">
+                            <span class="text-primary text-primary_white">Пароль</span>
+                            <input class="custom-text-input text-primary" type="password">
+                        </label>
+
+
+                        <label class="flex direction-column align-item-center mb-1">
+                            <span class="text-primary text-primary_white">Фамилия</span>
+                            <input class="custom-text-input text-primary" type="text">
+                        </label>
+
+
+                        <label class="flex direction-column align-item-center mb-1">
+                            <span class="text-primary text-primary_white">Телефон</span>
+                            <input class="custom-text-input text-primary" type="text">
+                        </label>
+
+                        <label class="flex direction-column align-item-center mb-1">
+                            <span class="text-primary text-primary_white">Пароль(еще раз)</span>
+                            <input class="custom-text-input text-primary" type="password">
+                        </label>
+
+
                     </div>
-                </div>
 
 
-                <div class="registration__button flex direction-column align-item-center">
-                    <button onsubmit="return false;" class="button button_big mb-1">
-                        зарегестрироваться
-                    </button>
+                    <div class="registration__button flex direction-column align-item-center">
+                        <button onsubmit="return false;" class="button button_big mb-1" id="registrationButton">
+                            зарегестрироваться
+                        </button>
 
-                    <a class="link" href="../login/login.html">есть аккаунт?</a>
-                </div>
+                        <a class="link" href="../login/login.html">есть аккаунт?</a>
+                    </div>
 
-            </form>
-        </div>
+                </form>
+            </div>
         </div>
 
     </section>
 </main>
 
+<script src="registration.js"></script>
 </body>
 </html>
