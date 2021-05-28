@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 window.addEventListener('load', function (){
 
@@ -9,9 +9,5 @@ window.addEventListener('load', function (){
         const fileList = this.files;
         console.log(fileList);
     }
-
-
-
-
 
 });

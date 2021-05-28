@@ -37,17 +37,3 @@
 .w-100 {
   width: 100% !important;
 }
-
-.icon {
-  width: 24px;
-  height: 24px;
-  transition: 0.2s ease;
-}
-
-.button_small:hover .icon {
-  transform: rotate(20deg);
-}
-
-.custom-file-upload:hover .icon {
-  transform: rotate(20deg);
-}

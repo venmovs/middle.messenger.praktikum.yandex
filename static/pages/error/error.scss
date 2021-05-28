@@ -37,7 +37,7 @@
   }
 
   &__link-button {
-    @include transform50;
+    @include horizontal-center;
     bottom: 10%;
   }
 }

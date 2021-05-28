@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 window.addEventListener('load', function () {
 
@@ -7,9 +7,9 @@ window.addEventListener('load', function () {
 
     registrationButton.addEventListener('click', (event) => {
         event.preventDefault();
-        for (let label of registrationForm.firstElementChild.children) {
-            let input = label.querySelector('input');
-            console.log(input.value);
+        let registrationData = new FormData(registrationForm);
+        for(let [name, value] of registrationData) {
+            console.log(`${name} : ${value}`);
         }
     });
 

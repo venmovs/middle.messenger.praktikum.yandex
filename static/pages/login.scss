@@ -1,5 +1,5 @@
-@import "../../styles/variables";
-@import "../../styles/mixins";
+@import "../styles/variables";
+@import "../styles/mixins";
 
 .login {
   @include maxVhVw;
@@ -11,7 +11,7 @@
 
   &__bg {
    @include sign-background;
-    background: url("../../images/background/login-background.jpg") no-repeat center center fixed;
+    background: url("../images/background/login-background.jpg") no-repeat center center fixed;
   }
 
   &__active-part {

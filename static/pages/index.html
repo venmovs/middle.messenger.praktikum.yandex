@@ -5,8 +5,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../../styles/style.scss">
-    <link rel="stylesheet" href="./login.scss">
+    <link rel="stylesheet" href="../styles/style.scss">
+    <link rel="stylesheet" href="login.scss">
     <title>login</title>
 </head>
 <body>
@@ -18,6 +18,7 @@
                 <h1 class="h1">Вход</h1>
 
                 <form class="login__form flex direction-column align-item-center" name="login" id="loginForm">
+
                     <label class="flex direction-column align-item-center mb-1">
                         <span class="text-primary text-primary_white">Логин</span>
                         <input placeholder="Укажите логин" name="loginName" class="custom-text-input text-primary" type="text">
@@ -30,11 +31,11 @@
 
 
                     <div class="login__button flex direction-column align-item-center">
-                        <button onsubmit="return false;" class="button button_big mb-1" id="loginButton">
-                            авторизоваться
-                        </button>
+                            <button onsubmit="return false;" class="button button_big mb-1" id="loginButton">
+                                авторизоваться
+                            </button>
 
-                        <a class="link" href="../registration/registration.html">нет аккаунта?</a>
+                        <a class="link" href="registration/registration.html">нет аккаунта?</a>
                     </div>
                 </form>
             </div>

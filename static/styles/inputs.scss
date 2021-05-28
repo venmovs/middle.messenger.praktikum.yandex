@@ -24,4 +24,7 @@
   cursor: pointer;
   width: 50px;
   height: 48px;
+  & input {
+    display: none;
+  }
 }

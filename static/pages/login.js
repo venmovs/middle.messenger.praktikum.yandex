@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 window.addEventListener('load', function () {
 
@@ -7,8 +7,12 @@ window.addEventListener('load', function () {
 
     loginButton.addEventListener('click', (event) => {
         event.preventDefault();
-        console.log(loginForm.loginName.value);
-        console.log(loginForm.loginPassword.value);
+        let loginData = new FormData(loginForm);
+        for(let [name, value] of loginData) {
+            console.log(`${name} : ${value}`);
+        }
+
+        window.location.href = '/chat/chat.html';
     });
 
 });
