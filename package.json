@@ -7,9 +7,9 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "dev": "npm run clear && parcel static/pages/**/*.html --no-cache",
-    "build": "npm run clear && parcel build static/pages/**/*.html",
-    "start": "npm run clear && parcel build static/pages/**/*.html && node ./server.js",
+    "dev": "npm run clear && ./node_modules/.bin/parcel static/pages/**/*.html --no-cache",
+    "build": "npm run clear && ./node_modules/.bin/parcel build static/pages/**/*.html",
+    "start": "npm run clear && ./node_modules/.bin/parcel build static/pages/**/*.html && node ./server.js",
     "clear": "rm -rf dist .cache"
   },
   "devDependencies": {

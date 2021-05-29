@@ -22,27 +22,19 @@
                 <div class="user-info__name text-primary">Виген Мовсисян</div>
             </div>
 
-            <a href="../profile/profile.html">
-            <button class="button button_small flex justify-content-center align-item-center">
+            <button class="button button_small flex justify-content-center align-item-center" id="editor">
                 <img src="../../images/icons/editor.svg" class="icon" alt="editor">
             </button>
-            </a>
 
         </div>
 
-        <div class="chat-user mb-1">
-            <div class="chat-user__avatar"></div>
-            <div class="chat-user__name text-primary">Катя</div>
-            <div class="chat-user__message text-primary">Привет, как дела?)</div>
-            <div class="chat-user__time text-primary">10:45</div>
-            <div class="chat-user__notification">1</div>
-        </div>
+        <div id="__users"></div>
 
 
         <form class="chat__search flex align-item-end justify-content-center">
             <label class="flex direction-column align-item-center mr-1">
                 <span class="text-primary text-primary_white">Поиск</span>
-                <input class="custom-text-input text-primary" type="text">
+                <input class="custom-text-input text-primary" type="text" id="search">
             </label>
 
             <button class="button button_small flex justify-content-center align-item-center">
@@ -58,55 +50,10 @@
             <div class="user-info__name text-primary">Виген Мовсисян</div>
         </div>
 
-        <div class="message-field mb-1">
-
-            <div class="message-plate__wrapper flex direction-column">
-                <div class="message-plate message-plate_blue">
-                    Идейные соображения высшего порядка, а также реализация намеченных плановых заданий требуют
-                    определения
-                    и уточнения существенных финансовых и административных условий. Равным образом укрепление и развитие
-                    структуры обеспечивает широкому кругу (специалистов) участие в формировании форм развития.
-                </div>
-                <time class="text-primary text-primary_gray">10:49</time>
-            </div>
-
-            <div class="message-plate__wrapper flex direction-column align-item-end">
-                <div class="message-plate message-plate_green">
-                    Таким образом постоянный количественный рост и сфера нашей активности требуют от нас анализа
-                    существенных финансовых и административных условий.
-                </div>
-                <time class="text-primary text-primary_gray">10:49</time>
-            </div>
-
-            <div class="message-plate__wrapper flex direction-column">
-                <div class="message-plate message-plate_blue">
-                    Идейные соображения высшего порядка, а также реализация намеченных плановых заданий требуют
-                    определения
-                    и уточнения существенных финансовых и административных условий. Равным образом укрепление и развитие
-                    структуры обеспечивает широкому кругу (специалистов) участие в формировании форм развития.
-                </div>
-                <time class="text-primary text-primary_gray">10:49</time>
-            </div>
-
-            <div class="message-plate__wrapper flex direction-column align-item-end">
-                <div class="message-plate message-plate_green">
-                    Таким образом постоянный количественный рост и сфера нашей активности требуют от нас анализа
-                    существенных финансовых и административных условий.
-                </div>
-                <time class="text-primary text-primary_gray">10:49</time>
-            </div>
-
-            <div class="message-plate__wrapper flex direction-column align-item-end">
-                <div class="message-plate message-plate_green">
-                    Таким образом постоянный количественный рост и сфера нашей активности требуют от нас анализа
-                    существенных финансовых и административных условий.
-                </div>
-                <time class="text-primary text-primary_gray">10:49</time>
-            </div>
-
+        <div class="message-field mb-1" id="__message-wrapper">
         </div>
 
-        <form class="entry-field">
+        <form class="entry-field" id="message-form">
             <label class="entry-field__file custom-file-upload flex justify-content-center align-item-center">
                 <input accept=".jpg, .jpeg, .png"
                        type="file"
@@ -116,10 +63,11 @@
 
 
             <label class="entry-field__text w-100 mr-1">
-                <input placeholder="Сообщение" class="custom-text-input text-primary w-100" type="text">
+                <input placeholder="Сообщение" name="message" class="custom-text-input text-primary w-100" type="text">
             </label>
 
-            <button class="entry-field__send button button_small flex justify-content-center align-item-center">
+            <button class="entry-field__send button button_small flex justify-content-center align-item-center"
+                    id="sendButton">
                 <img src="../../images/icons/send.svg" class="icon" alt="send">
             </button>
         </form>
@@ -127,6 +75,6 @@
 
 </main>
 
-<script src="chat.js"></script>
+<script src="../../../src/pages/chat/chat.js"></script>
 </body>
 </html>

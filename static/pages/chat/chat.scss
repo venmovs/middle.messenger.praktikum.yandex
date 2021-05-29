@@ -41,7 +41,6 @@
   &__avatar {
     @include avatar();
     grid-area: avatar;
-    background-image: url("../../images/avatar/test-avatar.jpg");
     margin: auto auto;
   }
 
