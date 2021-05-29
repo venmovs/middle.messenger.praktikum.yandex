@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./registration.scss">
     <link rel="stylesheet" href="../../styles/style.scss">
+    <script src="registration.js"></script>
     <title>Registration</title>
 </head>
 <body>
@@ -18,9 +19,17 @@
                 <h1 class="h1">Регистрация</h1>
 
                 <form class="registration__form" id="registrationForm">
-                    <div class="flex space-between wrap">
+                    <div class="flex space-between wrap" id="output">
 
+                        <!--{{#each data}}
                         <label class="flex direction-column align-item-center mb-1">
+                            <span class="text-primary text-primary_white">{{this.tittle}}</span>
+                            <input class="custom-text-input text-primary" name="{{this.name}}" type="{{this.type}}">
+                        </label>
+                        {{/each}}-->
+
+
+                        <!--<label class="flex direction-column align-item-center mb-1">
                             <span class="text-primary text-primary_white">Логин</span>
                             <input class="custom-text-input text-primary" name="login" type="text">
                         </label>
@@ -56,7 +65,7 @@
                         <label class="flex direction-column align-item-center mb-1">
                             <span class="text-primary text-primary_white">Пароль(еще раз)</span>
                             <input class="custom-text-input text-primary" name="passwordConfirm" type="password">
-                        </label>
+                        </label>-->
 
 
                     </div>
@@ -77,6 +86,6 @@
     </section>
 </main>
 
-<script src="registration.js"></script>
+
 </body>
 </html>
