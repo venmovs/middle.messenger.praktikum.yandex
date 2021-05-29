@@ -1,0 +1,29 @@
+@import "../styles/variables";
+@import "../styles/mixins";
+
+.login {
+  @include maxVhVw;
+
+  &__wrapper {
+    width: 1194px;
+    height: 542px;
+  }
+
+  &__bg {
+   @include sign-background;
+    background: url("../images/background/login-background.jpg") no-repeat center center fixed;
+  }
+
+  &__active-part {
+    @include sign-active-part;
+    width: 50%;
+  }
+
+  &__form {}
+
+  &__button {
+    @include sign-btn;
+  }
+
+}
+

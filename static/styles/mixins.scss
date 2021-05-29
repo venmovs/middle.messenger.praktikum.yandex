@@ -1,0 +1,54 @@
+@import "variables";
+
+@mixin avatar {
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 100%;
+  background-color: grey;
+  width: 60px;
+  height: 60px;
+}
+
+@mixin text-normal {
+  font-style: normal;
+  font-weight: normal;
+  line-height: 130%;
+}
+
+@mixin sign-background {
+  border-radius: $border-radius-primary;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  position: relative;
+  box-shadow: $box-shadow;
+}
+
+@mixin sign-active-part {
+  position: absolute;
+  right: 0;
+  display: inline-block;
+  backdrop-filter: $backdrop-filter;
+  background: rgba(255, 255, 255, 0.33);
+  height: 100%;
+  border-radius: 0 22px 22px 0;
+  padding: 20px;
+}
+
+@mixin maxVhVw {
+  height: 100vh;
+  width: 100vw;
+}
+
+@mixin sign-btn {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@mixin horizontal-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}

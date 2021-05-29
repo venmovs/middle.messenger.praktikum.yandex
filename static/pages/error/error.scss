@@ -1,0 +1,43 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.error {
+  background-image: url("../../images/background/error-background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+
+  &__content {
+    width: 594px;
+    height: 578px;
+    backdrop-filter: $backdrop-filter;
+    border-radius: $border-radius-primary;
+  }
+
+  &__tittle {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 288px;
+    color: #FFFFFF;
+    text-align: center;
+    margin: 0;
+  }
+
+  &__sub-tittle {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 48px;
+    text-align: center;
+    color: #FFFFFF;
+  }
+
+  &__link-button {
+    @include horizontal-center;
+    bottom: 10%;
+  }
+}

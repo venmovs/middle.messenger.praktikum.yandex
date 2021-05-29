@@ -1,0 +1,67 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+
+.profile {
+  @include maxVhVw;
+
+  &__wrapper {
+    width: 1200px;
+    height: 700px;
+  }
+
+  &__bg {
+    @include sign-background;
+    background: url("../../images/background/profile-background.jpg") no-repeat center center fixed;
+  }
+
+  &__active-part {
+    @include sign-active-part;
+    width: 70%;
+  }
+
+  &__avatar {
+    @include avatar;
+    width: 140px;
+    height: 140px;
+    background-image: url("../../images/avatar/test-avatar.jpg");
+    &_wrapper {
+      margin-bottom: 40px;
+    }
+  }
+
+  &__name {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    color: #FFFFFF;
+  }
+
+  &__form {
+    position: absolute;
+    @include horizontal-center();
+    width: 500px;
+  }
+
+  &__info {
+    border: $border;
+    height: 48px;
+    width: 240px;
+    border-radius: $border-radius-secondary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    color: white;
+    @include text-normal;
+  }
+
+  &__back-link {
+    position: absolute;
+    bottom: 10%;
+  }
+
+  &__button {
+    @include sign-btn;
+  }
+}
