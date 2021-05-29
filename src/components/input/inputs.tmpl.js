@@ -1,4 +1,4 @@
-const inputsTmpl = `
+const inputsTemplate = `
 {{#each data}}
 <label class="flex direction-column align-item-center mb-1">
     <span class="text-primary text-primary_white">{{this.tittle}}</span>
@@ -6,4 +6,4 @@ const inputsTmpl = `
     </label>
 {{/each}}`;
 
-export { inputsTmpl };
+export { inputsTemplate };

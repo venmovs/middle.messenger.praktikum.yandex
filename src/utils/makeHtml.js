@@ -13,6 +13,7 @@ const makeHtmlFromTemplate = function (template, data, parent) {
     let fragment = document.createElement('template');
     fragment.innerHTML = tmpl;
 
+
     parent.append(fragment.content);
 };
 

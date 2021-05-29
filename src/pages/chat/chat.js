@@ -1,6 +1,6 @@
 'use strict';
-import { userTmpl } from "./users.tmpl";
-import { messageTmpl } from "./message.tmpl";
+import { userTemplate } from "./users.tmpl";
+import { messageTemplate } from "./message.tmpl";
 import { makeHtmlFromTemplate } from "../../utils/makeHtml";
 import avatar from '../../../static/images/avatar/test-avatar.jpg'
 
@@ -15,7 +15,7 @@ window.addEventListener('DOMContentLoaded', function (){
     ];
 
     let chatUsers = document.querySelector('#__users');
-    makeHtmlFromTemplate(userTmpl ,userValue, chatUsers);
+    makeHtmlFromTemplate(userTemplate ,userValue, chatUsers);
 
     let messageValue = [
         {mine: true, text: 'Ну чо?', time: '10:30'},
@@ -28,7 +28,7 @@ window.addEventListener('DOMContentLoaded', function (){
     ];
 
     let messageWrapper = document.querySelector('#__message-wrapper');
-    makeHtmlFromTemplate(messageTmpl, messageValue, messageWrapper);
+    makeHtmlFromTemplate(messageTemplate, messageValue, messageWrapper);
 
 
     const handleFiles = function() {

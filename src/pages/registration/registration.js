@@ -1,5 +1,5 @@
 'use strict';
-import {inputsTmpl} from "../../components/input/inputs.tmpl";
+import {inputsTemplate} from "../../components/input/inputs.tmpl";
 import {buttonTemplate} from "../../components/button/button.tmpl";
 import {makeHtmlFromTemplate} from "../../utils/makeHtml";
 
@@ -17,14 +17,14 @@ window.addEventListener('DOMContentLoaded', function () {
 
     let registrationForm = document.querySelector('#__registration-forms');
 
-    makeHtmlFromTemplate(inputsTmpl, inputsValues, registrationForm);
+    makeHtmlFromTemplate(inputsTemplate, inputsValues, registrationForm);
 
     let buttonValue = {
       id: 'registrationButton',
         text: 'зарегестрироваться'
     };
 
-    let registrationButton = document.querySelector('#__registrationButton');
+    let registrationButton = document.querySelector('#__registration-button');
     makeHtmlFromTemplate(buttonTemplate, buttonValue, registrationButton);
 
 
@@ -36,6 +36,7 @@ window.addEventListener('DOMContentLoaded', function () {
         for (let [name, value] of registrationData) {
             console.log(`${name} : ${value}`);
         }
+
     });
 
 });

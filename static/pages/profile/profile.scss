@@ -25,6 +25,9 @@
     width: 140px;
     height: 140px;
     background-image: url("../../images/avatar/test-avatar.jpg");
+    &_wrapper {
+      margin-bottom: 40px;
+    }
   }
 
   &__name {
@@ -35,10 +38,19 @@
   }
 
   &__form {
-    width: 800px;
+    position: absolute;
+    @include horizontal-center();
+    width: 500px;
   }
 
   &__info {
+    border: $border;
+    height: 48px;
+    width: 240px;
+    border-radius: $border-radius-secondary;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: none;
     color: white;
     @include text-normal;

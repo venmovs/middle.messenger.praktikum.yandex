@@ -1,4 +1,4 @@
-let userTmpl = `
+let userTemplate = `
 {{#each data}}
 <div class="chat-user mb-1" data-tag-name="{{this.name}}">
     <div class="chat-user__avatar" style="background-image: url('{{this.img}}')"></div>
@@ -9,4 +9,4 @@ let userTmpl = `
 </div>
 {{/each}}`;
 
-export { userTmpl };
+export { userTemplate };

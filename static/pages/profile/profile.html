@@ -15,31 +15,27 @@
         <div class="profile__bg">
             <div class="profile__active-part">
 
-                <div class="flex justify-content-center align-item-center">
+                <div class="profile__avatar_wrapper flex justify-content-center align-item-center">
                     <div class="profile__avatar mr-1"></div>
                     <div class="profile__name">Виген Мовсисян</div>
                 </div>
 
 
-                <form class="profile__form">
-                    <div class="custom-text-input profile__info">
-                        Логин: Виген Мовсисян
-                    </div>
-
+                <form class="profile__form flex space-between wrap"
+                      id="__info">
                 </form>
 
 
-                <a href="../chat/chat.html" class="profile__back-link">
-                    <button class="button button_small">
-                        <img class="icon" src="../../images/icons/back.svg" alt="back">
-                    </button>
-                </a>
-                <button class="button button_big profile__button">редактировать</button>
+                <button class="button button_small profile__back-link" id="back">
+                    <img class="icon" src="../../images/icons/back.svg" alt="back">
+                </button>
 
+                <div class="profile__button" id="__button"></div>
 
             </div>
         </div>
     </section>
 </main>
 </body>
+<script src="../../../src/pages/profile/profile.js"></script>
 </html>

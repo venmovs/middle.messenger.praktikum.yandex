@@ -1,6 +1,6 @@
 'use strict';
 import {buttonTemplate} from "../../components/button/button.tmpl";
-import {inputsTmpl} from "../../components/input/inputs.tmpl";
+import {inputsTemplate} from "../../components/input/inputs.tmpl";
 import {makeHtmlFromTemplate} from "../../utils/makeHtml";
 
 window.addEventListener('DOMContentLoaded', function () {
@@ -11,7 +11,7 @@ window.addEventListener('DOMContentLoaded', function () {
     ];
 
     let loginForm = document.querySelector('#__loginForm');
-    makeHtmlFromTemplate(inputsTmpl, inputValue, loginForm);
+    makeHtmlFromTemplate(inputsTemplate, inputValue, loginForm);
 
     let buttonValue = {
         id: 'loginButton',
