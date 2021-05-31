@@ -1,12 +1,12 @@
 'use strict';
-import { userTemplate } from "./users.tmpl";
-import { messageTemplate } from "./message.tmpl";
-import { makeHtmlFromTemplate } from "../../utils/makeHtml";
-import avatar from '../../../static/images/avatar/test-avatar.jpg'
+import { userTemplate } from './users.tmpl';
+import { messageTemplate } from './message.tmpl';
+import { makeHtmlFromTemplate } from '../../utils/makeHtml';
+import avatar from '../../../static/images/avatar/test-avatar.jpg';
 
 window.addEventListener('DOMContentLoaded', function (){
 
-    let userValue = [
+    const userValue = [
         {name: 'Катя', img: avatar, message: 'привет как дела?', time: '10:20', count: '2'},
         {name: 'Женя Красава', message: 'привет', time: '12:23', count: '4'},
         {name: 'Дудь', img: avatar, message: 'яндекс практикум', time: '10:22', count: '1'},
@@ -14,10 +14,10 @@ window.addEventListener('DOMContentLoaded', function (){
         {name: 'Алсу', message: 'тадам', time: '11:11', count: '1'},
     ];
 
-    let chatUsers = document.querySelector('#__users');
+    const chatUsers = document.querySelector('#__users');
     makeHtmlFromTemplate(userTemplate ,userValue, chatUsers);
 
-    let messageValue = [
+    const messageValue = [
         {mine: true, text: 'Ну чо?', time: '10:30'},
         {mine: true, text: 'Ни чо', time: '10:31'},
         {mine: false, text: 'Ну чо?', time: '10:32'},
@@ -27,7 +27,7 @@ window.addEventListener('DOMContentLoaded', function (){
         {mine: true, text: 'Ну чо?', time: '10:36'},
     ];
 
-    let messageWrapper = document.querySelector('#__message-wrapper');
+    const messageWrapper = document.querySelector('#__message-wrapper');
     makeHtmlFromTemplate(messageTemplate, messageValue, messageWrapper);
 
 
@@ -36,32 +36,32 @@ window.addEventListener('DOMContentLoaded', function (){
         console.log(fileList);
     };
 
-    let addFileBtn = document.querySelector('#addFileBtn');
+    const addFileBtn = document.querySelector('#addFileBtn');
     addFileBtn.addEventListener('change', handleFiles, false);
 
-    let search = document.querySelector('#search');
+    const search = document.querySelector('#search');
     search.addEventListener('change', function (event) {
 
         for (let user of chatUsers.children){
-            let userTagName = user.getAttribute('data-tag-name');
-            let res = userTagName.match(event.target.value) || [];
+            const userTagName = user.getAttribute('data-tag-name');
+            const res = userTagName.match(event.target.value) || [];
 
             if (res.length === 0) {
-                user.style.display = 'none';
+                user.classList.add('hidden');
             } else {
-                user.style.display = 'grid';
+                user.classList.remove('hidden');
             }
         }
     });
 
 
-    let editor = document.querySelector('#editor');
+    const editor = document.querySelector('#editor');
     editor.addEventListener('click', function () {
         window.location = '../profile/profile.html';
     });
 
-    let sendButton = document.querySelector('#sendButton');
-    let messageForm = document.querySelector('#message-form');
+    const sendButton = document.querySelector('#sendButton');
+    const messageForm = document.querySelector('#message-form');
     sendButton.addEventListener('click', function (event) {
         event.preventDefault();
         console.log(`message: ${messageForm.message.value}`);

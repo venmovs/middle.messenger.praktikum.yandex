@@ -1,11 +1,11 @@
 'use strict';
-import {inputsTemplate} from "../../components/input/inputs.tmpl";
-import {buttonTemplate} from "../../components/button/button.tmpl";
-import {makeHtmlFromTemplate} from "../../utils/makeHtml";
+import { inputsTemplate } from '../../components/input/inputs.tmpl';
+import { buttonTemplate } from '../../components/button/button.tmpl';
+import { makeHtmlFromTemplate } from '../../utils/makeHtml';
 
 window.addEventListener('DOMContentLoaded', function () {
 
-    let inputsValues = [
+    const inputsValues = [
         {tittle: 'Логин', name: 'Login', type: 'text'},
         {tittle: 'Имя', name: 'Name', type: 'text'},
         {tittle: 'Почта', name: 'Mail', type: 'email'},
@@ -15,23 +15,23 @@ window.addEventListener('DOMContentLoaded', function () {
         {tittle: 'Пароль (еще раз)', name: 'PasswordConfirm', type: 'password'}
     ];
 
-    let registrationForm = document.querySelector('#__registration-forms');
+    const registrationForm = document.querySelector('#__registration-forms');
 
     makeHtmlFromTemplate(inputsTemplate, inputsValues, registrationForm);
 
-    let buttonValue = {
-      id: 'registrationButton',
+    const buttonValue = {
+        id: 'registrationButton',
         text: 'зарегестрироваться'
     };
 
-    let registrationButton = document.querySelector('#__registration-button');
+    const registrationButton = document.querySelector('#__registration-button');
     makeHtmlFromTemplate(buttonTemplate, buttonValue, registrationButton);
 
 
     registrationButton.addEventListener('click', (event) => {
         event.preventDefault();
 
-        let registrationData = new FormData(registrationForm);
+        const registrationData = new FormData(registrationForm);
 
         for (let [name, value] of registrationData) {
             console.log(`${name} : ${value}`);

@@ -1,16 +1,14 @@
-import Handlebars from "handlebars";
+import Handlebars from 'handlebars';
 
 const makeHtmlFromTemplate = function (template, data, parent) {
 
-    let tmpl;
+    const compileProp = Array.isArray(data)
+        ? { data: data }
+        : data;
 
-    if (Array.isArray(data)) {
-        tmpl = Handlebars.compile(template.trim())({data: data});
-    } else {
-        tmpl = Handlebars.compile(template.trim())(data);
-    }
+    const tmpl = Handlebars.compile(template.trim())(compileProp);
 
-    let fragment = document.createElement('template');
+    const fragment = document.createElement('template');
     fragment.innerHTML = tmpl;
 
 
