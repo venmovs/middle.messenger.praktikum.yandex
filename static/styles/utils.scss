@@ -14,7 +14,26 @@
   justify-content: space-between;
 }
 
-.icon {
-  width: 24px;
-  height: 24px;
+.direction-column {
+  flex-direction: column;
+}
+
+.align-item-end {
+  align-items: flex-end;
+}
+
+.wrap {
+  flex-wrap: wrap;
+}
+
+.mr-1 {
+  margin-right: 10px;
+}
+
+.mb-1 {
+  margin-bottom: 10px;
+}
+
+.w-100 {
+  width: 100% !important;
 }
