@@ -68,7 +68,7 @@ abstract class Block {
         return oldProps !== newProps;
     };
 
-    protected setProps = (nextProps: ProxyHandler<object>): void => {
+    setProps = (nextProps: ProxyHandler<object>): void => {
         if (!nextProps) {
             return;
         }
@@ -91,19 +91,19 @@ abstract class Block {
 
     abstract render(): string;
 
-    protected getContent() {
+    getContent() {
         return this.element;
     }
 
-    private _makePropsProxy(props: object): ProxyHandler<object> {
+    private _makePropsProxy<T>(target: Record<string, T>): ProxyHandler<object> {
         const self = this;
 
-        return new Proxy(props, {
-            get<T>(target: Record<string, T>, prop: string): T {
+        return new Proxy(target, {
+            get(target, prop: string): T {
                 const value = target[prop];
                 return typeof value === 'function' ? value.bind(target) : value;
             },
-            set<T>(target: Record<string, T> , prop: string, value: T) {
+            set(target, prop: string, value: T) {
                 target[prop] = value;
 
                 self.eventBus.emit(EVENTS.FLOW_CDU, {...target}, target);
