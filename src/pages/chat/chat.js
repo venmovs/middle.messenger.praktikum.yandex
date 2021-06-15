@@ -15,7 +15,7 @@ window.addEventListener('DOMContentLoaded', function (){
     ];
 
     const chatUsers = document.querySelector('#__users');
-    makeHtmlFromTemplate(userTemplate ,userValue, chatUsers);
+    // makeHtmlFromTemplate(userTemplate ,userValue, chatUsers);
 
     const messageValue = [
         {mine: true, text: 'Ну чо?', time: '10:30'},
@@ -28,7 +28,7 @@ window.addEventListener('DOMContentLoaded', function (){
     ];
 
     const messageWrapper = document.querySelector('#__message-wrapper');
-    makeHtmlFromTemplate(messageTemplate, messageValue, messageWrapper);
+    // makeHtmlFromTemplate(messageTemplate, messageValue, messageWrapper);
 
 
     const handleFiles = function() {

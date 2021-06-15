@@ -7,12 +7,13 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "dev": "npm run clear && sh ./node_modules/.bin/parcel static/pages/**/*.html --no-cache",
+    "dev": "npm run clear && ./node_modules/.bin/parcel static/pages/**/*.html --no-cache",
     "build": "npm run clear && ./node_modules/.bin/parcel build static/pages/**/*.html",
     "start": "npm run clear && ./node_modules/.bin/parcel build static/pages/**/*.html && node ./server.js",
     "clear": "rimraf dist .cache"
   },
   "devDependencies": {
+    "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.26.1",
     "@typescript-eslint/parser": "^4.26.1",
     "eslint": "^7.28.0",
@@ -27,6 +28,7 @@
     "eslint-config-airbnb-base": "14.2.1",
     "handlebars": "4.7.7",
     "parcel-bundler": "1.12.5",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "uuid": "^8.3.2"
   }
 }

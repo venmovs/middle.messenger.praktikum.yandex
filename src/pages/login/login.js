@@ -18,8 +18,13 @@ window.addEventListener('DOMContentLoaded', function () {
 
     const parentButton = document.querySelector('#__loginButton');
     const buttonValue = {
-        id: 'loginButton',
         text: 'авторизоваться',
+        events: {
+            click: event => {
+                console.log(event.target);
+            }
+        },
+        settings: {withInternalID: true}
     };
 
     /*const loginButton = document.querySelector('#__loginButton');

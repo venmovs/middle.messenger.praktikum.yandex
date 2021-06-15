@@ -1,5 +1,5 @@
 const buttonTemplate: string = `
-<button class="button button_big mb-1" id="{{id}}">
+<button class="button button_big mb-1">
     {{text}}
 </button>
 `;

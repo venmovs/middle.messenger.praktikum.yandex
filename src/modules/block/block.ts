@@ -1,4 +1,5 @@
 import {EventBus} from '../event-bus/eventBus';
+import {v4 as makeUUID} from 'uuid';
 
 enum EVENTS {
     INIT = 'init',
@@ -18,6 +19,7 @@ abstract class Block {
     protected _meta: IMeta;
     protected props: ProxyHandler<object>;
     protected eventBus: EventBus;
+    private readonly _id: null | string;
 
     protected constructor(tagName = 'div', props = {}) {
          this.eventBus = new EventBus();
@@ -26,7 +28,8 @@ abstract class Block {
             props
         };
 
-        this.props = this._makePropsProxy(props);
+        this._id = makeUUID();
+        this.props = this._makePropsProxy({...props, __id: this._id });
 
         this._registerEvents();
         this.eventBus.emit(EVENTS.INIT);
@@ -80,13 +83,30 @@ abstract class Block {
         return this._element;
     }
 
+    private addEvents(): void {
+        const {events = {}} = this.props;
+
+        Object.keys(events).forEach(eventName => {
+            this.element.addEventListener(eventName, events[eventName].bind(this));
+        });
+    }
+    //нарушаю DRY TODO исправить этот позор!
+    private removeEvents(): void {
+        const {events = {}} = this.props;
+
+        Object.keys(events).forEach(eventName => {
+            this.element.removeEventListener(eventName, events[eventName].bind(this));
+        });
+    }
+
     private _render(): void {
         const block = this.render();
-        // Этот небезопасный метод для упрощения логики
-        // Используйте шаблонизатор из npm или напиши свой безопасный
-        // Нужно не в строку компилировать (или делать это правильно),
-        // либо сразу в DOM-элементы превращать из возвращать из compile DOM-ноду
+
+        this.removeEvents();
+
         this._element.innerHTML = block;
+
+        this.addEvents();
     }
 
     abstract render(): string;
@@ -117,7 +137,11 @@ abstract class Block {
 
     private _createDocumentElement(tagName: string): HTMLElement {
         // Можно сделать метод, который через фрагменты в цикле создает сразу несколько блоков
-        return document.createElement(tagName);
+        const element = document.createElement(tagName);
+        if (this._id !== null) {
+            element.setAttribute('data-id', this._id);
+        }
+        return element;
     }
 
     protected show() {
