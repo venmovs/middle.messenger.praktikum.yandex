@@ -4,5 +4,5 @@ const buttonTemplate: string = `
 </button>
 `;
 
-export { buttonTemplate };
+export {buttonTemplate};
 

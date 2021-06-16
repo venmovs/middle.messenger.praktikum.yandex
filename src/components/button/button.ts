@@ -1,10 +1,10 @@
-import {Block} from '../../modules/block/block';
-import {buttonTemplate} from "./button.tmpl";
-import {makeHtmlFromTemplate} from "../../utils/makeHtml";
+import { Block } from '../../modules/block/block';
+import { buttonTemplate } from './button.tmpl';
+import { makeHtmlFromTemplate } from '../../utils/makeHtml';
 
-class Button extends Block{
+class Button<T> extends Block{
 
-    constructor(props: { id: string, text: string, }) {
+    constructor(props: {text: string, events?: T, settings?: Record<string, boolean>}) {
         super('fragment', props);
     }
 
