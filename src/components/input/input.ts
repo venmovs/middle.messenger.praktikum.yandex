@@ -6,6 +6,7 @@ interface IInput {
     tittle: string,
     name: string,
     type: string,
+    error: string,
     settings: Record<string, boolean>,
 }
 

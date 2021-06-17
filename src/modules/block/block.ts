@@ -17,12 +17,12 @@ abstract class Block {
 
     protected _element: HTMLElement;
     protected _meta: IMeta;
-    protected props: ProxyHandler<object>;
+    protected props: Record<string, any>;
     protected eventBus: EventBus;
     private readonly _id: null | string;
 
     protected constructor(tagName = 'div', props = {}) {
-         this.eventBus = new EventBus();
+        this.eventBus = new EventBus();
         this._meta = {
             tagName,
             props
@@ -85,8 +85,14 @@ abstract class Block {
 
     private addEvents(): void {
         const {events = {}} = this.props;
+
         Object.keys(events).forEach(eventName => {
-            this.element.addEventListener(eventName, events[eventName].bind(this));
+            const input = this.element.querySelector("input");
+            if (input) {
+                input.addEventListener(eventName, events[eventName].bind(this));
+            } else {
+                this.element.addEventListener(eventName, events[eventName].bind(this));
+            }
         });
     }
 

@@ -4,45 +4,7 @@ import { Input } from '../../components/input/input';
 import { loginTemplate } from './login.tmpl';
 import { render } from '../../utils/render';
 import { Block } from '../../modules/block/block';
-
-/*window.addEventListener('DOMContentLoaded', function () {
-    const inputValue = [
-        {tittle: 'Логин', name: 'Login', type: 'text'},
-        {tittle: 'Пароль', name: 'Password', type: 'password'}
-    ];
-
-    const loginForm = document.querySelector('#__loginForm');
-    makeHtmlFromTemplate(inputsTemplate, inputValue, loginForm);
-
-    const parentButton = document.querySelector('#__loginButton');
-    const buttonValue = {
-        text: 'авторизоваться',
-        events: {
-            click: event => {
-                console.log(event.target);
-            }
-        },
-        settings: {withInternalID: true}
-    };
-
-    /!*const loginButton = document.querySelector('#__loginButton');
-    makeHtmlFromTemplate(buttonTemplate, buttonValue, loginButton);*!/
-
-    /!*loginButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        const loginData = new FormData(loginForm);
-        for (let [name, value] of loginData) {
-            console.log(`${name} : ${value}`);
-        }
-
-        window.location.href = '/chat/chat.html';
-    });*!/
-
-    const loginButton = new Button(buttonValue);
-    render('#__loginButton', loginButton);
-
-});*/
-
+import { LoginValidation } from '../../utils/validation/login-validation';
 
 class Login extends Block {
 
@@ -52,6 +14,16 @@ class Login extends Block {
             tittle: 'Логин',
             name: 'login',
             type: 'text',
+            error: '',
+            events: {
+              focus: (event: Event) => {
+
+              },
+                blur: (event: Event) => {
+                  const valid = new LoginValidation();
+                  valid.check(event);
+                }
+            },
             settings: {withInternalID: true}
         };
 
@@ -67,11 +39,12 @@ class Login extends Block {
             events: {
                 click: (event: Event) => {
                     event.preventDefault();
-                    const loginForm: HTMLFormElement = document.querySelector('#loginForm');
-                    const loginData = new FormData(loginForm);
-
-                    for (let [name, value] of loginData) {
-                        console.log(`${name} : ${value}`);
+                    const loginForm: HTMLFormElement | null = document.querySelector('#loginForm');
+                    if (loginForm !== null) {
+                        let loginData = new FormData(loginForm);
+                        loginData.forEach((value, name) => {
+                            console.log(`${name}: ${value}`);
+                        });
                     }
 
                     // window.location.href = '/chat/chat.html';
@@ -90,7 +63,6 @@ class Login extends Block {
             }
         });
     };
-
 
     render(): string {
         return makeHtmlFromTemplate(loginTemplate, this.props);
