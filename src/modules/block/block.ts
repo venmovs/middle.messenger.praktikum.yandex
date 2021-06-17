@@ -99,6 +99,17 @@ abstract class Block {
         });
     }
 
+    private insertInnerComponents(): void {
+        if(this.props.components) {
+            Object.entries(this.props.components).forEach(([key, value]) => {
+                const node = this.element.querySelector('#' + key);
+                if(node) {
+                    node.append(value.getContent());
+                }
+            });
+        }
+    }
+
     private _render(): void {
         const block = this.render();
 
@@ -107,6 +118,8 @@ abstract class Block {
         this._element.innerHTML = block;
 
         this.addEvents();
+
+        this.insertInnerComponents();
     }
 
     abstract render(): string;

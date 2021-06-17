@@ -6,13 +6,13 @@ const loginTemplate: string = `
                 <h1 class="h1">{{title}}</h1>
 
                 <form class="login__form flex direction-column align-item-center"
-                      name="login">
-                      {{{loginInput}}}
-                      {{{passwordInput}}}
+                      name="login" id="loginForm">
+                      <div id="loginInput"></div>
+                      <div id="passwordInput"></div>
                 </form>
 
                 <div class="login__button flex direction-column align-item-center">
-                        {{{loginButton}}}
+                        <div id="loginButton"></div>
                     <a class="link" href="registration/registration.html">нет аккаунта?</a>
                 </div>
             </div>

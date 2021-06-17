@@ -48,41 +48,46 @@ class Login extends Block {
 
     constructor() {
 
-        const buttonProps = {
-            text: 'авторизоваться',
-            events: {
-                click: (event: Event) => {
-                    console.log(event);
-                }
-            },
-            settings: {withInternalID: true}
-        };
-
         const loginInputProps = {
             tittle: 'Логин',
-            name: 'Login',
+            name: 'login',
             type: 'text',
             settings: {withInternalID: true}
         };
 
         const passwordInputProps = {
             tittle: 'Пароль',
-            name: 'Password',
+            name: 'password',
             type: 'password',
+            settings: {withInternalID: true}
+        };
+
+        const buttonProps = {
+            text: 'авторизоваться',
+            events: {
+                click: (event: Event) => {
+                    event.preventDefault();
+                    const loginForm: HTMLFormElement = document.querySelector('#loginForm');
+                    const loginData = new FormData(loginForm);
+
+                    for (let [name, value] of loginData) {
+                        console.log(`${name} : ${value}`);
+                    }
+
+                    // window.location.href = '/chat/chat.html';
+                }
+            },
             settings: {withInternalID: true}
         };
 
 
         super('fragment', {
             title: 'Вход',
-            events: {
-                click: (event: Event) => {
-                    console.log(event);
-                }
-            },
-            loginInput: new Input(loginInputProps).render(),
-            passwordInput: new Input(passwordInputProps).render(),
-            loginButton: new Button(buttonProps).render(),
+            components: {
+                loginInput: new Input(loginInputProps),
+                passwordInput: new Input(passwordInputProps),
+                loginButton: new Button(buttonProps),
+            }
         });
     };
 
