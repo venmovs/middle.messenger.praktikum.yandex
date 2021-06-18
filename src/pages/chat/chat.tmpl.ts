@@ -10,9 +10,7 @@ const chatTemplate: string = `
                 <div class="user-info__name text-primary">Виген Мовсисян</div>
             </div>
 
-            <button class="button button_small flex justify-content-center align-item-center" id="editor">
-                <img src="../../images/icons/editor.svg" class="icon" alt="editor">
-            </button>
+            <div id="buttonImageEditor"></div>
 
         </div>
 
@@ -25,9 +23,7 @@ const chatTemplate: string = `
                 <input class="custom-text-input text-primary" type="text" id="search">
             </label>
 
-            <button class="button button_small flex justify-content-center align-item-center">
-                <img src="../../images/icons/search.svg" class="icon" alt="search">
-            </button>
+            <div id="buttonImageSearch"></div>
         </form>
 
     </section>
@@ -42,22 +38,16 @@ const chatTemplate: string = `
         </div>
 
         <form class="entry-field" id="message-form">
-            <label class="entry-field__file custom-file-upload flex justify-content-center align-item-center">
-                <input accept=".jpg, .jpeg, .png"
-                       type="file"
-                       id="addFileBtn">
-                <img src="../../images/icons/file.svg" class="icon" alt="file">
-            </label>
-
+            
+            <div id="buttonFile"></div>
 
             <label class="entry-field__text w-100 mr-1">
                 <input placeholder="Сообщение" name="message" class="custom-text-input text-primary w-100" type="text">
             </label>
 
-            <button class="entry-field__send button button_small flex justify-content-center align-item-center"
-                    id="sendButton">
-                <img src="../../images/icons/send.svg" class="icon" alt="send">
-            </button>
+
+            <div id="buttonImageSend"></div>
+     
         </form>
     </section>
 

@@ -8,7 +8,7 @@ interface IInput {
     type: string,
     error: string,
     settings: Record<string, boolean>,
-    events?: Record<string, (event: Event) => void>;
+    events?: Record<string, (event: Event) => void>,
 }
 
 class Input extends Block {

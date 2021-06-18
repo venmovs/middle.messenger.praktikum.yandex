@@ -87,7 +87,7 @@ abstract class Block {
         const {events = {}} = this.props;
 
         Object.keys(events).forEach(eventName => {
-            let node: HTMLElement;
+            let node: HTMLElement | null;
             if (eventName === 'submit') {
                 node = this.element.querySelector("form");
                 console.log(this.element);
@@ -123,9 +123,7 @@ abstract class Block {
                     } else {
                         node.append(value.getContent());
                     }
-
                 }
-
             });
         }
     }

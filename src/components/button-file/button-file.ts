@@ -1,23 +1,22 @@
 import {Block} from "../../modules/block/block";
 import {makeHtmlFromTemplate} from "../../utils/makeHtml";
-import {buttonImageTemplate} from "./button-imag.tmpl";
+import {buttonFileTemplate} from "./button-file.tmpl";
 
-interface IButtonImage {
+interface IButtonFile {
     image: string,
-    name: string,
     events?: Record<string, (event: Event) => void>,
     classes?: string,
 }
 
-class ButtonImage extends Block {
+class ButtonFile extends Block {
 
-    constructor(props: IButtonImage) {
+    constructor(props: IButtonFile) {
         super('fragment', props);
     }
 
     render(): string {
-        return makeHtmlFromTemplate(buttonImageTemplate, this.props);
+        return makeHtmlFromTemplate(buttonFileTemplate, this.props);
     }
 }
 
-export { ButtonImage, IButtonImage };
+export { ButtonFile, IButtonFile };

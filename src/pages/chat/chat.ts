@@ -1,84 +1,23 @@
-import avatar from '../../../static/images/avatar/test-avatar.jpg';
-import { Block } from "../../modules/block/block";
+import {Block} from "../../modules/block/block";
 import {render} from "../../utils/render";
 import {IUsers, Users} from "./users/users";
 import {makeHtmlFromTemplate} from "../../utils/makeHtml";
 import {chatTemplate} from "./chat.tmpl";
 import {IMessage, Message} from "./message/message";
+import {ButtonImage, IButtonImage} from "../../components/button-image/button-image";
+import {ButtonFile, IButtonFile} from "../../components/button-file/button-file";
 
-/*
-window.addEventListener('DOMContentLoaded', function (){
-
-    const userValue = [
-        {name: 'Катя', img: avatar, message: 'привет как дела?', time: '10:20', count: '2'},
-        {name: 'Женя Красава', message: 'привет', time: '12:23', count: '4'},
-        {name: 'Дудь', img: avatar, message: 'яндекс практикум', time: '10:22', count: '1'},
-        {name: 'Познер', message: 'прекол', time: '05:22'},
-        {name: 'Алсу', message: 'тадам', time: '11:11', count: '1'},
-    ];
-
-    const chatUsers = document.querySelector('#__users');
-    // makeHtmlFromTemplate(userTemplate ,userValue, chatUsers);
-
-    const messageValue = [
-        {mine: true, text: 'Ну чо?', time: '10:30'},
-        {mine: true, text: 'Ни чо', time: '10:31'},
-        {mine: false, text: 'Ну чо?', time: '10:32'},
-        {mine: true, text: 'ННи чо', time: '10:33'},
-        {mine: false, text: 'Ну чо?', time: '10:34'},
-        {mine: false, text: 'Ни чо', time: '10:35'},
-        {mine: true, text: 'Ну чо?', time: '10:36'},
-    ];
-
-    const messageWrapper = document.querySelector('#__message-wrapper');
-    // makeHtmlFromTemplate(messageTemplate, messageValue, messageWrapper);
-
-
-    const handleFiles = function() {
-        const fileList = this.files;
-        console.log(fileList);
-    };
-
-    const addFileBtn = document.querySelector('#addFileBtn');
-    addFileBtn.addEventListener('change', handleFiles, false);
-
-    const search = document.querySelector('#search');
-    search.addEventListener('change', function (event) {
-
-        for (let user of chatUsers.children){
-            const userTagName = user.getAttribute('data-tag-name');
-            const res = userTagName.match(event.target.value) || [];
-
-            if (res.length === 0) {
-                user.classList.add('hidden');
-            } else {
-                user.classList.remove('hidden');
-            }
-        }
-    });
-
-
-    const editor = document.querySelector('#editor');
-    editor.addEventListener('click', function () {
-        window.location = '../profile/profile.html';
-    });
-
-    const sendButton = document.querySelector('#sendButton');
-    const messageForm = document.querySelector('#message-form');
-    sendButton.addEventListener('click', function (event) {
-        event.preventDefault();
-        console.log(`message: ${messageForm.message.value}`);
-    });
-
-});*/
-
-
-class Chat extends Block{
+class Chat extends Block {
 
     constructor() {
 
-        const createUsers = (): Users[] => {
+        const avatar = require('../../../static/images/avatar/test-avatar.jpg') as string;
+        const editorIcon = require('../../../static/images/icons/editor.svg') as string;
+        const searchIcon = require('../../../static/images/icons/search.svg') as string;
+        const sendIcon = require('../../../static/images/icons/send.svg') as string;
+        const fileIcon = require('../../../static/images/icons/file.svg') as string;
 
+        const createUsers = (): Users[] => {
             const userValue: IUsers[] = [
                 {name: 'Катя', img: avatar, message: 'привет как дела?', time: '10:20', count: 2},
                 {name: 'Женя Красава', message: 'привет', time: '12:23', count: 4},
@@ -111,10 +50,53 @@ class Chat extends Block{
 
         };
 
+        const buttonImageEditor: IButtonImage = {
+            image: editorIcon,
+            name: 'editor',
+            events: {
+                click: () => {
+                    window.location.href = '/profile/profile.html';
+                }
+            }
+        };
+
+        const buttonImageSearch: IButtonImage = {
+            image: searchIcon,
+            name: 'search',
+        };
+
+        const buttonImageSend: IButtonImage = {
+            image: sendIcon,
+            classes: 'entry-field__send',
+            name: 'send',
+            events: {
+                click: (event: Event) => {
+                    event.preventDefault();
+                    const messageForm: HTMLFormElement | null = document.querySelector('#message-form');
+                    console.log(`message: ${messageForm?.message.value}`);
+                }
+            }
+        };
+
+        const buttonFile: IButtonFile = {
+            image: fileIcon,
+            events: {
+                change: (event: Event) => {
+                    const target= event.target as HTMLInputElement;
+                    const file: File = (target.files as FileList)[0];
+                    console.log(file);
+                }
+            }
+        };
+
         super('fragment', {
             components: {
                 users: createUsers(),
                 message: createMessages(),
+                buttonImageEditor: new ButtonImage(buttonImageEditor),
+                buttonImageSearch: new ButtonImage(buttonImageSearch),
+                buttonImageSend: new ButtonImage(buttonImageSend),
+                buttonFile: new ButtonFile(buttonFile),
             }
         });
     }

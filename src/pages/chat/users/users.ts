@@ -4,7 +4,7 @@ import { userTemplate } from "./users.tmpl";
 
 interface IUsers {
     name: string,
-    img?: HTMLImageElement,
+    img?: string,
     message?: string,
     time?: string,
     count?: number

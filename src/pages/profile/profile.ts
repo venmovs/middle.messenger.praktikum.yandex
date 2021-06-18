@@ -1,9 +1,13 @@
-'use strict';
-import { infoTemplate } from './info.tmpl';
-import { inputsTemplate } from '../../components/input/inputs.tmpl';
-import { buttonTemplate } from '../../components/button/button.tmpl';
-import { makeHtmlFromTemplate } from '../../utils/makeHtml';
+import {infoTemplate} from './info.tmpl';
+import {inputsTemplate} from '../../components/input/inputs.tmpl';
+import {buttonTemplate} from '../../components/button/button.tmpl';
+import {makeHtmlFromTemplate} from '../../utils/makeHtml';
+import {Block} from "../../modules/block/block";
+import {profileTemplate} from "./profile.tmpl";
+import {render} from "../../utils/render";
+import {ButtonImage, IButtonImage} from "../../components/button-image/button-image";
 
+/*
 window.addEventListener('DOMContentLoaded', function () {
 
     const infoValue = [
@@ -68,4 +72,35 @@ window.addEventListener('DOMContentLoaded', function () {
         window.history.back();
     });
 
-});
+});*/
+
+class Profile extends Block {
+
+    constructor() {
+
+        const backIcon = require('../../../static/images/icons/back.svg');
+
+        const buttonImageBack: IButtonImage = {
+            name: 'back',
+            image: backIcon,
+            events: {
+                click: () => {
+                    window.location.href = '/chat/chat.html';
+                }
+            }
+        };
+
+        super('fragment', {
+            components: {
+                buttonImageBack: new ButtonImage(buttonImageBack),
+            }
+        });
+
+    }
+
+    render(): string {
+        return makeHtmlFromTemplate(profileTemplate, this.props);
+    }
+}
+
+render('#root', new Profile());
