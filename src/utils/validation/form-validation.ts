@@ -31,7 +31,7 @@ class FormValidation {
 
     actionIfValid(event: Event) {
         const form = event.target;
-
+        console.log(form);
         if (form !== null) {
             let formData = new FormData(form);
             formData.forEach((value, name) => {

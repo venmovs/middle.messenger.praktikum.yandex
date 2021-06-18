@@ -38,12 +38,10 @@ abstract class Validation {
 
         if (this.regExp && isValid) {
             isValid = this.regExp.test(event.target.value);
-            console.log('REGEXP', isValid);
         }
 
         if (this.length && isValid) {
             isValid = event.target.value.length > this.length;
-            console.log('Length', isValid);
         }
 
         this.visualizeValidity(isValid, event);

@@ -116,8 +116,16 @@ abstract class Block {
             Object.entries(this.props.components).forEach(([key, value]) => {
                 const node = this.element.querySelector('#' + key);
                 if(node) {
-                    node.append(value.getContent());
+                    if (Array.isArray(value)){
+                        value.forEach((value) => {
+                            node.append(value.getContent());
+                        })
+                    } else {
+                        node.append(value.getContent());
+                    }
+
                 }
+
             });
         }
     }

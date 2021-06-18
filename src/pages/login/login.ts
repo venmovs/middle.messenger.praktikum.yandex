@@ -12,30 +12,10 @@ class Login extends Block {
 
     constructor() {
         const formValidation = new FormValidation();
-
-        super('fragment', {
-            title: 'Вход',
-            components: {
-                loginInput: new Input(this.getLoginInputProps()),
-                passwordInput: new Input(this.getPasswordInputProps()),
-                loginButton: new Button(this.getButtonProps()),
-            },
-            events: {
-                submit: (event: Event) => {
-                    const changeLocation = () => {
-                        window.location.href = '/chat/chat.html'
-                    }
-                    formValidation.check(event, changeLocation);
-                },
-            },
-        });
-    };
-
-    private getLoginInputProps(): IInput {
-
         const loginValidation = new LoginValidation();
+        const passwordValidation = new PasswordValidation();
 
-        return {
+        const loginInput: IInput = {
             tittle: 'Логин',
             name: 'login',
             type: 'text',
@@ -49,14 +29,9 @@ class Login extends Block {
                 }
             },
             settings: {withInternalID: true}
-        }
-    };
+        };
 
-    private getPasswordInputProps(): IInput {
-
-        const passwordValidation = new PasswordValidation();
-
-        return {
+        const passwordInput: IInput = {
             tittle: 'Пароль',
             name: 'password',
             type: 'password',
@@ -71,15 +46,29 @@ class Login extends Block {
             },
             settings: {withInternalID: true}
         };
-    }
 
-    private getButtonProps(): IButton {
-
-        return {
+        const loginButton: IButton = {
             text: 'авторизоваться',
             settings: {withInternalID: true}
         };
-    }
+
+        super('fragment', {
+            title: 'Вход',
+            components: {
+                loginInput: new Input(loginInput),
+                passwordInput: new Input(passwordInput),
+                loginButton: new Button(loginButton),
+            },
+            events: {
+                submit: (event: Event) => {
+                    const changeLocation = () => {
+                        window.location.href = '/chat/chat.html'
+                    };
+                    formValidation.check(event, changeLocation);
+                },
+            },
+        });
+    };
 
     render(): string {
         return makeHtmlFromTemplate(loginTemplate, this.props);
