@@ -9,12 +9,11 @@ const loginTemplate: string = `
                       name="login" id="loginForm">
                       <div id="loginInput"></div>
                       <div id="passwordInput"></div>
+                        <div class="login__button flex direction-column align-item-center">
+                                <div id="loginButton"></div>
+                            <a class="link" href="registration/registration.html">нет аккаунта?</a>
+                        </div>
                 </form>
-
-                <div class="login__button flex direction-column align-item-center">
-                        <div id="loginButton"></div>
-                    <a class="link" href="registration/registration.html">нет аккаунта?</a>
-                </div>
             </div>
         </div>
 

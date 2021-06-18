@@ -2,9 +2,15 @@ import { Block } from '../../modules/block/block';
 import { buttonTemplate } from './button.tmpl';
 import { makeHtmlFromTemplate } from '../../utils/makeHtml';
 
-class Button<T> extends Block{
+interface IButton {
+    text: string,
+    events?: () => void,
+    settings?: Record<string, boolean>
+}
 
-    constructor(props: {text: string, events?: T, settings?: Record<string, boolean>}) {
+class Button extends Block{
+
+    constructor(props: IButton) {
         super('fragment', props);
     }
 
@@ -14,4 +20,4 @@ class Button<T> extends Block{
 
 }
 
-export {Button};
+export {Button, IButton};

@@ -87,9 +87,15 @@ abstract class Block {
         const {events = {}} = this.props;
 
         Object.keys(events).forEach(eventName => {
-            const input = this.element.querySelector("input");
-            if (input) {
-                input.addEventListener(eventName, events[eventName].bind(this));
+            let node: HTMLElement;
+            if (eventName === 'submit') {
+                node = this.element.querySelector("form");
+                console.log(this.element);
+            } else {
+                node = this.element.querySelector("input");
+            }
+            if (node) {
+                node.addEventListener(eventName, events[eventName].bind(this));
             } else {
                 this.element.addEventListener(eventName, events[eventName].bind(this));
             }

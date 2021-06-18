@@ -2,10 +2,9 @@ import { Validation } from './validation';
 
 class LoginValidation extends Validation{
 
-    private length: number;
-
     constructor() {
         super();
+        this.regExp = /^[a-z]+$/i;
         this.length = 4;
     }
 

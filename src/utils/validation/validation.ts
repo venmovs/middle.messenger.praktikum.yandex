@@ -3,8 +3,33 @@ abstract class Validation {
     protected regExp: RegExp | null;
     protected length: number | null;
 
+    visualizeValidity(isValid: boolean, event: Event): void {
+        const errorMessage = event.target?.nextElementSibling;
+
+        if (isValid) {
+            event.target?.classList.remove('custom-text-input_error');
+            event.target?.classList.remove('notValid');
+
+            if (!errorMessage.classList.contains('hidden')) {
+                errorMessage.classList.add('hidden');
+            }
+
+        } else {
+            event.target?.classList.add('custom-text-input_error');
+            event.target?.classList.add('notValid');
+
+            if (errorMessage.classList.contains('hidden')) {
+                errorMessage.classList.remove('hidden');
+            }
+        }
+    }
+
     check(event: Event): void {
         this._validate(event);
+    }
+
+    clear(event: Event) {
+        this.visualizeValidity(true, event);
     }
 
     private _validate(event: Event): void {
@@ -13,24 +38,15 @@ abstract class Validation {
 
         if (this.regExp && isValid) {
             isValid = this.regExp.test(event.target.value);
+            console.log('REGEXP', isValid);
         }
 
         if (this.length && isValid) {
-            isValid = event.target.length > this.length;
+            isValid = event.target.value.length > this.length;
+            console.log('Length', isValid);
         }
 
-        const errorMessage = event.target?.nextElementSibling;
-
-        if (!isValid) {
-            event.target?.classList.add('custom-text-input_error');
-            errorMessage.classList.remove('hidden');
-        } else {
-            event.target?.classList.remove('custom-text-input_error');
-
-            if (!errorMessage.classList.contains('hidden')) {
-                errorMessage.classList.add('hidden');
-            }
-        }
+        this.visualizeValidity(isValid, event);
 
     }
 

@@ -8,6 +8,7 @@ interface IInput {
     type: string,
     error: string,
     settings: Record<string, boolean>,
+    events?: Record<string, (event: Event) => void>;
 }
 
 class Input extends Block {
@@ -22,4 +23,4 @@ class Input extends Block {
 
 }
 
-export {Input};
+export {Input, IInput};
