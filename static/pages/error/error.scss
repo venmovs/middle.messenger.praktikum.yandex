@@ -1,4 +1,5 @@
 @import "../../styles/variables";
+
 @import "../../styles/mixins";
 
 .error {
@@ -37,7 +38,8 @@
   }
 
   &__link-button {
-    @include horizontal-center;
     bottom: 10%;
+
+    @include horizontal-center;
   }
 }

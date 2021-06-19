@@ -1,17 +1,26 @@
 @import "button";
+
 @import "utils";
+
 @import "variables";
+
 @import "mixins";
+
 @import "inputs";
+
 @import "fonts";
 
 * {
   box-sizing: border-box;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
 body {
   background-color: #2B5CDA;
   padding: 0;
   margin: 0;
+}
+
+.hidden {
+  display: none !important;
 }
