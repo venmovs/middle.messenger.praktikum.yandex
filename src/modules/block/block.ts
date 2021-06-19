@@ -93,7 +93,6 @@ abstract class Block {
             let node: HTMLElement | null;
             if (eventName === 'submit') {
                 node = this.element.querySelector('form');
-                console.log(this.element);
             } else {
                 node = this.element.querySelector('input');
             }
@@ -105,7 +104,6 @@ abstract class Block {
         });
     }
 
-    // нарушаю DRY TODO исправить этот позор!
     private removeEvents(): void {
         const { events = {} } = this.props;
 

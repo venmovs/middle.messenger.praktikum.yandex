@@ -48,7 +48,6 @@ abstract class Validation {
     }
 
     protected validate(event: Event): boolean {
-        console.log(event);
         return true;
     }
 }
