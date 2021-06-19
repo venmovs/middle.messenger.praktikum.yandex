@@ -1,7 +1,7 @@
 
 # Messenger
 
-##[ссылка на pull request второго спринта](https://github.com/venmovs/middle.messenger.praktikum.yandex/pull/6)
+## [ссылка на pull request второго спринта](https://github.com/venmovs/middle.messenger.praktikum.yandex/pull/6)
 
 ## [Netlify domain](https://angry-agnesi-d0e795.netlify.app)
 
