@@ -1,7 +1,6 @@
 import { Block } from '../../../modules/block/block';
-import {makeHtmlFromTemplate} from "../../../utils/makeHtml";
-import {messageTemplate} from "./message.tmpl";
-
+import { makeHtmlFromTemplate } from '../../../utils/makeHtml';
+import { messageTemplate } from './message.tmpl';
 
 interface IMessage {
     mine: boolean,
@@ -10,7 +9,6 @@ interface IMessage {
 }
 
 class Message extends Block {
-
     constructor(props: IMessage) {
         super('fragment', props);
     }
@@ -19,6 +17,5 @@ class Message extends Block {
         return makeHtmlFromTemplate(messageTemplate, this.props);
     }
 }
-
 
 export { Message, IMessage };

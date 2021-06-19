@@ -1,6 +1,6 @@
-import {Block} from "../../modules/block/block";
-import {makeHtmlFromTemplate} from "../../utils/makeHtml";
-import {buttonImageTemplate} from "./button-imag.tmpl";
+import { Block } from '../../modules/block/block';
+import { makeHtmlFromTemplate } from '../../utils/makeHtml';
+import { buttonImageTemplate } from './button-imag.tmpl';
 
 interface IButtonImage {
     image: string,
@@ -10,7 +10,6 @@ interface IButtonImage {
 }
 
 class ButtonImage extends Block {
-
     constructor(props: IButtonImage) {
         super('fragment', props);
     }

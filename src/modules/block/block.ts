@@ -1,5 +1,5 @@
-import { EventBus } from '../event-bus/eventBus';
 import { v4 as makeUUID } from 'uuid';
+import { EventBus } from '../event-bus/eventBus';
 
 enum EVENTS {
     INIT = 'init',
@@ -14,8 +14,7 @@ interface IMeta {
 }
 
 abstract class Block {
-
-    protected _element: HTMLElement;
+    protected _element!: HTMLElement;
     protected _meta: IMeta;
     protected props: Record<string, any>;
     protected eventBus: EventBus;
@@ -25,11 +24,11 @@ abstract class Block {
         this.eventBus = new EventBus();
         this._meta = {
             tagName,
-            props
+            props,
         };
 
         this._id = makeUUID();
-        this.props = this._makePropsProxy({...props, __id: this._id });
+        this.props = this._makePropsProxy({ ...props, __id: this._id });
 
         this._registerEvents();
         this.eventBus.emit(EVENTS.INIT);
@@ -57,9 +56,10 @@ abstract class Block {
         this.eventBus.emit(EVENTS.FLOW_RENDER);
     }
 
-    protected componentDidMount(oldProps?: ProxyHandler<object>): void {};
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    protected componentDidMount(oldProps: ProxyHandler<object>): void {}
 
-    private _componentDidUpdate(oldProps?: ProxyHandler<object>, newProps?: ProxyHandler<object>){
+    private _componentDidUpdate(oldProps?: ProxyHandler<object>, newProps?: ProxyHandler<object>) {
         const response = this.componentDidUpdate(oldProps, newProps);
         if (!response) {
             return;
@@ -67,9 +67,12 @@ abstract class Block {
         this._render();
     }
 
-    protected componentDidUpdate(oldProps?: ProxyHandler<object>, newProps?: ProxyHandler<object>): boolean {
+    protected componentDidUpdate(
+        oldProps?: ProxyHandler<object>,
+        newProps?: ProxyHandler<object>,
+    ): boolean {
         return oldProps !== newProps;
-    };
+    }
 
     setProps = (nextProps: ProxyHandler<object>): void => {
         if (!nextProps) {
@@ -84,15 +87,15 @@ abstract class Block {
     }
 
     private addEvents(): void {
-        const {events = {}} = this.props;
+        const { events = {} } = this.props;
 
-        Object.keys(events).forEach(eventName => {
+        Object.keys(events).forEach((eventName) => {
             let node: HTMLElement | null;
             if (eventName === 'submit') {
-                node = this.element.querySelector("form");
+                node = this.element.querySelector('form');
                 console.log(this.element);
             } else {
-                node = this.element.querySelector("input");
+                node = this.element.querySelector('input');
             }
             if (node) {
                 node.addEventListener(eventName, events[eventName].bind(this));
@@ -102,24 +105,24 @@ abstract class Block {
         });
     }
 
-    //нарушаю DRY TODO исправить этот позор!
+    // нарушаю DRY TODO исправить этот позор!
     private removeEvents(): void {
-        const {events = {}} = this.props;
+        const { events = {} } = this.props;
 
-        Object.keys(events).forEach(eventName => {
+        Object.keys(events).forEach((eventName) => {
             this.element.removeEventListener(eventName, events[eventName].bind(this));
         });
     }
 
     private insertInnerComponents(): void {
-        if(this.props.components) {
+        if (this.props.components) {
             Object.entries(this.props.components).forEach(([key, value]) => {
-                const node = this.element.querySelector('#' + key);
-                if(node) {
-                    if (Array.isArray(value)){
+                const node = this.element.querySelector(`#${key}`);
+                if (node) {
+                    if (Array.isArray(value)) {
                         value.forEach((value) => {
                             node.append(value.getContent());
-                        })
+                        });
                     } else {
                         node.append(value.getContent());
                     }
@@ -157,17 +160,16 @@ abstract class Block {
             set(target, prop: string, value: T) {
                 target[prop] = value;
 
-                self.eventBus.emit(EVENTS.FLOW_CDU, {...target}, target);
+                self.eventBus.emit(EVENTS.FLOW_CDU, { ...target }, target);
                 return true;
             },
             deleteProperty() {
                 throw new Error('Нет доступа');
-            }
+            },
         });
     }
 
     private _createDocumentElement(tagName: string): HTMLElement {
-        // Можно сделать метод, который через фрагменты в цикле создает сразу несколько блоков
         const element = document.createElement(tagName);
 
         if (this._id !== null) {
@@ -185,4 +187,4 @@ abstract class Block {
     }
 }
 
-export {Block};
+export { Block };

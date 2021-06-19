@@ -1,24 +1,22 @@
 abstract class Validation {
-
-    protected regExp: RegExp | null;
-    protected length: number | null;
+    protected regExp!: RegExp | null;
+    protected length!: number | null;
 
     visualizeValidity(isValid: boolean, event: Event): void {
-        const errorMessage = event.target?.nextElementSibling;
-
+        const target = event.target as HTMLTextAreaElement;
+        const errorMessage = target.nextElementSibling;
         if (isValid) {
-            event.target?.classList.remove('custom-text-input_error');
-            event.target?.classList.remove('notValid');
+            target.classList.remove('custom-text-input_error');
+            target.classList.remove('notValid');
 
-            if (!errorMessage.classList.contains('hidden')) {
+            if (errorMessage !== null && !errorMessage.classList.contains('hidden')) {
                 errorMessage.classList.add('hidden');
             }
-
         } else {
-            event.target?.classList.add('custom-text-input_error');
-            event.target?.classList.add('notValid');
+            target.classList.add('custom-text-input_error');
+            target.classList.add('notValid');
 
-            if (errorMessage.classList.contains('hidden')) {
+            if (errorMessage !== null && errorMessage.classList.contains('hidden')) {
                 errorMessage.classList.remove('hidden');
             }
         }
@@ -33,26 +31,26 @@ abstract class Validation {
     }
 
     private _validate(event: Event): void {
-
         let isValid = this.validate(event);
-
+        const target = event.target as HTMLTextAreaElement;
         if (this.regExp && isValid) {
-            isValid = this.regExp.test(event.target.value);
+            isValid = this.regExp.test(target.value);
         }
 
         if (this.length && isValid) {
-            isValid = event.target.value.length > this.length;
+            const target = event.target as HTMLTextAreaElement;
+            if (target.value !== null) {
+                isValid = target.value.length > this.length;
+            }
         }
 
         this.visualizeValidity(isValid, event);
-
     }
 
     protected validate(event: Event): boolean {
+        console.log(event);
         return true;
-    };
-
+    }
 }
 
-
-export {Validation};
+export { Validation };

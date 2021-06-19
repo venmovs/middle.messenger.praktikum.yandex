@@ -1,12 +1,9 @@
 class FormValidation {
-
-
     check(event: Event, actionIfValid?: (event: Event) => void): void {
         event.preventDefault();
-        console.log(event);
         const isValid: boolean = this.validate(event);
-        if(isValid) {
-            if(actionIfValid !== undefined) {
+        if (isValid) {
+            if (actionIfValid !== undefined) {
                 actionIfValid(event);
             } else {
                 this.actionIfValid(event);
@@ -15,7 +12,8 @@ class FormValidation {
     }
 
     private validate(event: Event): boolean {
-        const inputs: NodeListOf<HTMLElement> | undefined = event.target?.querySelectorAll('input');
+        const target = event.target as HTMLTextAreaElement;
+        const inputs: NodeListOf<HTMLElement> | undefined = target.querySelectorAll('input');
         let valid: boolean = true;
         if (inputs !== undefined) {
             const blurEvent = new Event('blur');
@@ -30,15 +28,13 @@ class FormValidation {
     }
 
     actionIfValid(event: Event) {
-        const form = event.target;
+        const form = event.target as HTMLFormElement;
         console.log(form);
         if (form !== null) {
-            let formData = new FormData(form);
+            const formData = new FormData(form);
             formData.forEach((value, name) => {
                 console.log(`${name}: ${value}`);
             });
-        } else {
-
         }
     }
 }

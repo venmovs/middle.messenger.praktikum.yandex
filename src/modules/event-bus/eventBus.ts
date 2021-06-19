@@ -1,7 +1,6 @@
 type TListener = <T>(...args: T[]) => void;
 
 class EventBus {
-
     listeners: Record<string, TListener[]>;
 
     constructor() {
@@ -22,7 +21,7 @@ class EventBus {
         }
 
         this.listeners[event] = this.listeners[event].filter(
-            listener => listener !== callback
+            (listener) => listener !== callback,
         );
     }
 
@@ -37,4 +36,4 @@ class EventBus {
     }
 }
 
-export {EventBus};
+export { EventBus };

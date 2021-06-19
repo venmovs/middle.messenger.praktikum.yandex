@@ -9,13 +9,10 @@ const profileTemplate: string = `
                     <div class="profile__name">Виген Мовсисян</div>
                 </div>
 
-                <form class="profile__form flex space-between wrap"
-                      id="__info">
+                <form class="profile__form flex space-between wrap" id="info">                       
                 </form>
-                
+                <div class="profile__button" id="editButton"></div>
                 <div class="profile__back-link" id="buttonImageBack"></div>
-
-                <div class="profile__button" id="__button"></div>
 
             </div>
         </div>

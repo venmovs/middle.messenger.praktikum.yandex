@@ -1,6 +1,6 @@
-import {Block} from "../../../modules/block/block";
-import {makeHtmlFromTemplate} from "../../../utils/makeHtml";
-import { userTemplate } from "./users.tmpl";
+import { Block } from '../../../modules/block/block';
+import { makeHtmlFromTemplate } from '../../../utils/makeHtml';
+import { userTemplate } from './users.tmpl';
 
 interface IUsers {
     name: string,
@@ -11,7 +11,6 @@ interface IUsers {
 }
 
 class Users extends Block {
-
     constructor(props: IUsers) {
         super('fragment', props);
     }
@@ -19,7 +18,6 @@ class Users extends Block {
     render(): string {
         return makeHtmlFromTemplate(userTemplate, this.props);
     }
-
 }
 
 export { Users, IUsers };

@@ -12,7 +12,6 @@ interface IInput {
 }
 
 class Input extends Block {
-
     constructor(props: IInput) {
         super('fragment', props);
     }
@@ -20,7 +19,6 @@ class Input extends Block {
     render(): string {
         return makeHtmlFromTemplate(inputsTemplate, this.props);
     }
-
 }
 
-export {Input, IInput};
+export { Input, IInput };

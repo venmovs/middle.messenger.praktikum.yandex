@@ -7,4 +7,4 @@ function render(query: string, block: Block) {
     return root;
 }
 
-export {render};
+export { render };

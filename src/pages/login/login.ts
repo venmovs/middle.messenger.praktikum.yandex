@@ -9,7 +9,6 @@ import { PasswordValidation } from '../../utils/validation/password-validation';
 import { FormValidation } from '../../utils/validation/form-validation';
 
 class Login extends Block {
-
     constructor() {
         const formValidation = new FormValidation();
         const loginValidation = new LoginValidation();
@@ -26,9 +25,9 @@ class Login extends Block {
                 },
                 blur: (event: Event) => {
                     loginValidation.check(event);
-                }
+                },
             },
-            settings: {withInternalID: true}
+            settings: { withInternalID: true },
         };
 
         const passwordInput: IInput = {
@@ -42,14 +41,14 @@ class Login extends Block {
                 },
                 blur: (event: Event) => {
                     passwordValidation.check(event);
-                }
+                },
             },
-            settings: {withInternalID: true}
+            settings: { withInternalID: true },
         };
 
         const loginButton: IButton = {
             text: 'авторизоваться',
-            settings: {withInternalID: true}
+            settings: { withInternalID: true },
         };
 
         super('fragment', {
@@ -62,19 +61,17 @@ class Login extends Block {
             events: {
                 submit: (event: Event) => {
                     const changeLocation = () => {
-                        window.location.href = '/chat/chat.html'
+                        window.location.href = '/chat/chat.html';
                     };
                     formValidation.check(event, changeLocation);
                 },
             },
         });
-    };
+    }
 
     render(): string {
         return makeHtmlFromTemplate(loginTemplate, this.props);
-    };
-
+    }
 }
-
 
 render('#root', new Login());

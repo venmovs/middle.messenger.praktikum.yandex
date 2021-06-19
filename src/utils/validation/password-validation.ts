@@ -1,7 +1,6 @@
 import { Validation } from './validation';
 
-class PasswordValidation extends  Validation{
-
+class PasswordValidation extends Validation {
     constructor() {
         super();
         this.length = 6;

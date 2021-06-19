@@ -6,5 +6,4 @@ const buttonFileTemplate: string = `
 </label>
 `;
 
-
 export { buttonFileTemplate };

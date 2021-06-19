@@ -1,4 +1,5 @@
 @import "../../styles/variables";
+
 @import "../../styles/mixins";
 
 
@@ -11,20 +12,24 @@
   }
 
   &__bg {
-    @include sign-background;
     background: url("../../images/background/profile-background.jpg") no-repeat center center fixed;
+
+    @include sign-background;
   }
 
   &__active-part {
-    @include sign-active-part;
     width: 70%;
+
+    @include sign-active-part;
   }
 
   &__avatar {
-    @include avatar;
     width: 140px;
     height: 140px;
     background-image: url("../../images/avatar/test-avatar.jpg");
+
+    @include avatar;
+
     &_wrapper {
       margin-bottom: 40px;
     }
@@ -39,8 +44,9 @@
 
   &__form {
     position: absolute;
-    @include horizontal-center();
     width: 500px;
+
+    @include horizontal-center();
   }
 
   &__info {
@@ -53,6 +59,7 @@
     align-items: center;
     background: none;
     color: white;
+
     @include text-normal;
   }
 
@@ -63,5 +70,9 @@
 
   &__button {
     @include sign-btn;
+
+    &_save {
+      margin: 0 auto;
+    }
   }
 }

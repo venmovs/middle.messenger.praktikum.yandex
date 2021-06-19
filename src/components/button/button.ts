@@ -8,8 +8,7 @@ interface IButton {
     settings?: Record<string, boolean>
 }
 
-class Button extends Block{
-
+class Button extends Block {
     constructor(props: IButton) {
         super('fragment', props);
     }
@@ -17,7 +16,6 @@ class Button extends Block{
     render(): string {
         return makeHtmlFromTemplate(buttonTemplate, this.props);
     }
-
 }
 
-export {Button, IButton};
+export { Button, IButton };

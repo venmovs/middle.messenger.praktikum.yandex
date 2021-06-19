@@ -21,4 +21,4 @@ const loginTemplate: string = `
 </main>
 `;
 
-export {loginTemplate};
+export { loginTemplate };

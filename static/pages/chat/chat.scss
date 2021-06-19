@@ -19,9 +19,9 @@
 }
 
 .chat-user {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, .1);
   border: 1px solid #FFFFFF;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, .1);
   height: 90px;
   width: 100%;
   border-radius: $border-radius-secondary;
@@ -31,17 +31,18 @@
   grid-template-columns: 80px auto 50px;
   position: relative;
   grid-template-areas: "avatar name time"
-                         "avatar message notification";
-  transition: background 0.2s ease;
+    "avatar message notification";
+  transition: background .2s ease;
 
   &:hover {
     background: #FFFFFF;
   }
 
   &__avatar {
-    @include avatar();
     grid-area: avatar;
     margin: auto auto;
+
+    @include avatar();
   }
 
   &__name {
@@ -81,7 +82,7 @@
 
 .bg-blur {
   backdrop-filter: $backdrop-filter;
-  background: rgba(255, 255, 255, 0.33);
+  background: rgba(255, 255, 255, .33);
   display: block;
   height: 100%;
   margin: 5px;
@@ -119,7 +120,7 @@
   display: grid;
   width: 100%;
   grid-template-columns: 60px auto 60px;
-  grid-template-areas: 'file text send';
+  grid-template-areas: "file text send";
   position: relative;
 
   &__file {
@@ -139,11 +140,13 @@
 
 
 .user-info {
+
   &__avatar {
-    @include avatar();
     background-image: url("../../images/avatar/test-avatar.jpg");
     margin-right: 10px;
     margin-bottom: 30px;
+
+    @include avatar();
   }
 
   &__name {
@@ -155,7 +158,7 @@
   padding: 20px;
   width: 100%;
   overflow-y: scroll;
-  border: 10px solid rgba(255, 255, 255, 0.8);
+  border: 10px solid rgba(255, 255, 255, .8);
 
   &::-webkit-scrollbar {
     display: none;
