@@ -9,15 +9,15 @@ abstract class Validation {
             target.classList.remove('custom-text-input_error');
             target.classList.remove('notValid');
 
-            if (errorMessage !== null && !errorMessage.classList.contains('hidden')) {
-                errorMessage.classList.add('hidden');
+            if (!errorMessage?.classList.contains('hidden')) {
+                errorMessage?.classList.add('hidden');
             }
         } else {
             target.classList.add('custom-text-input_error');
             target.classList.add('notValid');
 
-            if (errorMessage !== null && errorMessage.classList.contains('hidden')) {
-                errorMessage.classList.remove('hidden');
+            if (errorMessage?.classList.contains('hidden')) {
+                errorMessage?.classList.remove('hidden');
             }
         }
     }

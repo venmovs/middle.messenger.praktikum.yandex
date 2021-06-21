@@ -15,7 +15,7 @@ class Login extends Block {
         const passwordValidation = new PasswordValidation();
 
         const loginInput: IInput = {
-            tittle: 'Логин',
+            title: 'Логин',
             name: 'login',
             type: 'text',
             error: 'мало символов или не английский язык',
@@ -31,7 +31,7 @@ class Login extends Block {
         };
 
         const passwordInput: IInput = {
-            tittle: 'Пароль',
+            title: 'Пароль',
             name: 'password',
             type: 'password',
             error: 'мало сиволов и должны быть использованы буквы и цифры',

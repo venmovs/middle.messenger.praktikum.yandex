@@ -116,14 +116,13 @@ abstract class Block {
         if (this.props.components) {
             Object.entries(this.props.components).forEach(([key, value]) => {
                 const node = this.element.querySelector(`#${key}`);
-                if (node) {
-                    if (Array.isArray(value)) {
-                        value.forEach((value) => {
-                            node.append(value.getContent());
-                        });
-                    } else {
+                if (!node) return;
+                if (Array.isArray(value)) {
+                    value.forEach((value) => {
                         node.append(value.getContent());
-                    }
+                    });
+                } else {
+                    node.append(value.getContent());
                 }
             });
         }
@@ -151,17 +150,16 @@ abstract class Block {
         const self = this;
 
         return new Proxy(target, {
-            get(target, prop: string): T {
+            get: (target, prop: string): T => {
                 const value = target[prop];
                 return typeof value === 'function' ? value.bind(target) : value;
             },
-            set(target, prop: string, value: T) {
+            set: (target, prop: string, value: T) => {
                 target[prop] = value;
-
                 self.eventBus.emit(EVENTS.FLOW_CDU, { ...target }, target);
                 return true;
             },
-            deleteProperty() {
+            deleteProperty: () => {
                 throw new Error('Нет доступа');
             },
         });

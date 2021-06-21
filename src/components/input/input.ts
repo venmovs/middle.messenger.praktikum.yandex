@@ -3,7 +3,7 @@ import { inputsTemplate } from './inputs.tmpl';
 import { makeHtmlFromTemplate } from '../../utils/makeHtml';
 
 interface IInput {
-    tittle: string,
+    title: string,
     name: string,
     type: string,
     error: string,

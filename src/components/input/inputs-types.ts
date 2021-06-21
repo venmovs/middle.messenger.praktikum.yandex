@@ -12,7 +12,7 @@ const phoneValidation = new PhoneValidation();
 const nameValidation = new NameValidation();
 
 const loginInput: IInput = {
-    tittle: 'Логин',
+    title: 'Логин',
     name: 'login',
     type: 'text',
     error: 'мало символов',
@@ -28,7 +28,7 @@ const loginInput: IInput = {
 };
 
 const passwordInput: IInput = {
-    tittle: 'Пароль',
+    title: 'Пароль',
     name: 'password',
     type: 'text',
     error: 'слабый пароль',
@@ -44,7 +44,7 @@ const passwordInput: IInput = {
 };
 
 const mailInput: IInput = {
-    tittle: 'Почта',
+    title: 'Почта',
     name: 'mail',
     type: 'text',
     error: 'почта с ошибкой',
@@ -60,7 +60,7 @@ const mailInput: IInput = {
 };
 
 const phoneInput: IInput = {
-    tittle: 'Телефон',
+    title: 'Телефон',
     name: 'phone',
     type: 'text',
     error: 'номер с ошибкой',
@@ -76,7 +76,7 @@ const phoneInput: IInput = {
 };
 
 const nameInput: IInput = {
-    tittle: 'Имя',
+    title: 'Имя',
     name: 'name',
     type: 'text',
     error: 'больше 3 букв',
@@ -92,7 +92,7 @@ const nameInput: IInput = {
 };
 
 const secondNameInput: IInput = {
-    tittle: 'Фамилия',
+    title: 'Фамилия',
     name: 'secondName',
     type: 'text',
     error: 'больше 3 букв',
@@ -108,7 +108,7 @@ const secondNameInput: IInput = {
 };
 
 const confirmPasswordInput: IInput = {
-    tittle: 'Пароль (еще раз)',
+    title: 'Пароль (еще раз)',
     name: 'password',
     type: 'text',
     error: 'слабый пароль',

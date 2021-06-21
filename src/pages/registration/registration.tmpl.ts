@@ -4,10 +4,8 @@ const registrationTemplate: string = `
         <div class="registration__bg">
             <div class="registration__active-part flex direction-column align-item-center">
                 <h1 class="h1">{{title}}</h1>
-
                 <form class="registration__form flex space-between wrap"
-                      id="registration-forms"                 
-                >
+                      id="registration-forms">
                 <div id="loginInput"></div>
                 <div id="nameInput"></div>
                 <div id="mailInput"></div>
@@ -15,7 +13,6 @@ const registrationTemplate: string = `
                 <div id="secondNameInput"></div>
                 <div id="phoneInput"></div>
                 <div id="confirmPasswordInput"></div>
-                
                 <div class="registration__button flex direction-column align-item-center">
                     <div id="registrationButton">
                     </div>
@@ -24,7 +21,6 @@ const registrationTemplate: string = `
                 </form>
             </div>
         </div>
-
     </section>
 </main>`;
 

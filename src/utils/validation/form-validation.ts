@@ -3,7 +3,7 @@ class FormValidation {
         event.preventDefault();
         const isValid: boolean = this.validate(event);
         if (isValid) {
-            if (actionIfValid !== undefined) {
+            if (typeof actionIfValid === 'function') {
                 actionIfValid(event);
             } else {
                 this.actionIfValid(event);
@@ -29,7 +29,6 @@ class FormValidation {
 
     actionIfValid(event: Event) {
         const form = event.target as HTMLFormElement;
-        console.log(form);
         if (form !== null) {
             const formData = new FormData(form);
             formData.forEach((value, name) => {

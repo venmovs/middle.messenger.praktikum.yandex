@@ -1,10 +1,12 @@
 import { Validation } from './validation';
+import { regExp } from './regExpVariables';
 
 class PasswordValidation extends Validation {
     constructor() {
+        const { lettersAndNumbers } = regExp;
         super();
         this.length = 6;
-        this.regExp = /^[a-z0-9]+$/ && /[a-z]/ && /[0-9]/;
+        this.regExp = lettersAndNumbers;
     }
 }
 

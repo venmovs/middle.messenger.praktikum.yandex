@@ -41,10 +41,7 @@ class ProfileEdit extends Block {
             },
             events: {
                 submit: (event: Event) => {
-                    const backToProfile = () => {
-                        window.location.href = '/profile/profile.html';
-                    };
-                    formValidation.check(event, backToProfile);
+                    formValidation.check(event);
                 },
             },
         });
