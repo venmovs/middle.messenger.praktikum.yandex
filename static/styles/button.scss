@@ -4,21 +4,24 @@
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
   border-radius: 13px;
   cursor: pointer;
+
   &_small {
     background: #FFFFFF;
     border: 1px solid #FFFFFF;
     height: 48px;
     width: 48px;
   }
+
   &_big {
-    border: none;
+    border: 0;
     color: #FFFFFF;
     height: 60px;
     width: 360px;
     background: $color-primary;
     transition: 0.2s ease;
+
     &:hover {
-      background: #5570e8;
+      background: $color-primary-hover;
     }
   }
 }
@@ -30,6 +33,7 @@
 .link {
   color: white;
   transition: 0.2s ease;
+
   &:hover {
     text-decoration: none;
   }

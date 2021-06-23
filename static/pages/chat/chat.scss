@@ -31,7 +31,7 @@
   grid-template-columns: 80px auto 50px;
   position: relative;
   grid-template-areas: "avatar name time"
-                         "avatar message notification";
+    "avatar message notification";
   transition: background 0.2s ease;
 
   &:hover {
@@ -39,9 +39,10 @@
   }
 
   &__avatar {
-    @include avatar();
     grid-area: avatar;
     margin: auto auto;
+
+    @include avatar();
   }
 
   &__name {
@@ -119,7 +120,7 @@
   display: grid;
   width: 100%;
   grid-template-columns: 60px auto 60px;
-  grid-template-areas: 'file text send';
+  grid-template-areas: "file text send";
   position: relative;
 
   &__file {
@@ -139,11 +140,13 @@
 
 
 .user-info {
+
   &__avatar {
-    @include avatar();
     background-image: url("../../images/avatar/test-avatar.jpg");
     margin-right: 10px;
     margin-bottom: 30px;
+
+    @include avatar();
   }
 
   &__name {
