@@ -6,9 +6,10 @@ import { Input } from '../../../components/input/input';
 import * as inputsTypes from '../../../components/input/inputs-types';
 import { makeHtmlFromTemplate } from '../../../utils/makeHtml';
 import { profileEditTemplate } from './profile-edit.tmpl';
-import { render } from '../../../utils/render';
 import backIcon from '../../../../static/images/icons/back.svg';
+import { Router } from '../../../modules/router/router';
 
+const router = new Router('#app');
 class ProfileEdit extends Block {
     constructor() {
         const formValidation = new FormValidation();
@@ -18,7 +19,7 @@ class ProfileEdit extends Block {
             image: backIcon,
             events: {
                 click: () => {
-                    window.location.href = '/chat/chat.html';
+                    router.go('/chats');
                 },
             },
         };
@@ -52,4 +53,4 @@ class ProfileEdit extends Block {
     }
 }
 
-render('#root', new ProfileEdit());
+export { ProfileEdit };

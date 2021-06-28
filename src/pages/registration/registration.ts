@@ -1,11 +1,16 @@
+import './registration.scss';
+
 import { makeHtmlFromTemplate } from '../../utils/makeHtml';
 import { registrationTemplate } from './registration.tmpl';
 import { Block } from '../../modules/block/block';
-import { render } from '../../utils/render';
 import { Input } from '../../components/input/input';
 import { Button, IButton } from '../../components/button/button';
+import { Link, ILink } from '../../components/link/link';
 import { FormValidation } from '../../utils/validation/form-validation';
 import * as inputsTypes from '../../components/input/inputs-types';
+import { Router } from '../../modules/router/router';
+
+const router = new Router('#app');
 
 class Registration extends Block {
     constructor() {
@@ -14,6 +19,16 @@ class Registration extends Block {
         const registrationButton: IButton = {
             text: 'зарегестрироваться',
             settings: { withInternalID: true },
+        };
+
+        const registrationLink: ILink = {
+            text: 'есть аккаунт?',
+            class: 'link',
+            events: {
+                click: () => {
+                    router.go('/');
+                },
+            },
         };
 
         super('fragment', {
@@ -27,6 +42,7 @@ class Registration extends Block {
                 phoneInput: new Input(inputsTypes.phoneInput),
                 confirmPasswordInput: new Input(inputsTypes.confirmPasswordInput),
                 registrationButton: new Button(registrationButton),
+                registrationLink: new Link(registrationLink),
             },
             events: {
                 submit: (event: Event) => {
@@ -44,4 +60,4 @@ class Registration extends Block {
     }
 }
 
-render('#root', new Registration());
+export { Registration };

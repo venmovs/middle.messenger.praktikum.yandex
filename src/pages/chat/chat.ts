@@ -1,5 +1,6 @@
+import './chat.scss';
+
 import { Block } from '../../modules/block/block';
-import { render } from '../../utils/render';
 import { IUsers, Users } from './users/users';
 import { makeHtmlFromTemplate } from '../../utils/makeHtml';
 import { chatTemplate } from './chat.tmpl';
@@ -11,6 +12,9 @@ import editorIcon from '../../../static/images/icons/editor.svg';
 import searchIcon from '../../../static/images/icons/search.svg';
 import sendIcon from '../../../static/images/icons/send.svg';
 import fileIcon from '../../../static/images/icons/file.svg';
+import { Router } from '../../modules/router/router';
+
+const router = new Router('#app');
 
 class Chat extends Block {
     constructor() {
@@ -75,7 +79,7 @@ class Chat extends Block {
             name: 'editor',
             events: {
                 click: () => {
-                    window.location.href = '/profile/profile.html';
+                    router.go('/profile');
                 },
             },
         };
@@ -126,4 +130,4 @@ class Chat extends Block {
     }
 }
 
-render('#root', new Chat());
+export { Chat };

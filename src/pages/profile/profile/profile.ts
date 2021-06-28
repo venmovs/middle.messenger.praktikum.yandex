@@ -1,11 +1,15 @@
+import '../profile.scss';
+
 import { makeHtmlFromTemplate } from '../../../utils/makeHtml';
 import { Block } from '../../../modules/block/block';
 import { profileTemplate } from './profile.tmpl';
-import { render } from '../../../utils/render';
 import { ButtonImage, IButtonImage } from '../../../components/button-image/button-image';
 import backIcon from '../../../../static/images/icons/back.svg';
 import { Button, IButton } from '../../../components/button/button';
 import { Info } from '../info/info';
+import { Router } from '../../../modules/router/router';
+
+const router = new Router('#app');
 
 class Profile extends Block {
     constructor() {
@@ -28,7 +32,7 @@ class Profile extends Block {
             image: backIcon,
             events: {
                 click: () => {
-                    window.location.href = '/chat/chat.html';
+                    router.back();
                 },
             },
         };
@@ -37,7 +41,7 @@ class Profile extends Block {
             text: 'редактировать',
             events: {
                 click: () => {
-                    window.location.href = '/profile/profile-edit.html';
+                    router.go('/profile-edit');
                 },
             },
         };
@@ -56,4 +60,4 @@ class Profile extends Block {
     }
 }
 
-render('#root', new Profile());
+export { Profile };

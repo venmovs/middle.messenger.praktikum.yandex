@@ -10,7 +10,7 @@ const loginTemplate: string = `
                       <div id="passwordInput"></div>
                         <div class="login__button flex direction-column align-item-center">
                          <div id="loginButton"></div>
-                            <a class="link" href="registration/registration.html">нет аккаунта?</a>
+                         <div id="loginLink"></div>
                         </div>
                 </form>
             </div>

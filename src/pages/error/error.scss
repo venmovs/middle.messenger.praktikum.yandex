@@ -1,9 +1,8 @@
-@import "../../styles/variables";
-
-@import "../../styles/mixins";
+@import "../../../static/styles/variables";
+@import "../../../static/styles/mixins";
 
 .error {
-  background-image: url("../../images/background/error-background.jpg");
+  background-image: url("../../../static/images/background/error-background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;

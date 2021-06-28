@@ -1,6 +1,6 @@
-@import "../styles/variables";
+@import "../../../static/styles/variables";
 
-@import "../styles/mixins";
+@import "../../../static/styles/mixins";
 
 .login {
   @include maxVhVw;
@@ -11,7 +11,7 @@
   }
 
   &__bg {
-    background: url("../images/background/login-background.jpg") no-repeat center center fixed;
+    background: url("../../../static/images/background/login-background.jpg") no-repeat center center fixed;
 
     @include sign-background;
   }

@@ -16,7 +16,7 @@ const registrationTemplate: string = `
                 <div class="registration__button flex direction-column align-item-center">
                     <div id="registrationButton">
                     </div>
-                    <a class="link" href="/index.html">есть аккаунт?</a>
+                    <div id="registrationLink" ></div>
                 </div>
                 </form>
             </div>

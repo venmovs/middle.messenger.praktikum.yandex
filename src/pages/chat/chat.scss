@@ -1,7 +1,8 @@
-@import "../../styles/style";
+@import "../../../static/styles/variables";
+@import "../../../static/styles/mixins";
 
 .chat {
-  background-image: url("../../images/background/chat-background.jpg");
+  background-image: url("../../../static/images/background/chat-background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
@@ -142,7 +143,7 @@
 .user-info {
 
   &__avatar {
-    background-image: url("../../images/avatar/test-avatar.jpg");
+    background-image: url("../../../static/images/avatar/test-avatar.jpg");
     margin-right: 10px;
     margin-bottom: 30px;
 
