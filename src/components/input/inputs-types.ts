@@ -45,7 +45,7 @@ const passwordInput: IInput = {
 
 const mailInput: IInput = {
     title: 'Почта',
-    name: 'mail',
+    name: 'email',
     type: 'text',
     error: 'почта с ошибкой',
     events: {
@@ -77,7 +77,7 @@ const phoneInput: IInput = {
 
 const nameInput: IInput = {
     title: 'Имя',
-    name: 'name',
+    name: 'first_name',
     type: 'text',
     error: 'больше 3 букв',
     events: {
@@ -93,7 +93,7 @@ const nameInput: IInput = {
 
 const secondNameInput: IInput = {
     title: 'Фамилия',
-    name: 'secondName',
+    name: 'second_name',
     type: 'text',
     error: 'больше 3 букв',
     events: {
@@ -109,7 +109,7 @@ const secondNameInput: IInput = {
 
 const confirmPasswordInput: IInput = {
     title: 'Пароль (еще раз)',
-    name: 'password',
+    name: 'confirm_password',
     type: 'text',
     error: 'слабый пароль',
     events: {

@@ -23,34 +23,42 @@ function queryStringify(data: TRequestData) {
 }
 
 class HTTPTransport {
+    baseUri: string;
+    constructor(baseUri: string) {
+        this.baseUri = baseUri;
+    }
+
     public get = (url: string, options = {}) => {
-        return this.request(url, { ...options, method: METHODS.GET });
+        return this.request(this.baseUri + url, { ...options, method: METHODS.GET });
     };
 
     public post = (url: string, options = {}) => {
-        return this.request(url, { ...options, method: METHODS.POST });
+        return this.request(this.baseUri + url, { ...options, method: METHODS.POST });
     };
 
     public put = (url: string, options = {}) => {
-        return this.request(url, { ...options, method: METHODS.PUT });
+        return this.request(this.baseUri + url, { ...options, method: METHODS.PUT });
     };
 
     public patch = (url: string, options = {}) => {
-        return this.request(url, { ...options, method: METHODS.PATCH });
+        return this.request(this.baseUri + url, { ...options, method: METHODS.PATCH });
     };
 
     public delete = (url: string, options = {}) => {
-        return this.request(url, { ...options, method: METHODS.DELETE });
+        return this.request(this.baseUri + url, { ...options, method: METHODS.DELETE });
     };
 
     request = (url: string, options: TRequestOptions) => {
         const {
             method = METHODS.GET,
-            headers = {},
+            headers = {
+                'content-type': 'application/json',
+            },
             data,
             timeout = 5000,
         } = options;
-
+        console.log(options);
+        console.log(data);
         let query: string;
         if (method === METHODS.GET) {
             query = queryStringify(data as TRequestData);
@@ -79,7 +87,7 @@ class HTTPTransport {
             xhr.onerror = reject;
             xhr.timeout = timeout;
             xhr.ontimeout = reject;
-
+            console.log(data);
             if (method === METHODS.GET || !data) {
                 xhr.send();
             } else {

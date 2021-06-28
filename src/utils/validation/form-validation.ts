@@ -6,7 +6,7 @@ class FormValidation {
             if (typeof actionIfValid === 'function') {
                 actionIfValid(event);
             } else {
-                this.actionIfValid(event);
+                return this.actionIfValid(event);
             }
         }
     }
@@ -31,9 +31,11 @@ class FormValidation {
         const form = event.target as HTMLFormElement;
         if (form !== null) {
             const formData = new FormData(form);
+            const resultObject = {};
             formData.forEach((value, name) => {
-                console.log(`${name}: ${value}`);
+                resultObject[name] = value;
             });
+            return resultObject;
         }
     }
 }
