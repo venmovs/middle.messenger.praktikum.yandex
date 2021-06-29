@@ -57,8 +57,6 @@ class HTTPTransport {
             data,
             timeout = 5000,
         } = options;
-        console.log(options);
-        console.log(data);
         let query: string;
         if (method === METHODS.GET) {
             query = queryStringify(data as TRequestData);
