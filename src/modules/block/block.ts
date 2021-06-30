@@ -80,6 +80,7 @@ abstract class Block {
         }
 
         Object.assign(this.props, nextProps);
+        this.eventBus.emit(EVENTS.FLOW_RENDER);
     };
 
     protected get element() {
