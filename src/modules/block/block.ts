@@ -1,5 +1,6 @@
 import { v4 as makeUUID } from 'uuid';
 import { EventBus } from '../event-bus/eventBus';
+import { State } from '../state/state';
 
 enum EVENTS {
     INIT = 'init',
@@ -29,10 +30,10 @@ abstract class Block {
 
         this._id = makeUUID();
         this.props = this._makePropsProxy({ ...props, __id: this._id });
-
         this._registerEvents();
         this.eventBus.emit(EVENTS.INIT);
     }
+
 
     private _registerEvents() {
         this.eventBus.on(EVENTS.INIT, this.init.bind(this));

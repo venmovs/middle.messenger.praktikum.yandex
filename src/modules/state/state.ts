@@ -1,51 +1,23 @@
-import { EventBus } from '../event-bus/eventBus';
+import { set } from '../../utils/object/set';
+import { findPath } from '../../utils/object/find-path';
 
-export default class State {
-    private static instance: State;
+const stateKey = 'state';
 
-    props: Record<string, unknown>;
+class State {
+    private readonly state: Record<string, unknown>;
 
-    private eventBus: EventBus;
-
-    private constructor(props: Record<string, unknown>) {
-        this.props = new Proxy(props, {
-            get(target, prop: string) {
-                const value = target[prop];
-                return typeof value === 'function' ? value.bind(target) : value;
-            },
-
-            set(target, prop: string, value) {
-                target[prop] = value;
-                return true;
-            },
-
-            deleteProperty(target, prop: string) {
-                delete target[prop];
-                return true;
-            },
-        });
-
-        this.eventBus = new EventBus();
+    constructor() {
+        const localStorageValue: string | null = localStorage.getItem(stateKey);
+        this.state = localStorageValue !== null ? JSON.parse(localStorageValue) : {};
     }
 
-    static getInstance(props = {}): State {
-        if (!State.instance) {
-            State.instance = new State(props as Record<string, unknown>);
-        }
-
-        return State.instance;
+    save(path: string, value: unknown): void {
+        const updatedState = set(this.state, path, value);
+        localStorage.setItem(stateKey, JSON.stringify(updatedState));
     }
 
-    registerEvent(name: string, callback: <T>(...args: T[]) => void): void {
-        this.eventBus.on(name, callback);
-    }
-
-    setProps(data: { [key: string]: unknown }): void {
-        Object.assign(this.props, data);
-
-        Object.keys(data).forEach((key) => {
-            this.eventBus.emit(key, this.props[key]);
-        });
+    get(path: string): unknown {
+        return findPath(path, this.state);
     }
 }
 

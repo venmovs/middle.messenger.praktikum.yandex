@@ -24,6 +24,8 @@ class AuthApi extends BaseAPI {
     signIn(data: IloginRequest): Promise<unknown> {
         return this.http.post(authObj.signIn, { data });
     }
+
+    
 }
 
 export {
