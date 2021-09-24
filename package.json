@@ -7,7 +7,7 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "dev": "npm run clear && ./node_modules/.bin/parcel static/pages/**/*.html static/pages/*.html --no-cache ",
+    "dev": "./node_modules/.bin/parcel static/pages/**/*.html static/pages/*.html --no-cache ",
     "build": "npm run clear && ./node_modules/.bin/parcel build static/pages/**/*.html static/pages/*.html",
     "start": "npm run clear && ./node_modules/.bin/parcel build static/pages/**/*.html static/pages/*.html && node ./server.js",
     "clear": "rimraf dist .cache",

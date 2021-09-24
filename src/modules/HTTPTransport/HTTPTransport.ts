@@ -66,6 +66,7 @@ class HTTPTransport {
 
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
 
             xhr.open(method, url + query);
 
@@ -85,6 +86,7 @@ class HTTPTransport {
             xhr.onerror = reject;
             xhr.timeout = timeout;
             xhr.ontimeout = reject;
+
             console.log(data);
             if (method === METHODS.GET || !data) {
                 xhr.send();

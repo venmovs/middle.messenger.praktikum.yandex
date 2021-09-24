@@ -11,9 +11,11 @@ import { PasswordValidation } from '../../utils/validation/password-validation';
 import { FormValidation } from '../../utils/validation/form-validation';
 import { Router } from '../../modules/router/router';
 import { WebSocket } from '../../modules/web-socket/web-socket';
+import { AuthController } from '../../modules/api/auth-controller';
+import { state, State } from '../../modules/state/state';
 
-/*const webSocket = new WebSocket();
-webSocket.init();*/
+/* const webSocket = new WebSocket();
+webSocket.init(); */
 
 const router = new Router('#app');
 
@@ -80,12 +82,26 @@ class Login extends Block {
             },
             events: {
                 submit: (event: Event) => {
-                    const changeLocation = () => {
-                        router.go('/chats');
+                    const formData = formValidation.check(event);
+                    const changeLocation = async () => {
+                        const auth = new AuthController();
+                        await auth.auth(formData);
+                        // router.go('/chats');
                     };
                     formValidation.check(event, changeLocation);
                 },
             },
+        }, 'login');
+    }
+
+    protected componentDidUpdate(oldProps?: ProxyHandler<object>, newProps?: ProxyHandler<object>): boolean {
+        console.log('11231231');
+    }
+
+    protected componentDidMount(oldProps: ProxyHandler<object>) {
+        state.save('login', {
+            login: 'gevPaulson',
+            pass: 'gergrgr',
         });
     }
 

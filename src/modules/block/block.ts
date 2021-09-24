@@ -1,6 +1,6 @@
 import { v4 as makeUUID } from 'uuid';
 import { EventBus } from '../event-bus/eventBus';
-import { State } from '../state/state';
+import { state, State } from '../state/state';
 
 enum EVENTS {
     INIT = 'init',
@@ -19,9 +19,10 @@ abstract class Block {
     protected _meta: IMeta;
     protected props: Record<string, any>;
     protected eventBus: EventBus;
+    protected selector: null | string = null;
     private readonly _id: null | string;
 
-    protected constructor(tagName = 'div', props = {}) {
+    protected constructor(tagName = 'div', props = {}, selector: string | null = null) {
         this.eventBus = new EventBus();
         this._meta = {
             tagName,
@@ -29,11 +30,15 @@ abstract class Block {
         };
 
         this._id = makeUUID();
-        this.props = this._makePropsProxy({ ...props, __id: this._id });
+        let addProps;
+        this.selector = selector;
+        if (this.selector !== null) {
+            addProps = state.get(this.selector);
+        }
+        this.props = this._makePropsProxy({ ...props, addProps, __id: this._id });
         this._registerEvents();
         this.eventBus.emit(EVENTS.INIT);
     }
-
 
     private _registerEvents() {
         this.eventBus.on(EVENTS.INIT, this.init.bind(this));
@@ -185,4 +190,4 @@ abstract class Block {
     }
 }
 
-export { Block };
+export { Block, EVENTS };

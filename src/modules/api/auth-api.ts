@@ -18,6 +18,7 @@ interface IloginRequest {
 
 class AuthApi extends BaseAPI {
     signUp(data: IRegistrationRequest): Promise<unknown> {
+        console.log(this.http);
         return this.http.post(authObj.signUp, { data });
     }
 
@@ -25,7 +26,10 @@ class AuthApi extends BaseAPI {
         return this.http.post(authObj.signIn, { data });
     }
 
-    
+    logout(): Promise<unknown> {
+        console.log('logout');
+        return this.http.post(authObj.logout);
+    }
 }
 
 export {
