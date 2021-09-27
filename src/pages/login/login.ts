@@ -12,7 +12,6 @@ import { FormValidation } from '../../utils/validation/form-validation';
 import { Router } from '../../modules/router/router';
 import { WebSocket } from '../../modules/web-socket/web-socket';
 import { AuthController } from '../../modules/api/auth-controller';
-import { state, State } from '../../modules/state/state';
 
 /* const webSocket = new WebSocket();
 webSocket.init(); */
@@ -86,7 +85,6 @@ class Login extends Block {
                     const changeLocation = async () => {
                         const auth = new AuthController();
                         await auth.auth(formData);
-                        // router.go('/chats');
                     };
                     formValidation.check(event, changeLocation);
                 },
@@ -98,11 +96,7 @@ class Login extends Block {
         console.log('11231231');
     }
 
-    protected componentDidMount(oldProps: ProxyHandler<object>) {
-        state.save('login', {
-            login: 'gevPaulson',
-            pass: 'gergrgr',
-        });
+    protected async componentDidMount(oldProps: ProxyHandler<object>) {
     }
 
     render(): string {

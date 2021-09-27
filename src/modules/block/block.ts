@@ -21,6 +21,7 @@ abstract class Block {
     protected eventBus: EventBus;
     protected selector: null | string = null;
     private readonly _id: null | string;
+    public state: State;
 
     protected constructor(tagName = 'div', props = {}, selector: string | null = null) {
         this.eventBus = new EventBus();
@@ -30,13 +31,14 @@ abstract class Block {
         };
 
         this._id = makeUUID();
+        this._registerEvents();
+        this.state = state;
         let addProps;
         this.selector = selector;
         if (this.selector !== null) {
-            addProps = state.get(this.selector);
+            addProps = this.state.get(this.selector);
         }
         this.props = this._makePropsProxy({ ...props, addProps, __id: this._id });
-        this._registerEvents();
         this.eventBus.emit(EVENTS.INIT);
     }
 
@@ -71,6 +73,11 @@ abstract class Block {
             return;
         }
         this._render();
+    }
+
+    protected saveState(path: string, value: unknown) {
+        this.state.save(path, value);
+        this.eventBus.emit(EVENTS.FLOW_CDU, path);
     }
 
     protected componentDidUpdate(

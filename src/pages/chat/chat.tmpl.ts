@@ -3,8 +3,8 @@ const chatTemplate: string = `
     <section class="bg-blur bg-blur_small">
         <div class="flex space-between">
             <div class="user-info flex">
-                <div class="user-info__avatar"></div>
-                <div class="user-info__name text-primary">Виген Мовсисян</div>
+                <img src="{{ userAvatar }}" alt="avatart" class="user-info__avatar">
+                <div class="user-info__name text-primary">{{ userName }}</div>
             </div>
             <div id="buttonImageEditor"></div>
         </div>
@@ -19,8 +19,8 @@ const chatTemplate: string = `
     </section>
     <section class="bg-blur bg-blur_big">
         <div class="user-info flex w-100">
-            <div class="user-info__avatar"></div>
-            <div class="user-info__name text-primary">Виген Мовсисян</div>
+            <img src="{{ userAvatar }}" alt="avatart" class="user-info__avatar">
+            <div class="user-info__name text-primary">{{ userName }}</div>
         </div>
         <div class="message-field mb-1" id="message">
         </div>

@@ -13,6 +13,7 @@ import searchIcon from '../../../static/images/icons/search.svg';
 import sendIcon from '../../../static/images/icons/send.svg';
 import fileIcon from '../../../static/images/icons/file.svg';
 import { Router } from '../../modules/router/router';
+import { AuthController } from '../../modules/api/auth-controller';
 
 const router = new Router('#app');
 
@@ -114,6 +115,8 @@ class Chat extends Block {
         };
 
         super('fragment', {
+            userName: '',
+            userAvatar: avatar,
             components: {
                 users: createUsers(),
                 message: createMessages(),
@@ -123,6 +126,17 @@ class Chat extends Block {
                 buttonFile: new ButtonFile(buttonFile),
             },
         });
+    }
+
+    protected async componentDidMount() {
+        const authController = new AuthController();
+        await authController.user()?.then((response) => {
+            console.log(response);
+            const fullName = `${response.first_name} ${response.second_name}`;
+            this.props.userName = fullName;
+            this.setProps({userAvatar: response.avatar});
+            this.saveState('user', fullName);
+        }).catch((error) => console.error(error));
     }
 
     render(): string {

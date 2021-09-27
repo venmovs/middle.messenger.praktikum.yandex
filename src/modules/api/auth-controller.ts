@@ -19,28 +19,32 @@ class AuthController {
         }
     }
 
-    public async user() {
+    public user() {
         try {
-            await registrationApi.user().then((response) => {
-                console.log(response);
+           return registrationApi.user().then((response) => {
+                if (response.status === 200) {
+                    return JSON.parse(response.response);
+                }
             });
         } catch (error) {
-            console.log(error);
+            route.go('/');
         }
+        return null;
     }
 
-    async auth(data: IloginRequest) {
+    protected auth(data: IloginRequest) {
         try {
-            await registrationApi.signIn(data).then((response) => {
+            return registrationApi.signIn(data).then((response) => {
                 console.log('auth', response);
                 if (response.status === 200) {
-                    route.go('/chat');
-                    return response;
+                    route.go('/chats');
                 }
+                return response;
             });
         } catch (error) {
             // router.go('/error');
         }
+        return null;
     }
 
     async logout() {
