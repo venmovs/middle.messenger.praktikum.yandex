@@ -87,7 +87,6 @@ class HTTPTransport {
             xhr.timeout = timeout;
             xhr.ontimeout = reject;
 
-            console.log(data);
             if (method === METHODS.GET || !data) {
                 xhr.send();
             } else {

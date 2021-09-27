@@ -10,7 +10,7 @@ import { FormValidation } from '../../utils/validation/form-validation';
 import * as inputsTypes from '../../components/input/inputs-types';
 import { Router } from '../../modules/router/router';
 import { AuthController } from '../../modules/api/auth-controller';
-import {response} from "express";
+import {IRegistrationRequest} from "../../modules/api/auth-api";
 
 const router = new Router('#app');
 
@@ -48,7 +48,7 @@ class Registration extends Block {
             },
             events: {
                 submit: (event: Event) => {
-                    const formData = formValidation.check(event);
+                    const formData: IRegistrationRequest = formValidation.check(event);
                     const signUp = async () => {
                         const registrationController = new AuthController();
                         await registrationController.register(formData);
