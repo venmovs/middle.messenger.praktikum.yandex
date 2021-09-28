@@ -7,7 +7,7 @@ import { chatTemplate } from './chat.tmpl';
 import { IMessage, Message } from './message/message';
 import { ButtonImage, IButtonImage } from '../../components/button-image/button-image';
 import { ButtonFile, IButtonFile } from '../../components/button-file/button-file';
-import avatar from '../../../static/images/avatar/test-avatar.jpg';
+import avatar from '../../../static/images/avatar/uncknow-avatar.jpeg';
 import editorIcon from '../../../static/images/icons/editor.svg';
 import searchIcon from '../../../static/images/icons/search.svg';
 import sendIcon from '../../../static/images/icons/send.svg';
@@ -135,9 +135,11 @@ class Chat extends Block {
             if (response === null) router.go('/');
             const fullName = `${response.first_name} ${response.second_name}`;
             this.props.userName = fullName;
-            this.setProps({ userAvatar: response.avatar });
+            if (response.avatar !== null) {
+                this.setProps({ userAvatar: response.avatar });
+            }
             this.saveState('user', fullName);
-        }).catch((error) => router.go('/'));
+        }).catch(() => router.go('/'));
     }
 
     render(): string {

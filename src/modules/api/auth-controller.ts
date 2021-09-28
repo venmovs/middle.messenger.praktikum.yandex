@@ -33,7 +33,7 @@ class AuthController {
                     route.go('/chats');
                 }
                 return response;
-            });
+            }).catch((e) => console.log(e));
     }
 
     public logout() {
