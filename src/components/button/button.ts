@@ -5,6 +5,7 @@ import { makeHtmlFromTemplate } from '../../utils/makeHtml';
 interface IButton {
     text: string,
     events?: Record<string, (event: Event) => void>,
+    classes: string,
     settings?: Record<string, boolean>
 }
 

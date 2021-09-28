@@ -16,6 +16,7 @@ import { Router } from '../../modules/router/router';
 import { AuthController } from '../../modules/api/auth-controller';
 
 const router = new Router('#app');
+const authController = new AuthController();
 
 class Chat extends Block {
     constructor() {
@@ -128,15 +129,15 @@ class Chat extends Block {
         });
     }
 
-    protected async componentDidMount() {
-        const authController = new AuthController();
-        await authController.user()?.then((response) => {
-            console.log(response);
+    async componentDidMount() {
+        await authController.user().then((response) => {
+            console.log('response', response);
+            if (response === null) router.go('/');
             const fullName = `${response.first_name} ${response.second_name}`;
             this.props.userName = fullName;
-            this.setProps({userAvatar: response.avatar});
+            this.setProps({ userAvatar: response.avatar });
             this.saveState('user', fullName);
-        }).catch((error) => console.error(error));
+        }).catch((error) => router.go('/'));
     }
 
     render(): string {

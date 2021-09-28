@@ -1,5 +1,6 @@
 import './login.scss';
 
+import { response } from 'express';
 import { makeHtmlFromTemplate } from '../../utils/makeHtml';
 import { Button, IButton } from '../../components/button/button';
 import { Input, IInput } from '../../components/input/input';
@@ -17,6 +18,7 @@ import { AuthController } from '../../modules/api/auth-controller';
 webSocket.init(); */
 
 const router = new Router('#app');
+const authController = new AuthController();
 
 class Login extends Block {
     constructor() {
@@ -83,8 +85,7 @@ class Login extends Block {
                 submit: (event: Event) => {
                     const formData = formValidation.check(event);
                     const changeLocation = async () => {
-                        const auth = new AuthController();
-                        await auth.auth(formData);
+                        await authController.auth(formData);
                     };
                     formValidation.check(event, changeLocation);
                 },
@@ -92,11 +93,14 @@ class Login extends Block {
         }, 'login');
     }
 
-    protected componentDidUpdate(oldProps?: ProxyHandler<object>, newProps?: ProxyHandler<object>): boolean {
-        console.log('11231231');
-    }
+    protected componentDidUpdate(oldProps?: ProxyHandler<object>, newProps?: ProxyHandler<object>): boolean {}
 
     protected async componentDidMount(oldProps: ProxyHandler<object>) {
+        await authController.user()?.then((response) => {
+            if (response !== null) {
+                router.go('/chats');
+            }
+        });
     }
 
     render(): string {

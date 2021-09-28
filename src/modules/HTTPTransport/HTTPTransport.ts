@@ -52,7 +52,7 @@ class HTTPTransport {
         const {
             method = METHODS.GET,
             headers = {
-                'content-type': 'application/json',
+                'content-type': 'application/json; charset=UTF-8',
             },
             data,
             timeout = 5000,

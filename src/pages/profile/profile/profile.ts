@@ -1,5 +1,6 @@
 import '../profile.scss';
 
+import {response, text} from 'express';
 import { makeHtmlFromTemplate } from '../../../utils/makeHtml';
 import { Block } from '../../../modules/block/block';
 import { profileTemplate } from './profile.tmpl';
@@ -8,8 +9,10 @@ import backIcon from '../../../../static/images/icons/back.svg';
 import { Button, IButton } from '../../../components/button/button';
 import { Info } from '../info/info';
 import { Router } from '../../../modules/router/router';
+import { AuthController } from '../../../modules/api/auth-controller';
 
 const router = new Router('#app');
+const authController = new AuthController();
 
 class Profile extends Block {
     constructor() {
@@ -46,10 +49,23 @@ class Profile extends Block {
             },
         };
 
+        const exitButton: IButton = {
+            text: 'Выйти',
+            classes: 'button_red',
+            events: {
+                click: async () => {
+                    await authController.logout().then(() => {
+                        router.go('/');
+                    });
+                },
+            },
+        };
+
         super('fragment', {
             components: {
                 buttonImageBack: new ButtonImage(buttonImageBack),
                 editButton: new Button(editButton),
+                exitButton: new Button(exitButton),
                 info: createProfileInformation(),
             },
         });

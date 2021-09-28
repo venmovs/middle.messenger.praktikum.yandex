@@ -9,7 +9,10 @@ const profileTemplate: string = `
                 </div>
                 <form class="profile__form flex space-between wrap" id="info">
                 </form>
-                <div class="profile__button" id="editButton"></div>
+                <div class="flex profile__button direction-column">
+                    <div id="editButton"></div>
+                    <div id="exitButton"></div>
+                </div>
                 <div class="profile__back-link" id="buttonImageBack"></div>
             </div>
         </div>

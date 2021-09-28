@@ -6,58 +6,43 @@ const registrationApi = new AuthApi();
 const route = new Router('#app');
 
 class AuthController {
-    public async register(data: IRegistrationRequest) {
-        try {
-            await registrationApi.signUp(data).then((response) => {
-                console.log('signUp', response);
-                if (response.status === 200) {
-                    return response;
-                }
-            });
-        } catch (error) {
-            // router.go('/error');
-        }
+    public register(data: IRegistrationRequest) {
+        return registrationApi.signUp(data).then((response) => {
+            console.log('signUp', response);
+            if (response.status === 200) {
+                return response;
+            }
+        });
     }
 
     public user() {
-        try {
-           return registrationApi.user().then((response) => {
-                if (response.status === 200) {
-                    return JSON.parse(response.response);
-                }
-            });
-        } catch (error) {
-            route.go('/');
-        }
-        return null;
+        return registrationApi.user()
+            .then((response) => {
+                console.log('user', response);
+            if (response.status === 200) {
+                return JSON.parse(response.response);
+            }
+            return null;
+        }).catch(() => this.logout()); //TODO сделать переход на логин
     }
 
-    protected auth(data: IloginRequest) {
-        try {
-            return registrationApi.signIn(data).then((response) => {
+    public auth(data: IloginRequest) {
+         return registrationApi.signIn(data).then((response) => {
                 console.log('auth', response);
                 if (response.status === 200) {
                     route.go('/chats');
                 }
                 return response;
             });
-        } catch (error) {
-            // router.go('/error');
-        }
-        return null;
     }
 
-    async logout() {
-        try {
-            await registrationApi.logout().then((response) => {
-                console.log('logout', response);
-                if (response.status === 200) {
-                    return response;
-                }
-            });
-        } catch (error) {
-            // router.go('/error');
-        }
+    public logout() {
+        return registrationApi.logout().then((response) => {
+            console.log('logout', response);
+            if (response.status === 200) {
+                return response;
+            }
+        });
     }
 }
 
