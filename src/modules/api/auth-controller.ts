@@ -1,6 +1,7 @@
 import { response } from 'express';
 import { AuthApi, IRegistrationRequest, IloginRequest } from './auth-api';
 import { Router } from '../router/router';
+import { state } from '../state/state';
 
 const registrationApi = new AuthApi();
 const route = new Router('#app');
@@ -16,14 +17,15 @@ class AuthController {
     }
 
     public user() {
+        let userInfo = state.get('user');
+        console.log(userInfo);
         return registrationApi.user()
             .then((response) => {
-                console.log('user', response);
             if (response.status === 200) {
                 return JSON.parse(response.response);
             }
             return null;
-        }).catch(() => this.logout()); //TODO сделать переход на логин
+        }).catch(() => console.error('user not found')); // TODO сделать переход на логин
     }
 
     public auth(data: IloginRequest) {

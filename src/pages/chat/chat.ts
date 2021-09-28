@@ -129,7 +129,7 @@ class Chat extends Block {
         });
     }
 
-    async componentDidMount() {
+    private async loadUserToProps() {
         await authController.user().then((response) => {
             console.log('response', response);
             if (response === null) router.go('/');
@@ -140,6 +140,10 @@ class Chat extends Block {
             }
             this.saveState('user', fullName);
         }).catch(() => router.go('/'));
+    }
+
+    async componentDidMount() {
+        await this.loadUserToProps();
     }
 
     render(): string {

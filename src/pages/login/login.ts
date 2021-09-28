@@ -60,6 +60,7 @@ class Login extends Block {
 
         const loginButton: IButton = {
             text: 'авторизоваться',
+            type: 'submit',
             settings: { withInternalID: true },
         };
 
@@ -93,14 +94,14 @@ class Login extends Block {
         }, 'login');
     }
 
-    protected componentDidUpdate(oldProps?: ProxyHandler<object>, newProps?: ProxyHandler<object>): boolean {}
+    componentDidUpdate(oldProps?: ProxyHandler<object>, newProps?: ProxyHandler<object>): boolean {}
 
-    protected async componentDidMount(oldProps: ProxyHandler<object>) {
-        await authController.user()?.then((response) => {
-            if (response !== null) {
+    async componentDidMount() {
+        await authController.user().then((response) => {
+            if (response) {
                 router.go('/chats');
             }
-        });
+        }).catch((e) => console.error(e));
     }
 
     render(): string {
