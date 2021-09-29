@@ -14,6 +14,7 @@ import sendIcon from '../../../static/images/icons/send.svg';
 import fileIcon from '../../../static/images/icons/file.svg';
 import { Router } from '../../modules/router/router';
 import { AuthController } from '../../modules/api/auth-controller';
+import {response} from "express";
 
 const router = new Router('#app');
 const authController = new AuthController();
@@ -130,16 +131,14 @@ class Chat extends Block {
     }
 
     private async loadUserToProps() {
-        await authController.user().then((response) => {
-            console.log('response', response);
-            if (response === null) router.go('/');
-            const fullName = `${response.first_name} ${response.second_name}`;
-            this.props.userName = fullName;
-            if (response.avatar !== null) {
-                this.setProps({ userAvatar: response.avatar });
+        const userInfo = await authController.getUserInfo();
+        console.log(userInfo);
+        if (userInfo !== null) {
+            this.props.userName = `${userInfo.first_name} ${userInfo.second_name}`;
+            if (userInfo.avatar !== null) {
+                this.setProps({ userAvatar: userInfo.avatar });
             }
-            this.saveState('user', fullName);
-        }).catch(() => router.go('/'));
+        }
     }
 
     async componentDidMount() {

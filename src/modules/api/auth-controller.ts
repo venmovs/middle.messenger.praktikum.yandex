@@ -16,16 +16,31 @@ class AuthController {
         });
     }
 
-    public user() {
-        let userInfo = state.get('user');
-        console.log(userInfo);
-        return registrationApi.user()
-            .then((response) => {
-            if (response.status === 200) {
-                return JSON.parse(response.response);
-            }
-            return null;
-        }).catch(() => console.error('user not found')); // TODO сделать переход на логин
+    private user() {
+        try {
+            return registrationApi.user()
+                .then((response) => {
+                    if (response.status === 200) {
+                        return state.save('user',
+                            JSON.parse(response.response));
+                    }
+                    return null;
+                }).catch((error) => {
+                    console.log('user not found -', JSON.parse(error.responseText).reason);
+                    route.go('/');
+                });
+        } catch (e) {
+            console.error(e);
+        }
+        return null;
+    }
+
+    public async getUserInfo() {
+        const userInfo = state.get('user');
+        if (userInfo === null) {
+            await this.user();
+        }
+        return state.get('user');
     }
 
     public auth(data: IloginRequest) {

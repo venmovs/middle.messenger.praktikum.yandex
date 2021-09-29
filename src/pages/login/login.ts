@@ -97,11 +97,7 @@ class Login extends Block {
     componentDidUpdate(oldProps?: ProxyHandler<object>, newProps?: ProxyHandler<object>): boolean {}
 
     async componentDidMount() {
-        await authController.user().then((response) => {
-            if (response) {
-                router.go('/chats');
-            }
-        }).catch((e) => console.error(e));
+        await authController.getUserInfo();
     }
 
     render(): string {

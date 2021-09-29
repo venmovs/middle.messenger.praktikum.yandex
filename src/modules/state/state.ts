@@ -16,6 +16,7 @@ class State {
     }
 
     get(path: string): unknown {
+        if (findPath(path, this.state) === undefined) return null;
         return findPath(path, this.state);
     }
 }
