@@ -20,6 +20,7 @@ class Registration extends Block {
 
         const registrationButton: IButton = {
             text: 'зарегестрироваться',
+            type: 'submit',
             settings: { withInternalID: true },
         };
 
@@ -52,7 +53,6 @@ class Registration extends Block {
                     const signUp = async () => {
                         const registrationController = new AuthController();
                         await registrationController.register(formData);
-                        // router.go('/');
                     };
                     formValidation.check(event, signUp);
                 },

@@ -13,7 +13,8 @@ class AuthController {
             if (response.status === 200) {
                 return response;
             }
-        });
+        }).catch(e => console.error(e))
+            .finally(() => route.go('/chats'));
     }
 
     private user() {
