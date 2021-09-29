@@ -12,7 +12,7 @@ import { PasswordValidation } from '../../utils/validation/password-validation';
 import { FormValidation } from '../../utils/validation/form-validation';
 import { Router } from '../../modules/router/router';
 import { WebSocket } from '../../modules/web-socket/web-socket';
-import { AuthController } from '../../modules/api/auth-controller';
+import { AuthController } from '../../modules/api/auth/auth-controller';
 
 /* const webSocket = new WebSocket();
 webSocket.init(); */

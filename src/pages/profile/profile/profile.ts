@@ -9,7 +9,7 @@ import backIcon from '../../../../static/images/icons/back.svg';
 import { Button, IButton } from '../../../components/button/button';
 import { Info } from '../info/info';
 import { Router } from '../../../modules/router/router';
-import { AuthController } from '../../../modules/api/auth-controller';
+import { AuthController } from '../../../modules/api/auth/auth-controller';
 
 const router = new Router('#app');
 const authController = new AuthController();

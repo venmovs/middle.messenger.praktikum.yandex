@@ -1,5 +1,5 @@
-import { BaseAPI } from './base-api/base-api';
-import { authObj } from './api-operations';
+import { BaseAPI } from '../base-api/base-api';
+import { authObj } from '../api-operations';
 
 interface IRegistrationRequest {
     login: string,

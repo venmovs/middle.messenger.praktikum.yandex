@@ -13,8 +13,7 @@ import searchIcon from '../../../static/images/icons/search.svg';
 import sendIcon from '../../../static/images/icons/send.svg';
 import fileIcon from '../../../static/images/icons/file.svg';
 import { Router } from '../../modules/router/router';
-import { AuthController } from '../../modules/api/auth-controller';
-import {response} from "express";
+import { AuthController } from '../../modules/api/auth/auth-controller';
 
 const router = new Router('#app');
 const authController = new AuthController();

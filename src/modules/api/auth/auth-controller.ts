@@ -1,24 +1,24 @@
 import { AuthApi, IRegistrationRequest, IloginRequest } from './auth-api';
-import { Router } from '../router/router';
-import { state } from '../state/state';
+import { Router } from '../../router/router';
+import { state } from '../../state/state';
 
-const registrationApi = new AuthApi();
+const authApi = new AuthApi();
 const route = new Router('#app');
 
 class AuthController {
     public register(data: IRegistrationRequest) {
-        return registrationApi.signUp(data).then((response) => {
+        return authApi.signUp(data).then((response) => {
             console.log('signUp', response);
             if (response.status === 200) {
                 return response;
             }
-        }).catch(e => console.error(e))
+        }).catch((e) => console.error(e))
             .finally(() => route.go('/chats'));
     }
 
     private user() {
         try {
-            return registrationApi.user()
+            return authApi.user()
                 .then((response) => {
                     if (response.status === 200) {
                         return state.save('user',
@@ -44,7 +44,7 @@ class AuthController {
     }
 
     public auth(data: IloginRequest) {
-         return registrationApi.signIn(data).then((response) => {
+         return authApi.signIn(data).then((response) => {
                 console.log('auth', response);
                 if (response.status === 200) {
                     route.go('/chats');
@@ -54,7 +54,7 @@ class AuthController {
     }
 
     public logout() {
-        return registrationApi.logout().then((response) => {
+        return authApi.logout().then((response) => {
             console.log('logout', response);
             if (response.status === 200) {
                 return response;

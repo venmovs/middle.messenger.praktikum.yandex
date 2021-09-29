@@ -9,8 +9,8 @@ import { Link, ILink } from '../../components/link/link';
 import { FormValidation } from '../../utils/validation/form-validation';
 import * as inputsTypes from '../../components/input/inputs-types';
 import { Router } from '../../modules/router/router';
-import { AuthController } from '../../modules/api/auth-controller';
-import {IRegistrationRequest} from "../../modules/api/auth-api";
+import { AuthController } from '../../modules/api/auth/auth-controller';
+import { IRegistrationRequest } from '../../modules/api/auth/auth-api';
 
 const router = new Router('#app');
 
