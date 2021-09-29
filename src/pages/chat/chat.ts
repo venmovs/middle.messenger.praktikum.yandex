@@ -14,6 +14,7 @@ import sendIcon from '../../../static/images/icons/send.svg';
 import fileIcon from '../../../static/images/icons/file.svg';
 import { Router } from '../../modules/router/router';
 import { AuthController } from '../../modules/api/auth/auth-controller';
+import { state } from '../../modules/state/state';
 
 const router = new Router('#app');
 const authController = new AuthController();
@@ -116,7 +117,7 @@ class Chat extends Block {
         };
 
         super('fragment', {
-            userName: '',
+            userName: 'имя не найдено',
             userAvatar: avatar,
             components: {
                 users: createUsers(),
@@ -130,12 +131,12 @@ class Chat extends Block {
     }
 
     private async loadUserToProps() {
-        const userInfo = await authController.getUserInfo();
-        console.log(userInfo);
-        if (userInfo !== null) {
-            this.props.userName = `${userInfo.first_name} ${userInfo.second_name}`;
-            if (userInfo.avatar !== null) {
-                this.setProps({ userAvatar: userInfo.avatar });
+        await authController.getUserInfo();
+        const user = state.get('user');
+        if (user !== null) {
+            this.props.userName = user?.login;
+            if (user?.avatar !== null) {
+                this.setProps({ userAvatar: user?.avatar });
             }
         }
     }

@@ -16,6 +16,7 @@ const loginInput: IInput = {
     name: 'login',
     type: 'text',
     error: 'мало символов',
+    value: 'ыыы',
     events: {
         focus: (event: Event) => {
             loginValidation.clear(event);
@@ -32,6 +33,7 @@ const passwordInput: IInput = {
     name: 'password',
     type: 'text',
     error: 'слабый пароль',
+    value: '',
     events: {
         focus: (event: Event) => {
             passwordValidation.clear(event);
@@ -48,6 +50,7 @@ const mailInput: IInput = {
     name: 'email',
     type: 'text',
     error: 'почта с ошибкой',
+    value: '',
     events: {
         focus: (event: Event) => {
             mailValidation.clear(event);
@@ -64,6 +67,7 @@ const phoneInput: IInput = {
     name: 'phone',
     type: 'text',
     error: 'номер с ошибкой',
+    value: '',
     events: {
         focus: (event: Event) => {
             phoneValidation.clear(event);
@@ -80,6 +84,7 @@ const nameInput: IInput = {
     name: 'first_name',
     type: 'text',
     error: 'больше 3 букв',
+    value: '',
     events: {
         focus: (event: Event) => {
             nameValidation.clear(event);
@@ -96,6 +101,7 @@ const secondNameInput: IInput = {
     name: 'second_name',
     type: 'text',
     error: 'больше 3 букв',
+    value: '',
     events: {
         focus: (event: Event) => {
             nameValidation.clear(event);
@@ -112,6 +118,7 @@ const confirmPasswordInput: IInput = {
     name: 'confirm_password',
     type: 'text',
     error: 'слабый пароль',
+    value: '',
     events: {
         focus: (event: Event) => {
             passwordValidation.clear(event);

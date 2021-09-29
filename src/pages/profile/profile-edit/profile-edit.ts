@@ -8,8 +8,12 @@ import { makeHtmlFromTemplate } from '../../../utils/makeHtml';
 import { profileEditTemplate } from './profile-edit.tmpl';
 import backIcon from '../../../../static/images/icons/back.svg';
 import { Router } from '../../../modules/router/router';
+import { UsersController } from '../../../modules/api/users/users-controller';
+import { phoneInput } from '../../../components/input/inputs-types';
 
 const router = new Router('#app');
+const usersController = new UsersController();
+
 class ProfileEdit extends Block {
     constructor() {
         const formValidation = new FormValidation();
@@ -26,6 +30,7 @@ class ProfileEdit extends Block {
 
         const saveButton: IButton = {
             text: 'сохранить',
+            type: 'submit',
         };
 
         super('fragment', {
@@ -43,9 +48,15 @@ class ProfileEdit extends Block {
             events: {
                 submit: (event: Event) => {
                     formValidation.check(event);
+                    console.log(formValidation.check(event));
                 },
             },
         });
+    }
+
+    componentDidMount(): void {
+        this.props.components.loginInput.setProps({ value: 'asd' });
+        console.log(this.props);
     }
 
     render(): string {
