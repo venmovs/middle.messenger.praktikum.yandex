@@ -1,4 +1,3 @@
-import { response } from 'express';
 import { AuthApi, IRegistrationRequest, IloginRequest } from './auth-api';
 import { Router } from '../router/router';
 import { state } from '../state/state';
