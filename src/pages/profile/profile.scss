@@ -25,11 +25,25 @@
   &__avatar {
     width: 140px;
     height: 140px;
+    position: relative;
 
     @include avatar;
 
     &_wrapper {
       margin-bottom: 40px;
+    }
+
+    &_change {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      height: 20px;
+      width: 20px;
+    }
+
+    &_visible {
+      display: none;
     }
   }
 
