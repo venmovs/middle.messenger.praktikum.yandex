@@ -10,9 +10,11 @@ import backIcon from '../../../../static/images/icons/back.svg';
 import { Router } from '../../../modules/router/router';
 import { UsersController } from '../../../modules/api/users/users-controller';
 import { phoneInput } from '../../../components/input/inputs-types';
+import { AuthController } from '../../../modules/api/auth/auth-controller';
 
 const router = new Router('#app');
 const usersController = new UsersController();
+const authController = new AuthController();
 
 class ProfileEdit extends Block {
     constructor() {
@@ -54,9 +56,20 @@ class ProfileEdit extends Block {
         });
     }
 
-    componentDidMount(): void {
-        this.props.components.loginInput.setProps({ value: 'asd' });
-        console.log(this.props);
+    takeNewValuesOnInputs(props: Record<string, any>, newValue: Record<string, string | number>) {
+        Object.values(props).forEach((key) => {
+            const userInfo: string | number = newValue[key.props.name];
+            if (userInfo !== undefined) {
+                key.setProps({ value: userInfo });
+            }
+        });
+    }
+
+    async componentDidMount() {
+        const userInfo = await authController.getUserInfo();
+        if (userInfo !== null || undefined) {
+            this.takeNewValuesOnInputs(this.props.components, userInfo);
+        }
     }
 
     render(): string {

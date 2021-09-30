@@ -94,10 +94,11 @@ class Login extends Block {
         }, 'login');
     }
 
-    componentDidUpdate(oldProps?: ProxyHandler<object>, newProps?: ProxyHandler<object>): boolean {}
-
     async componentDidMount() {
-        await authController.getUserInfo();
+        const userInfo = await authController.getUserInfo();
+        if (userInfo !== null || undefined) {
+            router.go('/chats');
+        }
     }
 
     render(): string {
