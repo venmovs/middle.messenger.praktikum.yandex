@@ -11,6 +11,7 @@ import { Router } from '../../../modules/router/router';
 import { UsersController } from '../../../modules/api/users/users-controller';
 import { phoneInput } from '../../../components/input/inputs-types';
 import { AuthController } from '../../../modules/api/auth/auth-controller';
+import {isPlainObject} from "../../../utils/object/is-plain";
 
 const router = new Router('#app');
 const usersController = new UsersController();
@@ -37,6 +38,7 @@ class ProfileEdit extends Block {
 
         super('fragment', {
             components: {
+                fullName: '',
                 loginInput: new Input(inputsTypes.loginInput),
                 nameInput: new Input(inputsTypes.nameInput),
                 mailInput: new Input(inputsTypes.mailInput),
@@ -56,11 +58,13 @@ class ProfileEdit extends Block {
         });
     }
 
-    takeNewValuesOnInputs(props: Record<string, any>, newValue: Record<string, string | number>) {
+    takeAuthUserValuesOnInputs(props: Record<string, any>, newValue: Record<string, string | number>) {
         Object.values(props).forEach((key) => {
-            const userInfo: string | number = newValue[key.props.name];
-            if (userInfo !== undefined) {
-                key.setProps({ value: userInfo });
+            if (typeof key !== 'string' && Object.prototype.hasOwnProperty.call(key, 'props')) {
+                const userInfo: string | number = newValue[key.props.name];
+                if (userInfo !== undefined) {
+                    key.setProps({ value: userInfo });
+                }
             }
         });
     }
@@ -68,7 +72,8 @@ class ProfileEdit extends Block {
     async componentDidMount() {
         const userInfo = await authController.getUserInfo();
         if (userInfo !== null || undefined) {
-            this.takeNewValuesOnInputs(this.props.components, userInfo);
+            this.props.fullName = `${userInfo.first_name} ${userInfo.second_name}`;
+            this.takeAuthUserValuesOnInputs(this.props.components, userInfo);
         }
     }
 
