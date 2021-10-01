@@ -49,6 +49,15 @@ class Profile extends Block {
             },
         };
 
+        const changePasswordButton: IButton = {
+            text: 'изменить пароль',
+            events: {
+                click: () => {
+                    router.go('/profile-edit-password');
+                },
+            },
+        };
+
         const exitButton: IButton = {
             text: 'Выйти',
             classes: 'button_red',
@@ -64,6 +73,7 @@ class Profile extends Block {
         super('fragment', {
             components: {
                 buttonImageBack: new ButtonImage(buttonImageBack),
+                changePasswordButton: new Button(changePasswordButton),
                 editButton: new Button(editButton),
                 exitButton: new Button(exitButton),
                 info: createProfileInformation(),

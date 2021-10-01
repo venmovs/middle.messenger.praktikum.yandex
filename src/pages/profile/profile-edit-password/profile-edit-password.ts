@@ -5,7 +5,7 @@ import { ButtonImage, IButtonImage } from '../../../components/button-image/butt
 import { Input } from '../../../components/input/input';
 import * as inputsTypes from '../../../components/input/inputs-types';
 import { makeHtmlFromTemplate } from '../../../utils/makeHtml';
-import { profileEditTemplate } from './profile-edit.tmpl';
+import { profileEditPasswordTemplate } from './profile-edit-password.tmpl';
 import backIcon from '../../../../static/images/icons/back.svg';
 import { Router } from '../../../modules/router/router';
 import { UsersController } from '../../../modules/api/users/users-controller';
@@ -15,7 +15,7 @@ const router = new Router('#app');
 const usersController = new UsersController();
 const authController = new AuthController();
 
-class ProfileEdit extends Block {
+class ProfileEditPassword extends Block {
     constructor() {
         const formValidation = new FormValidation();
 
@@ -40,8 +40,10 @@ class ProfileEdit extends Block {
                 loginInput: new Input(inputsTypes.loginInput),
                 nameInput: new Input(inputsTypes.nameInput),
                 mailInput: new Input(inputsTypes.mailInput),
+                passwordInput: new Input(inputsTypes.passwordInput),
                 secondNameInput: new Input(inputsTypes.secondNameInput),
                 phoneInput: new Input(inputsTypes.phoneInput),
+                confirmPasswordInput: new Input(inputsTypes.confirmPasswordInput),
                 saveButton: new Button(saveButton),
                 buttonImageBack: new ButtonImage(buttonImageBack),
             },
@@ -74,8 +76,8 @@ class ProfileEdit extends Block {
     }
 
     render(): string {
-        return makeHtmlFromTemplate(profileEditTemplate, this.props);
+        return makeHtmlFromTemplate(profileEditPasswordTemplate, this.props);
     }
 }
 
-export { ProfileEdit };
+export { ProfileEditPassword };
