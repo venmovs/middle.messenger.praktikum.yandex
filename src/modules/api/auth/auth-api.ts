@@ -11,7 +11,7 @@ interface IRegistrationRequest {
     confirm_password: string,
 }
 
-interface IloginRequest {
+interface ILoginRequest {
     login: string,
     password: string,
 }
@@ -21,7 +21,7 @@ class AuthApi extends BaseAPI {
         return this.http.post(authObj.signUp, { data });
     }
 
-    signIn(data: IloginRequest): Promise<unknown> {
+    signIn(data: ILoginRequest): Promise<unknown> {
         return this.http.post(authObj.signIn, { data });
     }
 
@@ -37,5 +37,5 @@ class AuthApi extends BaseAPI {
 export {
     AuthApi,
     IRegistrationRequest,
-    IloginRequest,
+    ILoginRequest,
 };

@@ -1,4 +1,4 @@
-import { AuthApi, IRegistrationRequest, IloginRequest } from './auth-api';
+import { AuthApi, IRegistrationRequest, ILoginRequest } from './auth-api';
 import { Router } from '../../router/router';
 import { state } from '../../state/state';
 
@@ -43,7 +43,7 @@ class AuthController {
         return state.get('user');
     }
 
-    public auth(data: IloginRequest) {
+    public auth(data: ILoginRequest) {
          return authApi.signIn(data).then((response) => {
                 console.log('auth', response);
                 if (response.status === 200) {
@@ -55,10 +55,13 @@ class AuthController {
 
     public logout() {
         return authApi.logout().then((response) => {
-            console.log('logout', response);
             if (response.status === 200) {
                 return response;
             }
+        }).catch((e) => {
+            console.log(e);
+        }).finally(() => {
+            route.go('/');
         });
     }
 }

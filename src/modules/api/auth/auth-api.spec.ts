@@ -1,6 +1,6 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
-import { AuthApi, IloginRequest, IRegistrationRequest } from './auth-api';
+import { AuthApi, ILoginRequest, IRegistrationRequest } from './auth-api';
 
 describe('Auth API', () => {
     const requests: sinon.SinonFakeXMLHttpRequest[] = [];
@@ -36,7 +36,7 @@ describe('Auth API', () => {
 
     it('should send POST /auth/signIn on signIn', () => {
         const authApi = new AuthApi();
-        const data: IloginRequest = { login: '', password: '' };
+        const data: ILoginRequest = { login: '', password: '' };
 
         authApi.signIn(data);
 
