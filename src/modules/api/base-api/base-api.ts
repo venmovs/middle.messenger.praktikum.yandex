@@ -1,6 +1,6 @@
 import { HTTPTransport } from '../../HTTPTransport/HTTPTransport';
 
-export class BaseAPI {
+class BaseAPI {
     baseUrl: string = 'https://ya-praktikum.tech/api/v2';
     http: HTTPTransport = new HTTPTransport(this.baseUrl);
 

@@ -26,12 +26,10 @@ class AuthApi extends BaseAPI {
     }
 
     logout(): Promise<unknown> {
-        console.log('logout');
         return this.http.post(authObj.logout);
     }
 
     user(): Promise<unknown> {
-        console.log('user', this.http.get(authObj.authUser));
         return this.http.get(authObj.authUser);
     }
 }
