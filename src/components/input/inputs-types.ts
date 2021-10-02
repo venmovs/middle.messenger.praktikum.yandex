@@ -174,5 +174,4 @@ export {
     confirmPasswordInput,
     newPassword,
     oldPassword,
-    displayNameInput,
 };

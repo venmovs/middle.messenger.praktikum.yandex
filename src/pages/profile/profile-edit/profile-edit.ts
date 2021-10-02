@@ -10,6 +10,9 @@ import backIcon from '../../../../static/images/icons/back.svg';
 import { Router } from '../../../modules/router/router';
 import { UsersController } from '../../../modules/api/users/users-controller';
 import { AuthController } from '../../../modules/api/auth/auth-controller';
+import addImage from '../../../../static/images/icons/addImage.svg';
+import {ButtonFile, IButtonFile} from "../../../components/button-file/button-file";
+import fileIcon from "../../../../static/images/icons/file.svg";
 
 const router = new Router('#app');
 const usersController = new UsersController();
@@ -24,7 +27,7 @@ class ProfileEdit extends Block {
             image: backIcon,
             events: {
                 click: () => {
-                    router.go('/chats');
+                    router.back();
                 },
             },
         };
@@ -34,9 +37,26 @@ class ProfileEdit extends Block {
             type: 'submit',
         };
 
+        const buttonChangeAvatar: IButtonFile = {
+            classes: 'mr-1',
+            image: addImage,
+            formId: 'changeAvatarForm',
+            events: {
+                change: async (event: Event) => {
+                    const form: HTMLFormElement = document.getElementById('changeAvatarForm');
+                    const target = event.target as HTMLInputElement;
+                    const file: File = (target.files as FileList)[0];
+                    const formData = new FormData(form);
+                    formData.append('avatar', file);
+                    await usersController.userAvatar(formData);
+                },
+            },
+        };
+
         super('fragment', {
             components: {
                 fullName: '',
+                buttonChangeAvatar: new ButtonFile(buttonChangeAvatar),
                 loginInput: new Input(inputsTypes.loginInput),
                 nameInput: new Input(inputsTypes.nameInput),
                 mailInput: new Input(inputsTypes.mailInput),

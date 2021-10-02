@@ -24,7 +24,7 @@ class ProfileEditPassword extends Block {
             image: backIcon,
             events: {
                 click: () => {
-                    router.go('/chats');
+                    router.back();
                 },
             },
         };
