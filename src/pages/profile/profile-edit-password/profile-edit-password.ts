@@ -37,20 +37,17 @@ class ProfileEditPassword extends Block {
         super('fragment', {
             components: {
                 fullName: '',
-                loginInput: new Input(inputsTypes.loginInput),
-                nameInput: new Input(inputsTypes.nameInput),
-                mailInput: new Input(inputsTypes.mailInput),
-                passwordInput: new Input(inputsTypes.passwordInput),
-                secondNameInput: new Input(inputsTypes.secondNameInput),
-                phoneInput: new Input(inputsTypes.phoneInput),
-                confirmPasswordInput: new Input(inputsTypes.confirmPasswordInput),
+                oldPassword: new Input(inputsTypes.oldPassword),
+                newPassword: new Input(inputsTypes.newPassword),
                 saveButton: new Button(saveButton),
                 buttonImageBack: new ButtonImage(buttonImageBack),
             },
             events: {
-                submit: (event: Event) => {
-                    formValidation.check(event);
-                    console.log(formValidation.check(event));
+                submit: async (event: Event) => {
+                    const passwordData = formValidation.check(event);
+                    if (passwordData !== null) {
+                        await usersController.password(passwordData);
+                    }
                 },
             },
         });

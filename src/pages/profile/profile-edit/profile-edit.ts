@@ -47,8 +47,11 @@ class ProfileEdit extends Block {
             },
             events: {
                 submit: (event: Event) => {
-                    formValidation.check(event);
-                    console.log(formValidation.check(event));
+                    const profileData = formValidation.check(event);
+                    if (profileData !== null) {
+                        profileData.display_name = ''; // не понимаю зачем этот параметр
+                        usersController.profileInformation(profileData);
+                    }
                 },
             },
         });

@@ -1,5 +1,5 @@
 class FormValidation {
-    check(event: Event, actionIfValid?: (event: Event) => void): void | Record<string, any> {
+    check(event: Event, actionIfValid?: (event: Event) => void): void | Record<string, any> | null {
         event.preventDefault();
         const isValid: boolean = this.validate(event);
         if (isValid) {
@@ -9,6 +9,7 @@ class FormValidation {
                 return this.actionIfValid(event);
             }
         }
+        return null;
     }
 
     private validate(event: Event): boolean {

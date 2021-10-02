@@ -8,8 +8,8 @@ const profileEditPasswordTemplate: string = `
                     <div class="profile__name">{{ fullName }}</div>
                 </div>
                 <form class="profile__form flex space-between wrap">
-                        <div id="passwordInput"></div>
-                        <div id="confirmPasswordInput"></div>
+                        <div id="oldPassword"></div>
+                        <div id="newPassword"></div>
                         <div class="profile__button_save" id="saveButton"></div>
                 </form>
                 <div class="profile__back-link" id="buttonImageBack"></div>

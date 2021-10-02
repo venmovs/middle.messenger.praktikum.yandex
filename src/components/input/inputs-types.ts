@@ -130,6 +130,40 @@ const confirmPasswordInput: IInput = {
     settings: { withInternalID: true },
 };
 
+const newPassword: IInput = {
+    title: 'Новый пароль',
+    name: 'newPassword',
+    type: 'text',
+    error: 'слабый пароль',
+    value: '',
+    events: {
+        focus: (event: Event) => {
+            passwordValidation.clear(event);
+        },
+        blur: (event: Event) => {
+            passwordValidation.check(event);
+        },
+    },
+    settings: { withInternalID: true },
+};
+
+const oldPassword: IInput = {
+    title: 'Старый пароль',
+    name: 'oldPassword',
+    type: 'text',
+    error: 'слабый пароль',
+    value: '',
+    events: {
+        focus: (event: Event) => {
+            passwordValidation.clear(event);
+        },
+        blur: (event: Event) => {
+            passwordValidation.check(event);
+        },
+    },
+    settings: { withInternalID: true },
+};
+
 export {
     loginInput,
     passwordInput,
@@ -138,4 +172,7 @@ export {
     phoneInput,
     nameInput,
     confirmPasswordInput,
+    newPassword,
+    oldPassword,
+    displayNameInput,
 };
