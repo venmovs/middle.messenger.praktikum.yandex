@@ -69,11 +69,11 @@ class Profile extends Block {
 
     changeDefaultUserValues(
         userInfo: Record<string, unknown>,
-        defaultValues: Record<string, string>[],
+        defaultValues,
     ) {
         for (let i = 0; i < defaultValues.length; i += 1) {
             console.log(defaultValues[i]);
-            defaultValues[i].value = userInfo[defaultValues[i].id];
+            defaultValues[i].props.value = userInfo[defaultValues[i].props.id];
         }
         return defaultValues;
     }
@@ -82,11 +82,7 @@ class Profile extends Block {
         const userInfo = await authController.getUserInfo();
         if (userInfo !== null) {
             this.props.fullName = `${userInfo.first_name} ${userInfo.second_name}`;
-            const updatedUserValues = this.changeDefaultUserValues(userInfo, profileInformation);
-            this.props.components.info = null;
-            this.props.components.info = createProfileInformation(updatedUserValues);
-
-            console.log(this.props.components);
+            this.changeDefaultUserValues(userInfo, this.props.components.info);
         }
     }
 

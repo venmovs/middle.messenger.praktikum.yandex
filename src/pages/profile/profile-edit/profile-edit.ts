@@ -11,8 +11,8 @@ import { Router } from '../../../modules/router/router';
 import { UsersController } from '../../../modules/api/users/users-controller';
 import { AuthController } from '../../../modules/api/auth/auth-controller';
 import addImage from '../../../../static/images/icons/addImage.svg';
-import {ButtonFile, IButtonFile} from "../../../components/button-file/button-file";
-import fileIcon from "../../../../static/images/icons/file.svg";
+import { ButtonFile, IButtonFile } from '../../../components/button-file/button-file';
+import fileIcon from '../../../../static/images/icons/file.svg';
 
 const router = new Router('#app');
 const usersController = new UsersController();
