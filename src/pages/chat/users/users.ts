@@ -16,6 +16,7 @@ class Users extends Block {
     }
 
     render(): string {
+        console.log(this.props);
         return makeHtmlFromTemplate(userTemplate, this.props);
     }
 }
