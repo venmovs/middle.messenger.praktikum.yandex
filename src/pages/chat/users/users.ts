@@ -3,11 +3,11 @@ import { makeHtmlFromTemplate } from '../../../utils/makeHtml';
 import { userTemplate } from './users.tmpl';
 
 interface IUsers {
-    name: string,
-    img?: string,
-    message?: string,
-    time?: string,
-    count?: number
+    title: string,
+    avatar?: string,
+    last_message?: string,
+    id?: number,
+    unread_count?: number
 }
 
 class Users extends Block {

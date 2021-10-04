@@ -6,7 +6,10 @@ const chatTemplate: string = `
                 <img src="{{ userAvatar }}" alt="avatart" class="user-info__avatar">
                 <div class="user-info__name text-primary">{{ userName }}</div>
             </div>
-            <div id="buttonImageEditor"></div>
+            <div class="flex">
+                <div class="mr-1" id="buttonImageEditor"></div>
+                <div id="buttonCreateNewChat"></div>
+            </div>
         </div>
         <div id="users"></div>
         <form class="chat__search flex align-item-end justify-content-center">

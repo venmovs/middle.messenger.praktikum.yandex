@@ -12,6 +12,7 @@ import editorIcon from '../../../static/images/icons/editor.svg';
 import searchIcon from '../../../static/images/icons/search.svg';
 import sendIcon from '../../../static/images/icons/send.svg';
 import fileIcon from '../../../static/images/icons/file.svg';
+import addChat from '../../../static/images/icons/addChat.svg'
 import { Router } from '../../modules/router/router';
 import { AuthController } from '../../modules/api/auth/auth-controller';
 import { state } from '../../modules/state/state';
@@ -23,46 +24,6 @@ const chatsController = new ChatsController();
 
 class Chat extends Block {
     constructor() {
-        const createUsers = (): Users[] => {
-            const userValue: IUsers[] = [
-                {
-                    name: 'Катя',
-                    img: avatar,
-                    message: 'привет как дела?',
-                    time: '10:20',
-                    count: 2,
-                },
-                {
-                    name: 'Женя Красава',
-                    message: 'привет',
-                    time: '12:23',
-                    count: 4,
-                },
-                {
-                    name: 'Дудь',
-                    img: avatar,
-                    message: 'яндекс практикум',
-                    time: '10:22',
-                    count: 1,
-                },
-                {
-                    name: 'Познер',
-                    message: 'прекол',
-                    time: '05:22',
-                },
-                {
-                    name: 'Алсу',
-                    message: 'тадам',
-                    time: '11:11',
-                    count: 1,
-                },
-            ];
-
-            return userValue.map((user) => {
-                return new Users(user);
-            });
-        };
-
         const createMessages = (): Message[] => {
             const messageValue: IMessage[] = [
                 { mine: true, text: 'Ну чо?', time: '10:30' },
@@ -85,6 +46,16 @@ class Chat extends Block {
             events: {
                 click: () => {
                     router.go('/profile');
+                },
+            },
+        };
+
+        const buttonCreateNewChat: IButtonImage = {
+            image: addChat,
+            name: 'createChat',
+            events: {
+                click: () => {
+                    chatsController.createChat({ title: 'test chat 2' }); //TODO пока стоит заглушка, сделать возможность вписывания названия чата
                 },
             },
         };
@@ -122,8 +93,9 @@ class Chat extends Block {
             userName: 'имя не найдено',
             userAvatar: avatar,
             components: {
-                users: createUsers(),
+                users: new Users({ title: 'asd' }),
                 message: createMessages(),
+                buttonCreateNewChat: new ButtonImage(buttonCreateNewChat),
                 buttonImageEditor: new ButtonImage(buttonImageEditor),
                 buttonImageSearch: new ButtonImage(buttonImageSearch),
                 buttonImageSend: new ButtonImage(buttonImageSend),
@@ -143,9 +115,18 @@ class Chat extends Block {
         }
     }
 
+    createUsers(userValue: IUsers[]): Users[] {
+        return userValue.map((user) => {
+            return new Users(user);
+        });
+    }
+
     async componentDidMount() {
         await this.loadUserToProps();
-        await chatsController.getChats();
+        const chats = await chatsController.getChats();
+        console.log(this.props.components.users);
+        this.props.components.users = this.createUsers(chats);
+        console.log(this.props.components.users);
     }
 
     render(): string {
