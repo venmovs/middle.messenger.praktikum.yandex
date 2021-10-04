@@ -15,9 +15,11 @@ import fileIcon from '../../../static/images/icons/file.svg';
 import { Router } from '../../modules/router/router';
 import { AuthController } from '../../modules/api/auth/auth-controller';
 import { state } from '../../modules/state/state';
+import { ChatsController } from '../../modules/api/chats/chats-controller';
 
 const router = new Router('#app');
 const authController = new AuthController();
+const chatsController = new ChatsController();
 
 class Chat extends Block {
     constructor() {
@@ -143,6 +145,7 @@ class Chat extends Block {
 
     async componentDidMount() {
         await this.loadUserToProps();
+        await chatsController.getChats();
     }
 
     render(): string {

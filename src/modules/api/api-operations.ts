@@ -23,4 +23,14 @@ const userObj = {
     password,
 };
 
-export { authObj, userObj };
+const chats = '/chats';
+const chatsArchive = `${chats}/archive`;
+const chatsUnArchive = `${chats}/unarchive`;
+
+const chatesObj = {
+    chats,
+    chatsArchive,
+    chatsUnArchive,
+};
+
+export { authObj, userObj, chatesObj };
