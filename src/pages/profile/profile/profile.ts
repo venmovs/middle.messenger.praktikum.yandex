@@ -1,35 +1,20 @@
 import '../profile.scss';
 
-import {response, text} from 'express';
 import { makeHtmlFromTemplate } from '../../../utils/makeHtml';
 import { Block } from '../../../modules/block/block';
 import { profileTemplate } from './profile.tmpl';
 import { ButtonImage, IButtonImage } from '../../../components/button-image/button-image';
 import backIcon from '../../../../static/images/icons/back.svg';
 import { Button, IButton } from '../../../components/button/button';
-import { Info } from '../info/info';
 import { Router } from '../../../modules/router/router';
 import { AuthController } from '../../../modules/api/auth/auth-controller';
+import { profileInformation, createProfileInformation } from './profile-information';
 
 const router = new Router('#app');
 const authController = new AuthController();
 
 class Profile extends Block {
     constructor() {
-        const createProfileInformation = (): Info[] => {
-            const infoValue: { key: string, value: string }[] = [
-                { key: 'Логин', value: 'venmovs' },
-                { key: 'Телефон', value: '+7(999)922-33-75' },
-                { key: 'Имя', value: 'Виген' },
-                { key: 'Почта', value: 'vigen94@icloud.com' },
-                { key: 'Фамилия', value: 'Мовсисян' },
-            ];
-
-            return infoValue.map((info) => {
-                return new Info(info);
-            });
-        };
-
         const buttonImageBack: IButtonImage = {
             name: 'back',
             image: backIcon,
@@ -72,13 +57,37 @@ class Profile extends Block {
 
         super('fragment', {
             components: {
+                fullName: '',
                 buttonImageBack: new ButtonImage(buttonImageBack),
                 changePasswordButton: new Button(changePasswordButton),
                 editButton: new Button(editButton),
                 exitButton: new Button(exitButton),
-                info: createProfileInformation(),
+                info: createProfileInformation(profileInformation),
             },
         });
+    }
+
+    changeDefaultUserValues(
+        userInfo: Record<string, unknown>,
+        defaultValues: Record<string, string>[],
+    ) {
+        for (let i = 0; i < defaultValues.length; i += 1) {
+            console.log(defaultValues[i]);
+            defaultValues[i].value = userInfo[defaultValues[i].id];
+        }
+        return defaultValues;
+    }
+
+    async componentDidMount() {
+        const userInfo = await authController.getUserInfo();
+        if (userInfo !== null) {
+            this.props.fullName = `${userInfo.first_name} ${userInfo.second_name}`;
+            const updatedUserValues = this.changeDefaultUserValues(userInfo, profileInformation);
+            this.props.components.info = null;
+            this.props.components.info = createProfileInformation(updatedUserValues);
+
+            console.log(this.props.components);
+        }
     }
 
     render(): string {
