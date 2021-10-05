@@ -1,22 +1,22 @@
 import './chat.scss';
 
-import {Block, EVENTS} from '../../modules/block/block';
-import {IUsers, Users} from './users/users';
-import {makeHtmlFromTemplate} from '../../utils/makeHtml';
-import {chatTemplate} from './chat.tmpl';
-import {IMessage, Message} from './message/message';
-import {ButtonImage, IButtonImage} from '../../components/button-image/button-image';
-import {ButtonFile, IButtonFile} from '../../components/button-file/button-file';
+import { Block, EVENTS } from '../../modules/block/block';
+import { IUsers, Users } from './users/users';
+import { makeHtmlFromTemplate } from '../../utils/makeHtml';
+import { chatTemplate } from './chat.tmpl';
+import { IMessage, Message } from './message/message';
+import { ButtonImage, IButtonImage } from '../../components/button-image/button-image';
+import { ButtonFile, IButtonFile } from '../../components/button-file/button-file';
 import avatar from '../../../static/images/avatar/uncknow-avatar.jpeg';
 import editorIcon from '../../../static/images/icons/editor.svg';
 import searchIcon from '../../../static/images/icons/search.svg';
 import sendIcon from '../../../static/images/icons/send.svg';
 import fileIcon from '../../../static/images/icons/file.svg';
-import addChat from '../../../static/images/icons/addChat.svg'
-import {Router} from '../../modules/router/router';
-import {AuthController} from '../../modules/api/auth/auth-controller';
-import {state} from '../../modules/state/state';
-import {ChatsController} from '../../modules/api/chats/chats-controller';
+import addChat from '../../../static/images/icons/addChat.svg';
+import { Router } from '../../modules/router/router';
+import { AuthController } from '../../modules/api/auth/auth-controller';
+import { state } from '../../modules/state/state';
+import { ChatsController } from '../../modules/api/chats/chats-controller';
 
 const router = new Router('#app');
 const authController = new AuthController();
@@ -26,13 +26,13 @@ class Chat extends Block {
     constructor() {
         const createMessages = (): Message[] => {
             const messageValue: IMessage[] = [
-                {mine: true, text: 'Ну чо?', time: '10:30'},
-                {mine: true, text: 'Ни чо', time: '10:31'},
-                {mine: false, text: 'Ну чо?', time: '10:32'},
-                {mine: true, text: 'ННи чо', time: '10:33'},
-                {mine: false, text: 'Ну чо?', time: '10:34'},
-                {mine: false, text: 'Ни чо', time: '10:35'},
-                {mine: true, text: 'Ну чо?', time: '10:36'},
+                { mine: true, text: 'Ну чо?', time: '10:30' },
+                { mine: true, text: 'Ни чо', time: '10:31' },
+                { mine: false, text: 'Ну чо?', time: '10:32' },
+                { mine: true, text: 'ННи чо', time: '10:33' },
+                { mine: false, text: 'Ну чо?', time: '10:34' },
+                { mine: false, text: 'Ни чо', time: '10:35' },
+                { mine: true, text: 'Ну чо?', time: '10:36' },
             ];
 
             return messageValue.map((message) => {
@@ -55,7 +55,7 @@ class Chat extends Block {
             name: 'createChat',
             events: {
                 click: () => {
-                    chatsController.createChat({title: 'test chat 2'}); //TODO пока стоит заглушка, сделать возможность вписывания названия чата
+                    chatsController.createChat({ title: 'test chat 2' }); // TODO пока стоит заглушка, сделать возможность вписывания названия чата
                 },
             },
         };
@@ -93,7 +93,7 @@ class Chat extends Block {
             userName: 'имя не найдено',
             userAvatar: avatar,
             components: {
-                users: [new Users({title: 'asd'})],
+                users: [new Users({ title: 'asd' })],
                 message: createMessages(),
                 buttonCreateNewChat: new ButtonImage(buttonCreateNewChat),
                 buttonImageEditor: new ButtonImage(buttonImageEditor),
@@ -110,26 +110,28 @@ class Chat extends Block {
         if (user !== null) {
             this.props.userName = user?.login;
             if (user?.avatar !== null) {
-                this.setProps({userAvatar: user?.avatar});
+                this.setProps({ userAvatar: user?.avatar });
             }
         }
     }
 
     createUsers(userValue: IUsers[]): Users[] {
         return userValue.map((user) => {
-            user.events = {click: () => {
+            user.events = {
+             click: () => {
                     console.log(user.id);
-                }};
+                },
+            };
             return new Users(user);
         });
     }
 
-    componentDidMount() {
-        //await this.loadUserToProps();
+    async componentDidMount() {
+        await this.loadUserToProps();
         chatsController.getChats().then((chats) => {
-            console.log('req');
             this.props.components.users = this.createUsers(chats);
-            this.eventBus.emit(EVENTS.FLOW_RENDER);
+            this.eventBus.emit(EVENTS.FLOW_RENDER); //TODO переделать
+            console.log(this.props.components.users);
         });
         console.log(this.props.components.users);
     }
@@ -141,4 +143,4 @@ class Chat extends Block {
     }
 }
 
-export {Chat};
+export { Chat };
