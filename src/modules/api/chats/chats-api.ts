@@ -13,6 +13,10 @@ class ChatsApi extends BaseAPI {
     deleteChat(data: { chatId: number }): Promise<unknown> {
         return this.http.delete(chatesObj.chats, data);
     }
+
+    addUsersToChat(data: { chatId: number, users: number[] }): Promise<unknown> {
+        return this.http.put(chatesObj.chatUsers, data);
+    }
 }
 
 export { ChatsApi };

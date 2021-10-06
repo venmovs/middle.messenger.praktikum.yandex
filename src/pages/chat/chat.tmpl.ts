@@ -12,7 +12,7 @@ const chatTemplate: string = `
             </div>
         </div>
         <div id="users"></div>
-        <form class="chat__search flex align-item-end justify-content-center">
+        <form class="chat__search flex align-item-end justify-content-center" id="search-form">
             <label class="flex direction-column align-item-center mr-1">
                 <span class="text-primary text-primary_white">Поиск</span>
                 <input class="custom-text-input text-primary" type="text" id="search">

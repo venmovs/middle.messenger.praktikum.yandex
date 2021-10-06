@@ -1,4 +1,4 @@
-class WebSocket {
+class WebSocketAPI {
     init() {
         const webSocketService = new WebSocket('wss://ya-praktikum.tech/ws/chats/');
         webSocketService.addEventListener('open', () => {
@@ -12,4 +12,4 @@ class WebSocket {
     }
 }
 
-export { WebSocket };
+export { WebSocketAPI };

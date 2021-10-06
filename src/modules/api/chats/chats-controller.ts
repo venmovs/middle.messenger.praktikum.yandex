@@ -24,6 +24,13 @@ class ChatsController {
             console.log(response);
         }).catch((e) => console.log(e));
     }
+
+    addUsersToChat(data: { chatId: number, users: number[] }) {
+        console.log(data);
+        return chatsApi.addUsersToChat(data).then((response) => {
+            console.log(response);
+        }).catch((e) => console.log(e));
+    }
 }
 
 export { ChatsController };

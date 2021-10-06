@@ -17,10 +17,14 @@ import { Router } from '../../modules/router/router';
 import { AuthController } from '../../modules/api/auth/auth-controller';
 import { state } from '../../modules/state/state';
 import { ChatsController } from '../../modules/api/chats/chats-controller';
+import { UsersController } from '../../modules/api/users/users-controller';
+import { WebSocketAPI } from '../../modules/web-socket/web-socket';
 
 const router = new Router('#app');
 const authController = new AuthController();
 const chatsController = new ChatsController();
+const usersController = new UsersController();
+const webSocketAPI = new WebSocketAPI();
 
 class Chat extends Block {
     constructor() {
@@ -63,6 +67,16 @@ class Chat extends Block {
         const buttonImageSearch: IButtonImage = {
             image: searchIcon,
             name: 'search',
+            type: 'submit',
+            events: {
+                click: async (event: Event) => {
+                    event.preventDefault();
+                    const searchValue: HTMLFormElement | null = document.querySelector('#search-form');
+                    console.log(searchValue?.search.value);
+                    const foundedUser = await usersController.searchUsers({ login: searchValue?.search.value });
+                    this.createUsers([foundedUser]);
+                },
+            },
         };
 
         const buttonImageSend: IButtonImage = {
@@ -74,6 +88,7 @@ class Chat extends Block {
                     event.preventDefault();
                     const messageForm: HTMLFormElement | null = document.querySelector('#message-form');
                     console.log(`message: ${messageForm?.message.value}`);
+                    webSocketAPI.init();
                 },
             },
         };
@@ -116,7 +131,7 @@ class Chat extends Block {
     }
 
     createUsers(userValue: IUsers[]): Users[] {
-        return userValue.map((user) => {
+        const usersArray = userValue.map((user) => {
             user.events = {
              click: () => {
                     console.log(user.id);
@@ -124,21 +139,27 @@ class Chat extends Block {
             };
             return new Users(user);
         });
+        const stateUsers = state.get('chats');
+        let usersForSave = [];
+        if (stateUsers !== null) {
+            usersForSave = [...stateUsers, ...usersArray];
+        } else {
+            usersForSave = usersArray;
+        }
+        this.props.components.users = usersForSave;
+        this.saveState('chats', usersForSave);
     }
 
     async componentDidMount() {
         await this.loadUserToProps();
         chatsController.getChats().then((chats) => {
-            this.props.components.users = this.createUsers(chats);
-            this.eventBus.emit(EVENTS.FLOW_RENDER); //TODO переделать
-            console.log(this.props.components.users);
+            this.createUsers(chats);
         });
-        console.log(this.props.components.users);
     }
 
     render(): string {
-        console.log('render');
-        console.log(this.props.components.users);
+        // console.log('render');
+        // console.log(this.props.components.users);
         return makeHtmlFromTemplate(chatTemplate, this.props);
     }
 }

@@ -27,6 +27,10 @@ class UsersApi extends BaseAPI {
     password(data: IPassword): Promise<unknown> {
         return this.http.put(userObj.password, { data });
     }
+
+    searchUsers(data: { login: string }): Promise<unknown> {
+        return this.http.post(userObj.searchUser, { data });
+    }
 }
 
 export {

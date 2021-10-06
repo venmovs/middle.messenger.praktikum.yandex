@@ -26,6 +26,14 @@ class UsersController {
             }
         }).catch((e) => console.error('Пароль не получилось изменить', e));
     }
+
+    public searchUsers(data: { login: string }) {
+        return userApi.searchUsers(data).then((response) => {
+            if (response.status === 200) {
+                return JSON.parse(response.response);
+            }
+        }).catch((e) => console.error('Пользователей не получилось найти', e));
+    }
 }
 
 export { UsersController };
