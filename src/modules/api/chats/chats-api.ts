@@ -14,8 +14,12 @@ class ChatsApi extends BaseAPI {
         return this.http.delete(chatesObj.chats, data);
     }
 
-    addUsersToChat(data: { chatId: number, users: number[] }): Promise<unknown> {
+    addUsersToChat(data: { users: number[], chatId: number }): Promise<unknown> {
         return this.http.put(chatesObj.chatUsers, data);
+    }
+
+    getChatUsers(id: number): Promise<unknown> {
+        return this.http.post(chatesObj.chatsToken + id);
     }
 }
 

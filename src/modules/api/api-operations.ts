@@ -29,12 +29,14 @@ const chats = '/chats';
 const chatsArchive = `${chats}/archive`;
 const chatsUnArchive = `${chats}/unarchive`;
 const chatUsers = `${chats}/users`;
+const chatsToken = `${chats}/token/`;
 
 const chatesObj = {
     chats,
     chatsArchive,
     chatsUnArchive,
     chatUsers,
+    chatsToken,
 };
 
 export { authObj, userObj, chatesObj };

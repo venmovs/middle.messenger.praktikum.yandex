@@ -58,8 +58,11 @@ class Chat extends Block {
             image: addChat,
             name: 'createChat',
             events: {
-                click: () => {
-                    chatsController.createChat({ title: 'test chat 2' }); // TODO пока стоит заглушка, сделать возможность вписывания названия чата
+                click: async () => {
+                    await chatsController.createChat({ title: 'test chat 11' }); // TODO пока стоит заглушка, сделать возможность вписывания названия чата
+                    chatsController.getChats().then((chats) => {
+                        this.createChats(chats);
+                    });
                 },
             },
         };
@@ -72,9 +75,20 @@ class Chat extends Block {
                 click: async (event: Event) => {
                     event.preventDefault();
                     const searchValue: HTMLFormElement | null = document.querySelector('#search-form');
-                    console.log(searchValue?.search.value);
-                    const foundedUser = await usersController.searchUsers({ login: searchValue?.search.value });
-                    this.createUsers([foundedUser]);
+                    const foundedUser = await usersController.searchUsers(
+                        {
+                            login: searchValue?.search.value,
+                              },
+                        );
+                    const activeChatId = await state.get('activeChatId');
+                    const users = foundedUser[0]?.id;
+                    const chatId = activeChatId;
+                    const requestData = { users: [users], chatId: chatId };
+                    console.log(requestData);
+                    if (users && activeChatId) {
+                        console.log('i am done');
+                        await chatsController.addUsersToChat(requestData);
+                    }
                 },
             },
         };
@@ -88,7 +102,6 @@ class Chat extends Block {
                     event.preventDefault();
                     const messageForm: HTMLFormElement | null = document.querySelector('#message-form');
                     console.log(`message: ${messageForm?.message.value}`);
-                    webSocketAPI.init();
                 },
             },
         };
@@ -130,30 +143,25 @@ class Chat extends Block {
         }
     }
 
-    createUsers(userValue: IUsers[]): Users[] {
-        const usersArray = userValue.map((user) => {
-            user.events = {
-             click: () => {
-                    console.log(user.id);
+    createChats(chatValue: IUsers[]): Users[] {
+        const chatArray = chatValue.map((chat) => {
+            chat.events = {
+             click: async () => {
+                    webSocketAPI.init();
+                    this.saveState('activeChatId', chat.id);
+                    await chatsController.getChatUsers(chat.id);
                 },
             };
-            return new Users(user);
+            return new Users(chat);
         });
-        const stateUsers = state.get('chats');
-        let usersForSave = [];
-        if (stateUsers !== null) {
-            usersForSave = [...stateUsers, ...usersArray];
-        } else {
-            usersForSave = usersArray;
-        }
-        this.props.components.users = usersForSave;
-        this.saveState('chats', usersForSave);
+        this.props.components.users = chatArray;
+        this.saveState('chats', chatArray);
     }
 
     async componentDidMount() {
         await this.loadUserToProps();
         chatsController.getChats().then((chats) => {
-            this.createUsers(chats);
+            this.createChats(chats);
         });
     }
 
