@@ -148,7 +148,7 @@ class Chat extends Block {
         const chatArray = chatValue.map((chat) => {
             chat.events = {
              click: async () => {
-                    webSocketAPI.init();
+                    // webSocketAPI.init();
                     this.saveState('activeChatId', chat.id);
                     await chatsController.getChatUsers(chat.id);
                 },
@@ -167,8 +167,6 @@ class Chat extends Block {
     }
 
     render(): string {
-        // console.log('render');
-        // console.log(this.props.components.users);
         return makeHtmlFromTemplate(chatTemplate, this.props);
     }
 }

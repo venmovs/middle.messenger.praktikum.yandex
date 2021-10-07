@@ -37,7 +37,6 @@ class HTTPTransport {
     };
 
     public put = (url: string, options = {}) => {
-        console.log(options);
         return this.request(this.baseUri + url, { ...options, method: METHODS.PUT });
     };
 
@@ -58,7 +57,6 @@ class HTTPTransport {
             data,
             timeout = 5000,
         } = options;
-        console.log(data);
         let query: string;
         if (method === METHODS.GET) {
             query = queryStringify(data as TRequestData);
@@ -92,7 +90,6 @@ class HTTPTransport {
             if (method === METHODS.GET || !data) {
                 xhr.send();
             } else {
-                console.log(data);
                 xhr.send(JSON.stringify(data));
             }
         });
