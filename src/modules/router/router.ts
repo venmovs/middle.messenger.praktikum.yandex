@@ -1,7 +1,14 @@
 import { Route } from '../route/route';
+import { Block } from '../block/block';
 
 class Router {
-    constructor(rootQuery) {
+    public routes: Route[];
+    public history: History;
+    private __instance: Router;
+    private _currentRoute: Route | null;
+    private _rootQuery: string;
+
+    constructor(rootQuery: string) {
         if (Router.__instance) {
             return Router.__instance;
         }
@@ -14,7 +21,7 @@ class Router {
         Router.__instance = this;
     }
 
-    use(pathname, block) {
+    use(pathname: string, block: Block) {
         const route = new Route(pathname, block, { rootQuery: this._rootQuery });
 
         this.routes.push(route);
@@ -30,7 +37,7 @@ class Router {
         this._onRoute(window.location.pathname);
     }
 
-    _onRoute(pathname) {
+    _onRoute(pathname: string) {
         const route = this.getRoute(pathname);
         if (!route) {
             return;
@@ -44,7 +51,7 @@ class Router {
         route.render(route, pathname);
     }
 
-    go(pathname) {
+    go(pathname: string) {
         this.history.pushState({}, '', pathname);
         this._onRoute(pathname);
     }
@@ -57,7 +64,7 @@ class Router {
         this.history.forward();
     }
 
-    getRoute(pathname) {
+    getRoute(pathname: string) {
         return this.routes.find((route) => route.match(pathname));
     }
 }
