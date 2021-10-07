@@ -1,5 +1,5 @@
 import { ChatsApi } from './chats-api';
-import {state} from "../../state/state";
+import { state } from '../../state/state';
 
 const chatsApi = new ChatsApi();
 
@@ -31,10 +31,20 @@ class ChatsController {
         }).catch((e) => console.log(e));
     }
 
-    getChatUsers(id: number) {
-        return chatsApi.getChatUsers(id).then((response) => {
-            if(response.status === 200) {
-                state.save('activeChatToken', response.response);
+    getChatToken(id: number) {
+        return chatsApi.getChatToken(id).then((response) => {
+            if (response.status === 200) {
+                state.save('activeChatToken', JSON.parse(response.response));
+            }
+            return null;
+        }).catch((e) => console.log(e));
+    }
+
+    getChatUsers(chatId: number) {
+        return chatsApi.getChatUsers(chatId).then((response) => {
+            console.log(response);
+            if (response.status === 200) {
+                state.save('chatUsers', JSON.parse(response.response));
             }
             return null;
         }).catch((e) => console.log(e));

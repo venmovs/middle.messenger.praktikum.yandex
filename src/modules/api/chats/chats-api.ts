@@ -18,8 +18,12 @@ class ChatsApi extends BaseAPI {
         return this.http.put(chatesObj.chatUsers, { data });
     }
 
-    getChatUsers(id: number): Promise<unknown> {
+    getChatToken(id: number): Promise<unknown> {
         return this.http.post(chatesObj.chatsToken + id);
+    }
+
+    getChatUsers(chatId: number): Promise<unknown> {
+        return this.http.get(`${chatesObj.chats + '/' + chatId}/users`);
     }
 }
 

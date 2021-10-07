@@ -1,6 +1,6 @@
 import './chat.scss';
 
-import { Block, EVENTS } from '../../modules/block/block';
+import { Block } from '../../modules/block/block';
 import { IUsers, Users } from './users/users';
 import { makeHtmlFromTemplate } from '../../utils/makeHtml';
 import { chatTemplate } from './chat.tmpl';
@@ -24,7 +24,6 @@ const router = new Router('#app');
 const authController = new AuthController();
 const chatsController = new ChatsController();
 const usersController = new UsersController();
-const webSocketAPI = new WebSocketAPI();
 
 class Chat extends Block {
     constructor() {
@@ -98,11 +97,14 @@ class Chat extends Block {
             image: sendIcon,
             classes: 'entry-field__send',
             name: 'send',
+            type: 'button',
             events: {
                 click: (event: Event) => {
                     event.preventDefault();
                     const messageForm: HTMLFormElement | null = document.querySelector('#message-form');
-                    console.log(`message: ${messageForm?.message.value}`);
+                    const webSocket: WebSocketAPI = state.get('webSocket');
+                    webSocket.sendMessage(messageForm?.message.value);
+                    // console.log(`message: ${messageForm?.message.value}`);
                 },
             },
         };
@@ -150,7 +152,14 @@ class Chat extends Block {
              click: async () => {
                     // webSocketAPI.init();
                     this.saveState('activeChatId', chat.id);
+                    await chatsController.getChatToken(chat.id);
                     await chatsController.getChatUsers(chat.id);
+                    const userId = state.get('user.id');
+                    const chatId = state.get('activeChatId');
+                    const activeChatToken = state.get('activeChatToken.token');
+                    console.log(userId, chatId, activeChatToken);
+                    const webSocket = new WebSocketAPI(userId, chatId, activeChatToken);
+                    this.saveState('webSocket', webSocket);
                 },
             };
             return new Users(chat);
