@@ -15,7 +15,7 @@ class ChatsApi extends BaseAPI {
     }
 
     addUsersToChat(data: { users: number[], chatId: number }): Promise<unknown> {
-        return this.http.put(chatesObj.chatUsers, data);
+        return this.http.put(chatesObj.chatUsers, { data });
     }
 
     getChatUsers(id: number): Promise<unknown> {

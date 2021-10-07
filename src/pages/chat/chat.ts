@@ -83,10 +83,11 @@ class Chat extends Block {
                     const activeChatId = await state.get('activeChatId');
                     const users = foundedUser[0]?.id;
                     const chatId = activeChatId;
-                    const requestData = { users: [users], chatId: chatId };
+                    const requestData = { users: [users], chatId };
                     console.log(requestData);
                     if (users && activeChatId) {
                         console.log('i am done');
+                        console.log(users, chatId);
                         await chatsController.addUsersToChat(requestData);
                     }
                 },
