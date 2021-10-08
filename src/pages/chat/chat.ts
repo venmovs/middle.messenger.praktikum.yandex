@@ -27,22 +27,6 @@ const usersController = new UsersController();
 
 class Chat extends Block {
     constructor() {
-        const createMessages = (): Message[] => {
-            const messageValue: IMessage[] = [
-                { mine: true, text: 'Ну чо?', time: '10:30' },
-                { mine: true, text: 'Ни чо', time: '10:31' },
-                { mine: false, text: 'Ну чо?', time: '10:32' },
-                { mine: true, text: 'ННи чо', time: '10:33' },
-                { mine: false, text: 'Ну чо?', time: '10:34' },
-                { mine: false, text: 'Ни чо', time: '10:35' },
-                { mine: true, text: 'Ну чо?', time: '10:36' },
-            ];
-
-            return messageValue.map((message) => {
-                return new Message(message);
-            });
-        };
-
         const buttonImageEditor: IButtonImage = {
             image: editorIcon,
             name: 'editor',
@@ -77,8 +61,8 @@ class Chat extends Block {
                     const foundedUser = await usersController.searchUsers(
                         {
                             login: searchValue?.search.value,
-                              },
-                        );
+                        },
+                    );
                     const activeChatId = await state.get('activeChatId');
                     const users = foundedUser[0]?.id;
                     const chatId = activeChatId;
@@ -125,7 +109,7 @@ class Chat extends Block {
             userAvatar: avatar,
             components: {
                 users: [new Users({ title: 'asd' })],
-                message: createMessages(),
+                message: new Message(null),
                 buttonCreateNewChat: new ButtonImage(buttonCreateNewChat),
                 buttonImageEditor: new ButtonImage(buttonImageEditor),
                 buttonImageSearch: new ButtonImage(buttonImageSearch),
@@ -146,20 +130,50 @@ class Chat extends Block {
         }
     }
 
-    createChats(chatValue: IUsers[]): Users[] {
+    private createChatMessages(chats): Message[]{
+        for (let i = 0; i < chats.length; i += 1) {
+            console.log(chats[i]);
+            if(chats[i].login === '' ){
+
+            }
+        }
+
+        const messageValue: IMessage[] = [
+            { mine: true, text: 'Ну чо?', time: '10:30' },
+            { mine: true, text: 'Ни чо', time: '10:31' },
+            { mine: false, text: 'Ну чо?', time: '10:32' },
+            { mine: true, text: 'ННи чо', time: '10:33' },
+            { mine: false, text: 'Ну чо?', time: '10:34' },
+            { mine: false, text: 'Ни чо', time: '10:35' },
+            { mine: true, text: 'Ну чо?', time: '10:36' },
+        ];
+
+        return messageValue.map((message) => {
+            return new Message(message);
+        });
+    }
+
+    async handlerClickToChat(id: number) {
+        this.saveState('activeChatId', id);
+        await chatsController.getChatToken(id);
+        await chatsController.getChatUsers(id);
+        const userId = state.get('user.id');
+        const chatId = state.get('activeChatId');
+        const activeChatToken = state.get('activeChatToken.token');
+        console.log(userId, chatId, activeChatToken);
+        const webSocket = new WebSocketAPI(userId, chatId, activeChatToken);
+        this.saveState('webSocket', webSocket);
+        const chats = state.get('chatUsers');
+        this.createChatMessages(chats);
+    }
+
+    loadChats(chatValue: IUsers[]): Users[] {
         const chatArray = chatValue.map((chat) => {
             chat.events = {
-             click: async () => {
-                    // webSocketAPI.init();
-                    this.saveState('activeChatId', chat.id);
-                    await chatsController.getChatToken(chat.id);
-                    await chatsController.getChatUsers(chat.id);
-                    const userId = state.get('user.id');
-                    const chatId = state.get('activeChatId');
-                    const activeChatToken = state.get('activeChatToken.token');
-                    console.log(userId, chatId, activeChatToken);
-                    const webSocket = new WebSocketAPI(userId, chatId, activeChatToken);
-                    this.saveState('webSocket', webSocket);
+                click: async () => {
+                    if (typeof chat.id === 'number') {
+                        await this.handlerClickToChat(chat.id);
+                    }
                 },
             };
             return new Users(chat);
@@ -171,7 +185,7 @@ class Chat extends Block {
     async componentDidMount() {
         await this.loadUserToProps();
         chatsController.getChats().then((chats) => {
-            this.createChats(chats);
+            this.loadChats(chats);
         });
     }
 

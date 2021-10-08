@@ -7,7 +7,9 @@ class ChatsController {
     getChats() {
         return chatsApi.chats().then((response) => {
             if (response.status === 200) {
-                return JSON.parse(response.response);
+                const parsedResponse = JSON.parse(response.response);
+                console.log(parsedResponse);
+                return parsedResponse;
             }
             return null;
         }).catch((e) => console.log(e));

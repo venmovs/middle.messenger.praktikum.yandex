@@ -1,6 +1,8 @@
 import { Block } from '../../../modules/block/block';
 import { makeHtmlFromTemplate } from '../../../utils/makeHtml';
 import { messageTemplate } from './message.tmpl';
+import e from "express";
+import {chooseChatTmpl} from "./choose-chat.tmpl";
 
 interface IMessage {
     mine: boolean,
@@ -9,12 +11,19 @@ interface IMessage {
 }
 
 class Message extends Block {
-    constructor(props: IMessage) {
-        super('fragment', props);
+    constructor(props: IMessage | null) {
+        if (props !== null) {
+            super('fragment', props);
+        } else {
+            super('fragment', { title: 'Выберите чат' });
+        }
     }
 
     render(): string {
-        return makeHtmlFromTemplate(messageTemplate, this.props);
+        if (this.props === null) {
+            return makeHtmlFromTemplate(messageTemplate, this.props);
+        }
+        return makeHtmlFromTemplate(chooseChatTmpl, this.props);
     }
 }
 
