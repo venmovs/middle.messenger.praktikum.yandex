@@ -130,13 +130,15 @@ class Chat extends Block {
         }
     }
 
-    private createChatMessages(chats): Message[]{
-        for (let i = 0; i < chats.length; i += 1) {
-            console.log(chats[i]);
+    private createChatMessages(chatMessages): Message[] {
+        console.log(chatMessages);
+        // TODO принимать сюда сообщения и выстраивать компонент Мессадже
+        /* for (let i = 0; i < chats.length; i += 1) {
+                console.log(chats[i]);
             if(chats[i].login === '' ){
 
             }
-        }
+        } */
 
         const messageValue: IMessage[] = [
             { mine: true, text: 'Ну чо?', time: '10:30' },
@@ -154,17 +156,17 @@ class Chat extends Block {
     }
 
     async handlerClickToChat(id: number) {
+        //TODO в createChatMessages не приходит сообщение при первом клике разобраться в event loop
         this.saveState('activeChatId', id);
         await chatsController.getChatToken(id);
         await chatsController.getChatUsers(id);
         const userId = state.get('user.id');
         const chatId = state.get('activeChatId');
         const activeChatToken = state.get('activeChatToken.token');
-        console.log(userId, chatId, activeChatToken);
         const webSocket = new WebSocketAPI(userId, chatId, activeChatToken);
         this.saveState('webSocket', webSocket);
-        const chats = state.get('chatUsers');
-        this.createChatMessages(chats);
+        const chatMessages = state.get('chatMessages');
+        this.createChatMessages(chatMessages);
     }
 
     loadChats(chatValue: IUsers[]): Users[] {
