@@ -1,24 +1,24 @@
 import './chat.scss';
 
-import { Block } from '../../modules/block/block';
-import { IUsers, Users } from './users/users';
-import { makeHtmlFromTemplate } from '../../utils/makeHtml';
-import { chatTemplate } from './chat.tmpl';
-import { IMessage, Message } from './message/message';
-import { ButtonImage, IButtonImage } from '../../components/button-image/button-image';
-import { ButtonFile, IButtonFile } from '../../components/button-file/button-file';
+import {Block} from '../../modules/block/block';
+import {IUsers, Users} from './users/users';
+import {makeHtmlFromTemplate} from '../../utils/makeHtml';
+import {chatTemplate} from './chat.tmpl';
+import {IMessage, Message} from './message/message';
+import {ButtonImage, IButtonImage} from '../../components/button-image/button-image';
+import {ButtonFile, IButtonFile} from '../../components/button-file/button-file';
 import avatar from '../../../static/images/avatar/uncknow-avatar.jpeg';
 import editorIcon from '../../../static/images/icons/editor.svg';
 import searchIcon from '../../../static/images/icons/search.svg';
 import sendIcon from '../../../static/images/icons/send.svg';
 import fileIcon from '../../../static/images/icons/file.svg';
 import addChat from '../../../static/images/icons/addChat.svg';
-import { Router } from '../../modules/router/router';
-import { AuthController } from '../../modules/api/auth/auth-controller';
-import { state } from '../../modules/state/state';
-import { ChatsController } from '../../modules/api/chats/chats-controller';
-import { UsersController } from '../../modules/api/users/users-controller';
-import { WebSocketAPI } from '../../modules/web-socket/web-socket';
+import {Router} from '../../modules/router/router';
+import {AuthController} from '../../modules/api/auth/auth-controller';
+import {state} from '../../modules/state/state';
+import {ChatsController} from '../../modules/api/chats/chats-controller';
+import {UsersController} from '../../modules/api/users/users-controller';
+import {WebSocketAPI} from '../../modules/web-socket/web-socket';
 
 const router = new Router('#app');
 const authController = new AuthController();
@@ -42,7 +42,7 @@ class Chat extends Block {
             name: 'createChat',
             events: {
                 click: async () => {
-                    await chatsController.createChat({ title: 'test chat 11' }); // TODO пока стоит заглушка, сделать возможность вписывания названия чата
+                    await chatsController.createChat({title: 'test chat 11'}); // TODO пока стоит заглушка, сделать возможность вписывания названия чата
                     chatsController.getChats().then((chats) => {
                         this.createChats(chats);
                     });
@@ -66,7 +66,7 @@ class Chat extends Block {
                     const activeChatId = await state.get('activeChatId');
                     const users = foundedUser[0]?.id;
                     const chatId = activeChatId;
-                    const requestData = { users: [users], chatId };
+                    const requestData = {users: [users], chatId};
                     console.log(requestData);
                     if (users && activeChatId) {
                         console.log('i am done');
@@ -88,7 +88,12 @@ class Chat extends Block {
                     const messageForm: HTMLFormElement | null = document.querySelector('#message-form');
                     const webSocket: WebSocketAPI = state.get('webSocket');
                     webSocket.sendMessage(messageForm?.message.value);
-                    // console.log(`message: ${messageForm?.message.value}`);
+                    const messageBlocks = state.get('messageBlocks');
+                    setTimeout(() => {
+                        this.createChatMessages();
+                    }, 100);
+
+                    console.log(messageBlocks);
                 },
             },
         };
@@ -108,7 +113,7 @@ class Chat extends Block {
             userName: 'имя не найдено',
             userAvatar: avatar,
             components: {
-                users: [new Users({ title: 'asd' })],
+                users: [new Users({title: 'asd'})],
                 message: new Message(null),
                 buttonCreateNewChat: new ButtonImage(buttonCreateNewChat),
                 buttonImageEditor: new ButtonImage(buttonImageEditor),
@@ -125,38 +130,34 @@ class Chat extends Block {
         if (user !== null) {
             this.props.userName = user?.login;
             if (user?.avatar !== null) {
-                this.setProps({ userAvatar: user?.avatar });
+                this.setProps({userAvatar: user?.avatar});
             }
         }
     }
 
-    private createChatMessages(chatMessages): Message[] {
-        console.log(chatMessages);
-        // TODO принимать сюда сообщения и выстраивать компонент Мессадже
-        /* for (let i = 0; i < chats.length; i += 1) {
-                console.log(chats[i]);
-            if(chats[i].login === '' ){
+    private createChatMessages(): void | null {
+        const chatMessages = state.get('chatMessages');
+        const userId = state.get('user.id');
+        const messages: IMessage[] | [] = [];
+        if (!Array.isArray(chatMessages)) return null;
+        for (let i = 0; i < chatMessages.length; i += 1) {
+            const userMessage: IMessage = {};
+            userMessage.content = chatMessages[i].content;
+            userMessage.time = chatMessages[i].time;
+            userMessage.mine = chatMessages[i].user_id === userId;
+            messages.push(userMessage);
+        }
 
-            }
-        } */
-
-        const messageValue: IMessage[] = [
-            { mine: true, text: 'Ну чо?', time: '10:30' },
-            { mine: true, text: 'Ни чо', time: '10:31' },
-            { mine: false, text: 'Ну чо?', time: '10:32' },
-            { mine: true, text: 'ННи чо', time: '10:33' },
-            { mine: false, text: 'Ну чо?', time: '10:34' },
-            { mine: false, text: 'Ни чо', time: '10:35' },
-            { mine: true, text: 'Ну чо?', time: '10:36' },
-        ];
-
-        return messageValue.map((message) => {
+        const messageBlocks = messages.map((message) => {
             return new Message(message);
         });
+
+        this.props.components.message = messageBlocks;
+        this.saveState('messageBlocks', messageBlocks);
+        console.log(this.props.components.message);
     }
 
     async handlerClickToChat(id: number) {
-        //TODO в createChatMessages не приходит сообщение при первом клике разобраться в event loop
         this.saveState('activeChatId', id);
         await chatsController.getChatToken(id);
         await chatsController.getChatUsers(id);
@@ -165,8 +166,9 @@ class Chat extends Block {
         const activeChatToken = state.get('activeChatToken.token');
         const webSocket = new WebSocketAPI(userId, chatId, activeChatToken);
         this.saveState('webSocket', webSocket);
-        const chatMessages = state.get('chatMessages');
-        this.createChatMessages(chatMessages);
+        setTimeout(() => {
+            this.createChatMessages();
+        }, 100); //TODO не придумал как иначе дождаться сообщений :(
     }
 
     loadChats(chatValue: IUsers[]): Users[] {
@@ -196,4 +198,4 @@ class Chat extends Block {
     }
 }
 
-export { Chat };
+export {Chat};

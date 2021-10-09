@@ -1,12 +1,11 @@
 import { Block } from '../../../modules/block/block';
 import { makeHtmlFromTemplate } from '../../../utils/makeHtml';
 import { messageTemplate } from './message.tmpl';
-import e from "express";
-import {chooseChatTmpl} from "./choose-chat.tmpl";
+import { chooseChatTmpl } from './choose-chat.tmpl';
 
 interface IMessage {
     mine: boolean,
-    text: string,
+    content: string,
     time: string,
 }
 
@@ -20,10 +19,14 @@ class Message extends Block {
     }
 
     render(): string {
-        if (this.props === null) {
-            return makeHtmlFromTemplate(messageTemplate, this.props);
+        let resultLayout = '';
+
+        if (!this.props.title) {
+            resultLayout = makeHtmlFromTemplate(messageTemplate, this.props);
+        } else {
+            resultLayout = makeHtmlFromTemplate(chooseChatTmpl, this.props);
         }
-        return makeHtmlFromTemplate(chooseChatTmpl, this.props);
+        return resultLayout;
     }
 }
 

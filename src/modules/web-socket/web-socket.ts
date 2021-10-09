@@ -58,7 +58,7 @@ class WebSocketAPI {
         });
     }
 
-    getOldMessages() {
+    public getOldMessages() {
         this.sendMessage('', 'get old');
     }
 }
