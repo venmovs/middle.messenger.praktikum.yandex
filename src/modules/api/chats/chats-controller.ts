@@ -25,7 +25,10 @@ class ChatsController {
                 return JSON.parse(response.response);
             }
             return null;
-        }).catch((e) => console.log(e));
+        }).catch((e) => {
+            console.log(e);
+            return null;
+        });
     }
 
     addUsersToChat(data: { users: number[], chatId: number }) {

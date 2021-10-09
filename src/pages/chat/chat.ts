@@ -177,7 +177,8 @@ class Chat extends Block {
     loadChats(chatValue: IUsers[]): Users[] {
         const chatArray = chatValue.map((chat) => {
             chat.events = {
-                click: async () => {
+                click: async (event: Event) => {
+                    event.stopPropagation();
                     if (typeof chat.id === 'number') {
                         await this.handlerClickToChat(chat.id);
                     }

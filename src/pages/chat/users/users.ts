@@ -24,11 +24,12 @@ class Users extends Block {
             name: 'send',
             type: 'button',
             events: {
-                async click(event) {
-                    event.stopPropagation();
-                    await chatController.deleteChat(props.id).then(() => {
+                async click() {
+                    await chatController.deleteChat(props.id).then((response) => {
+                        if (response === null) return;
+                        console.log(response);
                         console.log(state.get('chats'));
-                        const chats = state.get('chats');
+                        const chats: Users[] = state.get('chats');
                         const idxDeletedChat = chats.findIndex((chat) => chat.props.id === props.id);
                         chats.splice(idxDeletedChat, 1);
                         state.save('chats', chats);
