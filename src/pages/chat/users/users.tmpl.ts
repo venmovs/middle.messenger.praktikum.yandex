@@ -4,6 +4,7 @@ const userTemplate: string = `
     <span class="chat-user__name text-primary">{{title}}</span>
     <span class="chat-user__message text-primary">{{last_message.content}}</span>
     <span class="chat-user__time text-primary">{{time}}</span>
+    <div id="deleteChatButton"></div>
     {{#if unread_count}}<div class="chat-user__notification">{{unread_count}}</div>{{/if}}
 </div>`;
 

@@ -7,9 +7,7 @@ class ChatsController {
     getChats() {
         return chatsApi.chats().then((response) => {
             if (response.status === 200) {
-                const parsedResponse = JSON.parse(response.response);
-                console.log(parsedResponse);
-                return parsedResponse;
+                return JSON.parse(response.response);
             }
             return null;
         }).catch((e) => console.log(e));
@@ -21,9 +19,12 @@ class ChatsController {
         }).catch((e) => console.log(e));
     }
 
-    deleteChat(data: { chatId: number }) {
-        return chatsApi.deleteChat(data).then((response) => {
-            console.log(response);
+    deleteChat(chatId: number) {
+        return chatsApi.deleteChat({ chatId }).then((response) => {
+            if (response.status === 200) {
+                return JSON.parse(response.response);
+            }
+            return null;
         }).catch((e) => console.log(e));
     }
 

@@ -1,24 +1,24 @@
 import './chat.scss';
 
-import {Block} from '../../modules/block/block';
-import {IUsers, Users} from './users/users';
-import {makeHtmlFromTemplate} from '../../utils/makeHtml';
-import {chatTemplate} from './chat.tmpl';
-import {IMessage, Message} from './message/message';
-import {ButtonImage, IButtonImage} from '../../components/button-image/button-image';
-import {ButtonFile, IButtonFile} from '../../components/button-file/button-file';
+import { Block } from '../../modules/block/block';
+import { IUsers, Users } from './users/users';
+import { makeHtmlFromTemplate } from '../../utils/makeHtml';
+import { chatTemplate } from './chat.tmpl';
+import { IMessage, Message } from './message/message';
+import { ButtonImage, IButtonImage } from '../../components/button-image/button-image';
+import { ButtonFile, IButtonFile } from '../../components/button-file/button-file';
 import avatar from '../../../static/images/avatar/uncknow-avatar.jpeg';
 import editorIcon from '../../../static/images/icons/editor.svg';
 import searchIcon from '../../../static/images/icons/search.svg';
 import sendIcon from '../../../static/images/icons/send.svg';
 import fileIcon from '../../../static/images/icons/file.svg';
 import addChat from '../../../static/images/icons/addChat.svg';
-import {Router} from '../../modules/router/router';
-import {AuthController} from '../../modules/api/auth/auth-controller';
-import {state} from '../../modules/state/state';
-import {ChatsController} from '../../modules/api/chats/chats-controller';
-import {UsersController} from '../../modules/api/users/users-controller';
-import {WebSocketAPI} from '../../modules/web-socket/web-socket';
+import { Router } from '../../modules/router/router';
+import { AuthController } from '../../modules/api/auth/auth-controller';
+import { state } from '../../modules/state/state';
+import { ChatsController } from '../../modules/api/chats/chats-controller';
+import { UsersController } from '../../modules/api/users/users-controller';
+import { WebSocketAPI } from '../../modules/web-socket/web-socket';
 
 const router = new Router('#app');
 const authController = new AuthController();
@@ -42,9 +42,9 @@ class Chat extends Block {
             name: 'createChat',
             events: {
                 click: async () => {
-                    await chatsController.createChat({title: 'test chat 11'}); // TODO пока стоит заглушка, сделать возможность вписывания названия чата
+                    await chatsController.createChat({ title: 'test chat 11' }); // TODO пока стоит заглушка, сделать возможность вписывания названия чата
                     chatsController.getChats().then((chats) => {
-                        this.createChats(chats);
+                        this.loadChats(chats);
                     });
                 },
             },
@@ -66,7 +66,7 @@ class Chat extends Block {
                     const activeChatId = await state.get('activeChatId');
                     const users = foundedUser[0]?.id;
                     const chatId = activeChatId;
-                    const requestData = {users: [users], chatId};
+                    const requestData = { users: [users], chatId };
                     console.log(requestData);
                     if (users && activeChatId) {
                         console.log('i am done');
@@ -113,7 +113,7 @@ class Chat extends Block {
             userName: 'имя не найдено',
             userAvatar: avatar,
             components: {
-                users: [new Users({title: 'asd'})],
+                users: [new Users({ title: 'чаты отсутсвуют' })],
                 message: new Message(null),
                 buttonCreateNewChat: new ButtonImage(buttonCreateNewChat),
                 buttonImageEditor: new ButtonImage(buttonImageEditor),
@@ -130,7 +130,7 @@ class Chat extends Block {
         if (user !== null) {
             this.props.userName = user?.login;
             if (user?.avatar !== null) {
-                this.setProps({userAvatar: user?.avatar});
+                this.setProps({ userAvatar: user?.avatar });
             }
         }
     }
@@ -140,10 +140,14 @@ class Chat extends Block {
         const userId = state.get('user.id');
         const messages: IMessage[] | [] = [];
         if (!Array.isArray(chatMessages)) return null;
+        chatMessages.sort((a, b) => {
+            return a.time.localeCompare(b.time);
+        });
         for (let i = 0; i < chatMessages.length; i += 1) {
             const userMessage: IMessage = {};
             userMessage.content = chatMessages[i].content;
-            userMessage.time = chatMessages[i].time;
+            const date = new Date(chatMessages[i].time);
+            userMessage.time = date.toLocaleString('ru-RU');
             userMessage.mine = chatMessages[i].user_id === userId;
             messages.push(userMessage);
         }
@@ -154,7 +158,6 @@ class Chat extends Block {
 
         this.props.components.message = messageBlocks;
         this.saveState('messageBlocks', messageBlocks);
-        console.log(this.props.components.message);
     }
 
     async handlerClickToChat(id: number) {
@@ -168,7 +171,7 @@ class Chat extends Block {
         this.saveState('webSocket', webSocket);
         setTimeout(() => {
             this.createChatMessages();
-        }, 100); //TODO не придумал как иначе дождаться сообщений :(
+        }, 100); // TODO не придумал как иначе дождаться сообщений :(
     }
 
     loadChats(chatValue: IUsers[]): Users[] {
@@ -198,4 +201,4 @@ class Chat extends Block {
     }
 }
 
-export {Chat};
+export { Chat };
