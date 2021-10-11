@@ -41,6 +41,12 @@ class Users extends Block {
         super('fragment', { ...props, components: { deleteChatButton: new ButtonImage(deleteChatButton) } });
     }
 
+    protected componentDidUpdate(oldProps?: ProxyHandler<object>, newProps?: ProxyHandler<object>): boolean {
+        console.log('old props', oldProps);
+        console.log('new props', newProps);
+        return super.componentDidUpdate(oldProps, newProps);
+    }
+
     render(): string {
         return makeHtmlFromTemplate(userTemplate, this.props);
     }

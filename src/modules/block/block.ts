@@ -68,16 +68,14 @@ abstract class Block {
     protected componentDidMount(oldProps: ProxyHandler<object>): void {}
 
     private _componentDidUpdate(oldProps?: ProxyHandler<object>, newProps?: ProxyHandler<object>) {
+        console.log(oldProps, newProps);
         const response = this.componentDidUpdate(oldProps, newProps);
+        console.log(response);
         if (!response) {
             return;
         }
+        console.log('must render');
         this._render();
-    }
-
-    protected saveState(path: string, value: unknown) {
-        this.state.save(path, value);
-        this.eventBus.emit(EVENTS.FLOW_CDU, path);
     }
 
     protected componentDidUpdate(
@@ -85,6 +83,11 @@ abstract class Block {
         newProps?: ProxyHandler<object>,
     ): boolean {
         return oldProps !== newProps;
+    }
+
+    protected saveState(path: string, value: unknown) {
+        this.state.save(path, value);
+        this.eventBus.emit(EVENTS.FLOW_RENDER, path);
     }
 
     setProps = (nextProps: ProxyHandler<object>): void => {

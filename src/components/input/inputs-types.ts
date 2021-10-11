@@ -16,7 +16,7 @@ const loginInput: IInput = {
     name: 'login',
     type: 'text',
     error: 'мало символов',
-    value: 'ыыы',
+    value: '',
     events: {
         focus: (event: Event) => {
             loginValidation.clear(event);

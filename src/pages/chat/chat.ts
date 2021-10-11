@@ -42,7 +42,7 @@ class Chat extends Block {
             name: 'createChat',
             events: {
                 click: async () => {
-                    await chatsController.createChat({ title: 'test chat 11' }); // TODO пока стоит заглушка, сделать возможность вписывания названия чата
+                    await chatsController.createChat({ title: 'new chat' }); // TODO пока стоит заглушка, сделать возможность вписывания названия чата
                     chatsController.getChats().then((chats) => {
                         this.loadChats(chats);
                     });
@@ -88,12 +88,6 @@ class Chat extends Block {
                     const messageForm: HTMLFormElement | null = document.querySelector('#message-form');
                     const webSocket: WebSocketAPI = state.get('webSocket');
                     webSocket.sendMessage(messageForm?.message.value);
-                    const messageBlocks = state.get('messageBlocks');
-                    setTimeout(() => {
-                        this.createChatMessages();
-                    }, 100);
-
-                    console.log(messageBlocks);
                 },
             },
         };
@@ -155,7 +149,6 @@ class Chat extends Block {
         const messageBlocks = messages.map((message) => {
             return new Message(message);
         });
-
         this.props.components.message = messageBlocks;
         this.saveState('messageBlocks', messageBlocks);
     }
@@ -167,11 +160,9 @@ class Chat extends Block {
         const userId = state.get('user.id');
         const chatId = state.get('activeChatId');
         const activeChatToken = state.get('activeChatToken.token');
-        const webSocket = new WebSocketAPI(userId, chatId, activeChatToken);
+        const createChatMessages = this.createChatMessages.bind(this);
+        const webSocket = new WebSocketAPI(userId, chatId, activeChatToken, createChatMessages);
         this.saveState('webSocket', webSocket);
-        setTimeout(() => {
-            this.createChatMessages();
-        }, 100); // TODO не придумал как иначе дождаться сообщений :(
     }
 
     loadChats(chatValue: IUsers[]): Users[] {
