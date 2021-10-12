@@ -3,7 +3,7 @@ const chatTemplate: string = `
     <section class="bg-blur bg-blur_small">
         <div class="flex space-between">
             <div class="user-info flex">
-                <img src="{{ userAvatar }}" alt="avatart" class="user-info__avatar">
+                <img src="{{ userAvatar }}" alt="avatar" class="user-info__avatar">
                 <div class="user-info__name text-primary">{{ userName }}</div>
             </div>
             <div class="flex">

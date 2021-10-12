@@ -15,7 +15,10 @@ class UsersController {
 
     public userAvatar(data: FormData) {
         return userApi.profileAvatar(data).then((response) => {
-            console.log(response);
+            if (response.status === 200) {
+                return JSON.parse(response.response);
+            }
+            return null;
         }).catch((e) => console.error('Аватар не получилось изменить', e));
     }
 

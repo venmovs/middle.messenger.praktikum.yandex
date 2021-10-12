@@ -21,7 +21,8 @@ class UsersApi extends BaseAPI {
     }
 
     profileAvatar(data: FormData): Promise<unknown> {
-        return this.http.put(userObj.avatar, { data });
+        console.log(data);
+        return this.http.put(userObj.avatar, { header: null, data });
     }
 
     password(data: IPassword): Promise<unknown> {

@@ -103,6 +103,8 @@ class Chat extends Block {
             },
         };
 
+        // console.log(state.get('userAvatar'));
+
         super('fragment', {
             userName: 'имя не найдено',
             userAvatar: avatar,
@@ -124,7 +126,7 @@ class Chat extends Block {
         if (user !== null) {
             this.props.userName = user?.login;
             if (user?.avatar !== null) {
-                this.setProps({ userAvatar: user?.avatar });
+                this.setProps({ userAvatar: `https://ya-praktikum.tech/api/v2/resources${user?.avatar}` });
             }
         }
     }

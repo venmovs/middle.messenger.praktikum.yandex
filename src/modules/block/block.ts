@@ -68,7 +68,6 @@ abstract class Block {
     protected componentDidMount(oldProps: ProxyHandler<object>): void {}
 
     private _componentDidUpdate(oldProps?: ProxyHandler<object>, newProps?: ProxyHandler<object>) {
-        console.log(oldProps, newProps);
         const response = this.componentDidUpdate(oldProps, newProps);
         console.log(response);
         if (!response) {

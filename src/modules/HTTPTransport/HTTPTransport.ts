@@ -65,14 +65,19 @@ class HTTPTransport {
         }
 
         return new Promise((resolve, reject) => {
+            const isFile = data instanceof FormData;
             const xhr = new XMLHttpRequest();
             xhr.withCredentials = true;
 
             xhr.open(method, url + query);
 
-            Object.entries(headers).forEach(([key, value]) => {
-                xhr.setRequestHeader(key, value);
-            });
+            if (isFile) {
+                xhr.setRequestHeader('accept', 'application/json');
+            } else {
+                Object.entries(headers).forEach(([key, value]) => {
+                    xhr.setRequestHeader(key, value);
+                });
+            }
 
             xhr.onload = () => {
                 if (xhr.status >= 300) {
@@ -89,6 +94,8 @@ class HTTPTransport {
 
             if (method === METHODS.GET || !data) {
                 xhr.send();
+            } else if (isFile) {
+                xhr.send(data);
             } else {
                 xhr.send(JSON.stringify(data));
             }

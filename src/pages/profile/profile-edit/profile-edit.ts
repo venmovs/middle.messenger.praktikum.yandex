@@ -12,7 +12,6 @@ import { UsersController } from '../../../modules/api/users/users-controller';
 import { AuthController } from '../../../modules/api/auth/auth-controller';
 import addImage from '../../../../static/images/icons/addImage.svg';
 import { ButtonFile, IButtonFile } from '../../../components/button-file/button-file';
-import fileIcon from '../../../../static/images/icons/file.svg';
 
 const router = new Router('#app');
 const usersController = new UsersController();
@@ -48,12 +47,15 @@ class ProfileEdit extends Block {
                     const file: File = (target.files as FileList)[0];
                     const formData = new FormData(form);
                     formData.append('avatar', file);
-                    await usersController.userAvatar(formData);
+                    const response = await usersController.userAvatar(formData);
+                    this.saveState('userAvatar', response.avatar);
+                    console.log(this.state.get('userAvatar'));
                 },
             },
         };
 
         super('fragment', {
+            userAvatar: '',
             components: {
                 fullName: '',
                 buttonChangeAvatar: new ButtonFile(buttonChangeAvatar),
@@ -91,7 +93,9 @@ class ProfileEdit extends Block {
     async componentDidMount() {
         const userInfo = await authController.getUserInfo();
         if (userInfo !== null || undefined) {
+            console.log(userInfo);
             this.props.fullName = `${userInfo.first_name} ${userInfo.second_name}`;
+            this.setProps({ userAvatar: `https://ya-praktikum.tech/api/v2/resources${userInfo?.avatar}` });
             this.takeAuthUserValuesOnInputs(this.props.components, userInfo);
         }
     }
