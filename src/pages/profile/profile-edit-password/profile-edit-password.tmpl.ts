@@ -3,10 +3,6 @@ const profileEditPasswordTemplate: string = `
     <section class="profile__wrapper">
         <div class="profile__bg">
             <div class="profile__active-part">
-                <div class="profile__avatar_wrapper flex justify-content-center align-item-center">
-                    <div class="profile__avatar mr-1"></div>
-                    <div class="profile__name">{{ fullName }}</div>
-                </div>
                 <form class="profile__form flex space-between wrap">
                         <div id="oldPassword"></div>
                         <div id="newPassword"></div>

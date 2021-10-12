@@ -9,6 +9,7 @@ import { Button, IButton } from '../../../components/button/button';
 import { Router } from '../../../modules/router/router';
 import { AuthController } from '../../../modules/api/auth/auth-controller';
 import { profileInformation, createProfileInformation } from './profile-information';
+import avatar from '../../../../static/images/avatar/uncknow-avatar.jpeg';
 
 const router = new Router('#app');
 const authController = new AuthController();
@@ -56,6 +57,7 @@ class Profile extends Block {
         };
 
         super('fragment', {
+            userAvatar: '',
             components: {
                 fullName: '',
                 buttonImageBack: new ButtonImage(buttonImageBack),
@@ -83,6 +85,11 @@ class Profile extends Block {
         if (userInfo !== null) {
             this.props.fullName = `${userInfo.first_name} ${userInfo.second_name}`;
             this.changeDefaultUserValues(userInfo, this.props.components.info);
+            if (userInfo.avatar) {
+                this.setProps({ userAvatar: `https://ya-praktikum.tech/api/v2/resources${userInfo?.avatar}` });
+            } else {
+                this.setProps({ userAvatar: avatar});
+            }
         }
     }
 

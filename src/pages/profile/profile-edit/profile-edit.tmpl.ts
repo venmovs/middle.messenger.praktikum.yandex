@@ -5,7 +5,6 @@ const profileEditTemplate: string = `
             <div class="profile__active-part">
                 <div class="profile__avatar_wrapper flex justify-content-center align-item-center">
                     <div id="buttonChangeAvatar"></div>
-<!--                    <div class="profile__avatar mr-1"></div>-->
                     <img src="{{ userAvatar }}" alt="avatar" class="profile__avatar">
                     <div class="profile__name">{{ fullName }}</div>
                 </div>

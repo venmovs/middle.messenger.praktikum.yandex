@@ -12,6 +12,7 @@ import { UsersController } from '../../../modules/api/users/users-controller';
 import { AuthController } from '../../../modules/api/auth/auth-controller';
 import addImage from '../../../../static/images/icons/addImage.svg';
 import { ButtonFile, IButtonFile } from '../../../components/button-file/button-file';
+import avatar from '../../../../static/images/avatar/uncknow-avatar.jpeg';
 
 const router = new Router('#app');
 const usersController = new UsersController();
@@ -93,9 +94,12 @@ class ProfileEdit extends Block {
     async componentDidMount() {
         const userInfo = await authController.getUserInfo();
         if (userInfo !== null || undefined) {
-            console.log(userInfo);
             this.props.fullName = `${userInfo.first_name} ${userInfo.second_name}`;
-            this.setProps({ userAvatar: `https://ya-praktikum.tech/api/v2/resources${userInfo?.avatar}` });
+            if (userInfo.avatar) {
+                this.setProps({ userAvatar: `https://ya-praktikum.tech/api/v2/resources${userInfo?.avatar}` });
+            } else {
+                this.setProps({ userAvatar: avatar});
+            }
             this.takeAuthUserValuesOnInputs(this.props.components, userInfo);
         }
     }
