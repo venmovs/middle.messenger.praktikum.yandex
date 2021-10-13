@@ -12,10 +12,11 @@ const phoneValidation = new PhoneValidation();
 const nameValidation = new NameValidation();
 
 const loginInput: IInput = {
-    tittle: 'Логин',
+    title: 'Логин',
     name: 'login',
     type: 'text',
     error: 'мало символов',
+    value: '',
     events: {
         focus: (event: Event) => {
             loginValidation.clear(event);
@@ -28,10 +29,11 @@ const loginInput: IInput = {
 };
 
 const passwordInput: IInput = {
-    tittle: 'Пароль',
+    title: 'Пароль',
     name: 'password',
     type: 'text',
     error: 'слабый пароль',
+    value: '',
     events: {
         focus: (event: Event) => {
             passwordValidation.clear(event);
@@ -44,10 +46,11 @@ const passwordInput: IInput = {
 };
 
 const mailInput: IInput = {
-    tittle: 'Почта',
-    name: 'mail',
+    title: 'Почта',
+    name: 'email',
     type: 'text',
     error: 'почта с ошибкой',
+    value: '',
     events: {
         focus: (event: Event) => {
             mailValidation.clear(event);
@@ -60,10 +63,11 @@ const mailInput: IInput = {
 };
 
 const phoneInput: IInput = {
-    tittle: 'Телефон',
+    title: 'Телефон',
     name: 'phone',
     type: 'text',
     error: 'номер с ошибкой',
+    value: '',
     events: {
         focus: (event: Event) => {
             phoneValidation.clear(event);
@@ -76,10 +80,11 @@ const phoneInput: IInput = {
 };
 
 const nameInput: IInput = {
-    tittle: 'Имя',
-    name: 'name',
+    title: 'Имя',
+    name: 'first_name',
     type: 'text',
     error: 'больше 3 букв',
+    value: '',
     events: {
         focus: (event: Event) => {
             nameValidation.clear(event);
@@ -92,10 +97,11 @@ const nameInput: IInput = {
 };
 
 const secondNameInput: IInput = {
-    tittle: 'Фамилия',
-    name: 'secondName',
+    title: 'Фамилия',
+    name: 'second_name',
     type: 'text',
     error: 'больше 3 букв',
+    value: '',
     events: {
         focus: (event: Event) => {
             nameValidation.clear(event);
@@ -108,10 +114,45 @@ const secondNameInput: IInput = {
 };
 
 const confirmPasswordInput: IInput = {
-    tittle: 'Пароль (еще раз)',
-    name: 'password',
+    title: 'Пароль (еще раз)',
+    name: 'confirm_password',
     type: 'text',
     error: 'слабый пароль',
+    value: '',
+    events: {
+        focus: (event: Event) => {
+            passwordValidation.clear(event);
+        },
+        blur: (event: Event) => {
+            passwordValidation.check(event);
+        },
+    },
+    settings: { withInternalID: true },
+};
+
+const newPassword: IInput = {
+    title: 'Новый пароль',
+    name: 'newPassword',
+    type: 'text',
+    error: 'слабый пароль',
+    value: '',
+    events: {
+        focus: (event: Event) => {
+            passwordValidation.clear(event);
+        },
+        blur: (event: Event) => {
+            passwordValidation.check(event);
+        },
+    },
+    settings: { withInternalID: true },
+};
+
+const oldPassword: IInput = {
+    title: 'Старый пароль',
+    name: 'oldPassword',
+    type: 'text',
+    error: 'слабый пароль',
+    value: '',
     events: {
         focus: (event: Event) => {
             passwordValidation.clear(event);
@@ -131,4 +172,6 @@ export {
     phoneInput,
     nameInput,
     confirmPasswordInput,
+    newPassword,
+    oldPassword,
 };

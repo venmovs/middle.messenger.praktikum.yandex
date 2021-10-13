@@ -1,9 +1,11 @@
 import { Validation } from './validation';
+import { regExp } from './regExpVariables';
 
 class MailValidation extends Validation {
     constructor() {
+        const { mail } = regExp;
         super();
-        this.regExp = /^\S+@\S+\.\S+$/;
+        this.regExp = mail;
     }
 }
 

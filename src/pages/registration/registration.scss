@@ -1,6 +1,6 @@
-@import "../../styles/variables";
+@import "../../../static/styles/variables";
 
-@import "../../styles/mixins";
+@import "../../../static/styles/mixins";
 
 
 .registration {
@@ -12,7 +12,7 @@
   }
 
   &__bg {
-    background: url("../../images/background/registration-background.jpg") no-repeat center center fixed;
+    background: url("../../../static/images/background/registration-background.jpg") no-repeat center center fixed;
 
     @include sign-background;
   }
@@ -25,6 +25,7 @@
 
   &__form {
     width: 800px;
+    margin: 0 auto;
   }
 
   &__button {

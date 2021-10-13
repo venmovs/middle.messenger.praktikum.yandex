@@ -1,81 +1,51 @@
+import './chat.scss';
+
 import { Block } from '../../modules/block/block';
-import { render } from '../../utils/render';
 import { IUsers, Users } from './users/users';
 import { makeHtmlFromTemplate } from '../../utils/makeHtml';
 import { chatTemplate } from './chat.tmpl';
 import { IMessage, Message } from './message/message';
 import { ButtonImage, IButtonImage } from '../../components/button-image/button-image';
 import { ButtonFile, IButtonFile } from '../../components/button-file/button-file';
-import avatar from '../../../static/images/avatar/test-avatar.jpg';
+import avatar from '../../../static/images/avatar/uncknow-avatar.jpeg';
 import editorIcon from '../../../static/images/icons/editor.svg';
 import searchIcon from '../../../static/images/icons/search.svg';
 import sendIcon from '../../../static/images/icons/send.svg';
 import fileIcon from '../../../static/images/icons/file.svg';
+import addChat from '../../../static/images/icons/addChat.svg';
+import { Router } from '../../modules/router/router';
+import { AuthController } from '../../modules/api/auth/auth-controller';
+import { state } from '../../modules/state/state';
+import { ChatsController } from '../../modules/api/chats/chats-controller';
+import { UsersController } from '../../modules/api/users/users-controller';
+import { WebSocketAPI } from '../../modules/web-socket/web-socket';
+
+const router = new Router('#app');
+const authController = new AuthController();
+const chatsController = new ChatsController();
+const usersController = new UsersController();
 
 class Chat extends Block {
     constructor() {
-        const createUsers = (): Users[] => {
-            const userValue: IUsers[] = [
-                {
-                    name: 'Катя',
-                    img: avatar,
-                    message: 'привет как дела?',
-                    time: '10:20',
-                    count: 2,
-                },
-                {
-                    name: 'Женя Красава',
-                    message: 'привет',
-                    time: '12:23',
-                    count: 4,
-                },
-                {
-                    name: 'Дудь',
-                    img: avatar,
-                    message: 'яндекс практикум',
-                    time: '10:22',
-                    count: 1,
-                },
-                {
-                    name: 'Познер',
-                    message: 'прекол',
-                    time: '05:22',
-                },
-                {
-                    name: 'Алсу',
-                    message: 'тадам',
-                    time: '11:11',
-                    count: 1,
-                },
-            ];
-
-            return userValue.map((user) => {
-                return new Users(user);
-            });
-        };
-
-        const createMessages = (): Message[] => {
-            const messageValue: IMessage[] = [
-                { mine: true, text: 'Ну чо?', time: '10:30' },
-                { mine: true, text: 'Ни чо', time: '10:31' },
-                { mine: false, text: 'Ну чо?', time: '10:32' },
-                { mine: true, text: 'ННи чо', time: '10:33' },
-                { mine: false, text: 'Ну чо?', time: '10:34' },
-                { mine: false, text: 'Ни чо', time: '10:35' },
-                { mine: true, text: 'Ну чо?', time: '10:36' },
-            ];
-
-            return messageValue.map((message) => {
-                return new Message(message);
-            });
-        };
-
         const buttonImageEditor: IButtonImage = {
             image: editorIcon,
             name: 'editor',
             events: {
                 click: () => {
-                    window.location.href = '/profile/profile.html';
+                    router.go('/profile');
+                },
+            },
+        };
+
+        const buttonCreateNewChat: IButtonImage = {
+            image: addChat,
+            name: 'createChat',
+            events: {
+                click: async () => {
+                    await chatsController.createChat({ title: 'new chat' }); // TODO пока стоит заглушка, сделать возможность вписывания названия чата
+                    chatsController.getChats().then((chats) => {
+                        this.loadChats(chats);
+                    });
                 },
             },
         };
@@ -83,17 +53,41 @@ class Chat extends Block {
         const buttonImageSearch: IButtonImage = {
             image: searchIcon,
             name: 'search',
+            type: 'submit',
+            events: {
+                click: async (event: Event) => {
+                    event.preventDefault();
+                    const searchValue: HTMLFormElement | null = document.querySelector('#search-form');
+                    const foundedUser = await usersController.searchUsers(
+                        {
+                            login: searchValue?.search.value,
+                        },
+                    );
+                    const activeChatId = await state.get('activeChatId');
+                    const users = foundedUser[0]?.id;
+                    const chatId = activeChatId;
+                    const requestData = { users: [users], chatId };
+                    console.log(requestData);
+                    if (users && activeChatId) {
+                        console.log('i am done');
+                        console.log(users, chatId);
+                        await chatsController.addUsersToChat(requestData);
+                    }
+                },
+            },
         };
 
         const buttonImageSend: IButtonImage = {
             image: sendIcon,
             classes: 'entry-field__send',
             name: 'send',
+            type: 'button',
             events: {
                 click: (event: Event) => {
                     event.preventDefault();
                     const messageForm: HTMLFormElement | null = document.querySelector('#message-form');
-                    console.log(`message: ${messageForm?.message.value}`);
+                    const webSocket: WebSocketAPI = state.get('webSocket');
+                    webSocket.sendMessage(messageForm?.message.value);
                 },
             },
         };
@@ -109,10 +103,15 @@ class Chat extends Block {
             },
         };
 
+        // console.log(state.get('userAvatar'));
+
         super('fragment', {
+            userName: 'имя не найдено',
+            userAvatar: avatar,
             components: {
-                users: createUsers(),
-                message: createMessages(),
+                users: [new Users({ title: 'чаты отсутсвуют' })],
+                message: new Message(null),
+                buttonCreateNewChat: new ButtonImage(buttonCreateNewChat),
                 buttonImageEditor: new ButtonImage(buttonImageEditor),
                 buttonImageSearch: new ButtonImage(buttonImageSearch),
                 buttonImageSend: new ButtonImage(buttonImageSend),
@@ -121,9 +120,79 @@ class Chat extends Block {
         });
     }
 
+    private async loadUserToProps() {
+        await authController.getUserInfo();
+        const user = state.get('user');
+        if (user !== null) {
+            this.props.userName = user?.login;
+            if (user?.avatar !== null) {
+                this.setProps({ userAvatar: `https://ya-praktikum.tech/api/v2/resources${user?.avatar}` });
+            }
+        }
+    }
+
+    private createChatMessages(): void | null {
+        const chatMessages = state.get('chatMessages');
+        const userId = state.get('user.id');
+        const messages: IMessage[] | [] = [];
+        if (!Array.isArray(chatMessages)) return null;
+        chatMessages.sort((a, b) => {
+            return a.time.localeCompare(b.time);
+        });
+        for (let i = 0; i < chatMessages.length; i += 1) {
+            const userMessage: IMessage = {};
+            userMessage.content = chatMessages[i].content;
+            const date = new Date(chatMessages[i].time);
+            userMessage.time = date.toLocaleString('ru-RU');
+            userMessage.mine = chatMessages[i].user_id === userId;
+            messages.push(userMessage);
+        }
+
+        const messageBlocks = messages.map((message) => {
+            return new Message(message);
+        });
+        this.props.components.message = messageBlocks;
+        this.saveState('messageBlocks', messageBlocks);
+    }
+
+    async handlerClickToChat(id: number) {
+        this.saveState('activeChatId', id);
+        await chatsController.getChatToken(id);
+        await chatsController.getChatUsers(id);
+        const userId = state.get('user.id');
+        const chatId = state.get('activeChatId');
+        const activeChatToken = state.get('activeChatToken.token');
+        const createChatMessages = this.createChatMessages.bind(this);
+        const webSocket = new WebSocketAPI(userId, chatId, activeChatToken, createChatMessages);
+        this.saveState('webSocket', webSocket);
+    }
+
+    loadChats(chatValue: IUsers[]): Users[] {
+        const chatArray = chatValue.map((chat) => {
+            chat.events = {
+                click: async (event: Event) => {
+                    event.stopPropagation();
+                    if (typeof chat.id === 'number') {
+                        await this.handlerClickToChat(chat.id);
+                    }
+                },
+            };
+            return new Users(chat);
+        });
+        this.props.components.users = chatArray;
+        this.saveState('chats', chatArray);
+    }
+
+    async componentDidMount() {
+        await this.loadUserToProps();
+        chatsController.getChats().then((chats) => {
+            this.loadChats(chats);
+        });
+    }
+
     render(): string {
         return makeHtmlFromTemplate(chatTemplate, this.props);
     }
 }
 
-render('#root', new Chat());
+export { Chat };

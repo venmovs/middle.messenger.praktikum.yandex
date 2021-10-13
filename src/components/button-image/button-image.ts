@@ -5,6 +5,7 @@ import { buttonImageTemplate } from './button-imag.tmpl';
 interface IButtonImage {
     image: string,
     name: string,
+    type?: string,
     events?: Record<string, (event: Event) => void>,
     classes?: string,
 }

@@ -3,10 +3,11 @@ import { inputsTemplate } from './inputs.tmpl';
 import { makeHtmlFromTemplate } from '../../utils/makeHtml';
 
 interface IInput {
-    tittle: string,
+    title: string,
     name: string,
     type: string,
     error: string,
+    value: string,
     settings: Record<string, boolean>,
     events?: Record<string, (event: Event) => void>,
 }

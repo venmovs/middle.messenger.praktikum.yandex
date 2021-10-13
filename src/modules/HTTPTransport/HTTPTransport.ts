@@ -23,34 +23,40 @@ function queryStringify(data: TRequestData) {
 }
 
 class HTTPTransport {
+    baseUri: string;
+    constructor(baseUri: string) {
+        this.baseUri = baseUri;
+    }
+
     public get = (url: string, options = {}) => {
-        return this.request(url, { ...options, method: METHODS.GET });
+        return this.request(this.baseUri + url, { ...options, method: METHODS.GET });
     };
 
     public post = (url: string, options = {}) => {
-        return this.request(url, { ...options, method: METHODS.POST });
+        return this.request(this.baseUri + url, { ...options, method: METHODS.POST });
     };
 
     public put = (url: string, options = {}) => {
-        return this.request(url, { ...options, method: METHODS.PUT });
+        return this.request(this.baseUri + url, { ...options, method: METHODS.PUT });
     };
 
     public patch = (url: string, options = {}) => {
-        return this.request(url, { ...options, method: METHODS.PATCH });
+        return this.request(this.baseUri + url, { ...options, method: METHODS.PATCH });
     };
 
     public delete = (url: string, options = {}) => {
-        return this.request(url, { ...options, method: METHODS.DELETE });
+        return this.request(this.baseUri + url, { ...options, method: METHODS.DELETE });
     };
 
     request = (url: string, options: TRequestOptions) => {
         const {
             method = METHODS.GET,
-            headers = {},
+            headers = {
+                'content-type': 'application/json',
+            },
             data,
             timeout = 5000,
         } = options;
-
         let query: string;
         if (method === METHODS.GET) {
             query = queryStringify(data as TRequestData);
@@ -59,13 +65,19 @@ class HTTPTransport {
         }
 
         return new Promise((resolve, reject) => {
+            const isFile: boolean = data instanceof FormData;
             const xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
 
             xhr.open(method, url + query);
 
-            Object.entries(headers).forEach(([key, value]) => {
-                xhr.setRequestHeader(key, value);
-            });
+            if (isFile) {
+                xhr.setRequestHeader('accept', 'application/json');
+            } else {
+                Object.entries(headers).forEach(([key, value]) => {
+                    xhr.setRequestHeader(key, value);
+                });
+            }
 
             xhr.onload = () => {
                 if (xhr.status >= 300) {
@@ -82,6 +94,8 @@ class HTTPTransport {
 
             if (method === METHODS.GET || !data) {
                 xhr.send();
+            } else if (data instanceof FormData) {
+                xhr.send(data);
             } else {
                 xhr.send(JSON.stringify(data));
             }

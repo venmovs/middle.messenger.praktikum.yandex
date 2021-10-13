@@ -1,9 +1,11 @@
 import { Validation } from './validation';
+import { regExp } from './regExpVariables';
 
 class LoginValidation extends Validation {
     constructor() {
+        const { onlyLetters } = regExp;
         super();
-        this.regExp = /^[a-z]+$/i;
+        this.regExp = onlyLetters;
         this.length = 4;
     }
 }

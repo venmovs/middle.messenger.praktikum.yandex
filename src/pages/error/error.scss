@@ -1,9 +1,8 @@
-@import "../../styles/variables";
-
-@import "../../styles/mixins";
+@import "../../../static/styles/variables";
+@import "../../../static/styles/mixins";
 
 .error {
-  background-image: url("../../images/background/error-background.jpg");
+  background-image: url("../../../static/images/background/error-background.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 100vh;
@@ -20,7 +19,7 @@
     border-radius: $border-radius-primary;
   }
 
-  &__tittle {
+  &__title {
     font-style: normal;
     font-weight: bold;
     font-size: 288px;
@@ -29,7 +28,7 @@
     margin: 0;
   }
 
-  &__sub-tittle {
+  &__sub-title {
     font-style: normal;
     font-weight: bold;
     font-size: 48px;

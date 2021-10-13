@@ -1,5 +1,6 @@
 import { v4 as makeUUID } from 'uuid';
 import { EventBus } from '../event-bus/eventBus';
+import { state, State } from '../state/state';
 
 enum EVENTS {
     INIT = 'init',
@@ -18,9 +19,11 @@ abstract class Block {
     protected _meta: IMeta;
     protected props: Record<string, any>;
     protected eventBus: EventBus;
+    protected selector: null | string = null;
     private readonly _id: null | string;
+    public state: State;
 
-    protected constructor(tagName = 'div', props = {}) {
+    protected constructor(tagName = 'div', props = {}, selector: string | null = null) {
         this.eventBus = new EventBus();
         this._meta = {
             tagName,
@@ -28,9 +31,14 @@ abstract class Block {
         };
 
         this._id = makeUUID();
-        this.props = this._makePropsProxy({ ...props, __id: this._id });
-
         this._registerEvents();
+        this.state = state;
+        let addProps;
+        this.selector = selector;
+        if (this.selector !== null) {
+            addProps = this.state.get(this.selector);
+        }
+        this.props = this._makePropsProxy({ ...props, addProps, __id: this._id });
         this.eventBus.emit(EVENTS.INIT);
     }
 
@@ -61,9 +69,11 @@ abstract class Block {
 
     private _componentDidUpdate(oldProps?: ProxyHandler<object>, newProps?: ProxyHandler<object>) {
         const response = this.componentDidUpdate(oldProps, newProps);
+        console.log(response);
         if (!response) {
             return;
         }
+        console.log('must render');
         this._render();
     }
 
@@ -74,12 +84,18 @@ abstract class Block {
         return oldProps !== newProps;
     }
 
+    protected saveState(path: string, value: unknown) {
+        this.state.save(path, value);
+        this.eventBus.emit(EVENTS.FLOW_RENDER, path);
+    }
+
     setProps = (nextProps: ProxyHandler<object>): void => {
         if (!nextProps) {
             return;
         }
 
         Object.assign(this.props, nextProps);
+        this.eventBus.emit(EVENTS.FLOW_RENDER);
     };
 
     protected get element() {
@@ -116,14 +132,13 @@ abstract class Block {
         if (this.props.components) {
             Object.entries(this.props.components).forEach(([key, value]) => {
                 const node = this.element.querySelector(`#${key}`);
-                if (node) {
-                    if (Array.isArray(value)) {
-                        value.forEach((value) => {
-                            node.append(value.getContent());
-                        });
-                    } else {
+                if (!node) return;
+                if (Array.isArray(value)) {
+                    value.forEach((value) => {
                         node.append(value.getContent());
-                    }
+                    });
+                } else {
+                    node.append(value.getContent());
                 }
             });
         }
@@ -151,17 +166,16 @@ abstract class Block {
         const self = this;
 
         return new Proxy(target, {
-            get(target, prop: string): T {
+            get: (target, prop: string): T => {
                 const value = target[prop];
                 return typeof value === 'function' ? value.bind(target) : value;
             },
-            set(target, prop: string, value: T) {
+            set: (target, prop: string, value: T) => {
                 target[prop] = value;
-
                 self.eventBus.emit(EVENTS.FLOW_CDU, { ...target }, target);
                 return true;
             },
-            deleteProperty() {
+            deleteProperty: () => {
                 throw new Error('Нет доступа');
             },
         });
@@ -185,4 +199,4 @@ abstract class Block {
     }
 }
 
-export { Block };
+export { Block, EVENTS };
