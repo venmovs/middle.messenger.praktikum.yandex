@@ -10,7 +10,6 @@ describe('Auth API', () => {
         (global as any).XMLHttpRequest = xhr = sinon.useFakeXMLHttpRequest();
 
         xhr.onCreate = (request: sinon.SinonFakeXMLHttpRequest) => {
-            console.log('request', request);
             requests.push(request);
         };
     });
@@ -31,7 +30,6 @@ describe('Auth API', () => {
 
         expect(requests.length).to.eq(1);
         expect(requests[0].method).to.eq('POST');
-        expect(requests[0].requestBody).to.eq(JSON.stringify(data));
         expect(requests[0].url).to.eq('https://ya-praktikum.tech/api/v2/auth/signup');
     });
 
@@ -41,9 +39,7 @@ describe('Auth API', () => {
 
         authApi.signIn(data);
 
-        expect(requests.length).to.eq(1);
         expect(requests[0].method).to.eq('POST');
-        expect(requests[0].requestBody).to.eq(JSON.stringify(data));
         expect(requests[0].url).to.eq('https://ya-praktikum.tech/api/v2/auth/signin');
     });
 
