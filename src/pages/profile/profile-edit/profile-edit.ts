@@ -98,7 +98,7 @@ class ProfileEdit extends Block {
             if (userInfo.avatar) {
                 this.setProps({ userAvatar: `https://ya-praktikum.tech/api/v2/resources${userInfo?.avatar}` });
             } else {
-                this.setProps({ userAvatar: avatar});
+                this.setProps({ userAvatar: avatar });
             }
             this.takeAuthUserValuesOnInputs(this.props.components, userInfo);
         }

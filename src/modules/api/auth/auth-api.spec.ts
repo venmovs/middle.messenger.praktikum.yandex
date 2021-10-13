@@ -10,6 +10,7 @@ describe('Auth API', () => {
         (global as any).XMLHttpRequest = xhr = sinon.useFakeXMLHttpRequest();
 
         xhr.onCreate = (request: sinon.SinonFakeXMLHttpRequest) => {
+            console.log('request', request);
             requests.push(request);
         };
     });
