@@ -139,14 +139,18 @@ class Chat extends Block {
         chatMessages.sort((a, b) => {
             return a.time.localeCompare(b.time);
         });
-        for (let i = 0; i < chatMessages.length; i += 1) {
-            const userMessage: IMessage = {};
-            userMessage.content = chatMessages[i].content;
-            const date = new Date(chatMessages[i].time);
+        chatMessages.map((chat) => {
+            const userMessage: IMessage = {
+                content: '',
+                time: '',
+                mine: false,
+            };
+            userMessage.content = chat.content;
+            const date = new Date(chat.time);
             userMessage.time = date.toLocaleString('ru-RU');
-            userMessage.mine = chatMessages[i].user_id === userId;
-            messages.push(userMessage);
-        }
+            userMessage.mine = chat.user_id === userId;
+            return messages.push(userMessage);
+        });
 
         const messageBlocks = messages.map((message) => {
             return new Message(message);

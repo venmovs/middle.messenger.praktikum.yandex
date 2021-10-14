@@ -93,7 +93,7 @@ class ProfileEdit extends Block {
 
     async componentDidMount() {
         const userInfo = await authController.getUserInfo();
-        if (userInfo !== null || undefined) {
+        if (userInfo !== null) {
             this.props.fullName = `${userInfo.first_name} ${userInfo.second_name}`;
             if (userInfo.avatar) {
                 this.setProps({ userAvatar: `https://ya-praktikum.tech/api/v2/resources${userInfo?.avatar}` });
