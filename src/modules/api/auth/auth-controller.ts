@@ -10,10 +10,10 @@ class AuthController {
         return authApi.signUp(data).then((response) => {
             console.log('signUp', response);
             if (response.status === 200) {
+                route.go('/chats')
                 return response;
             }
-        }).catch((e) => console.error(e))
-            .finally(() => route.go('/chats'));
+        }).catch((e) => console.error(e));
     }
 
     private user() {
@@ -45,23 +45,21 @@ class AuthController {
 
     public auth(data: ILoginRequest) {
          return authApi.signIn(data).then((response) => {
-                console.log('auth', response);
                 if (response.status === 200) {
                     route.go('/chats');
+                } else {
+                    return response;
                 }
                 return response;
-            }).catch((e) => console.log(e));
+            });
     }
 
     public logout() {
         return authApi.logout().then((response) => {
+            route.go('/');
             if (response.status === 200) {
                 return response;
             }
-        }).catch((e) => {
-            console.log(e);
-        }).finally(() => {
-            route.go('/');
         });
     }
 }

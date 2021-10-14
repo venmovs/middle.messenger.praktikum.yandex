@@ -1,6 +1,5 @@
 import './login.scss';
 
-import { response } from 'express';
 import { makeHtmlFromTemplate } from '../../utils/makeHtml';
 import { Button, IButton } from '../../components/button/button';
 import { Input, IInput } from '../../components/input/input';
@@ -11,11 +10,7 @@ import { LoginValidation } from '../../utils/validation/login-validation';
 import { PasswordValidation } from '../../utils/validation/password-validation';
 import { FormValidation } from '../../utils/validation/form-validation';
 import { Router } from '../../modules/router/router';
-import { WebSocket } from '../../modules/web-socket/web-socket';
 import { AuthController } from '../../modules/api/auth/auth-controller';
-
-/* const webSocket = new WebSocket();
-webSocket.init(); */
 
 const router = new Router('#app');
 const authController = new AuthController();
@@ -30,6 +25,7 @@ class Login extends Block {
             title: 'Логин',
             name: 'login',
             type: 'text',
+            value: '',
             error: 'мало символов или не английский язык',
             events: {
                 focus: (event: Event) => {
@@ -45,6 +41,7 @@ class Login extends Block {
         const passwordInput: IInput = {
             title: 'Пароль',
             name: 'password',
+            value: '',
             type: 'password',
             error: 'мало сиволов и должны быть использованы буквы и цифры',
             events: {
@@ -86,7 +83,11 @@ class Login extends Block {
                 submit: (event: Event) => {
                     const formData = formValidation.check(event);
                     const changeLocation = async () => {
-                        await authController.auth(formData);
+                        await authController.auth(formData).then((response) => {
+                            console.log(response)
+                        }).catch((e) => {
+                            console.log(e); //TODO обработать ошибку логина
+                        });
                     };
                     formValidation.check(event, changeLocation);
                 },

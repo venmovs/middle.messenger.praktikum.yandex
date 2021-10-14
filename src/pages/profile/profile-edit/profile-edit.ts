@@ -69,11 +69,11 @@ class ProfileEdit extends Block {
                 buttonImageBack: new ButtonImage(buttonImageBack),
             },
             events: {
-                submit: (event: Event) => {
+                submit: async (event: Event) => {
                     const profileData = formValidation.check(event);
                     if (profileData !== null) {
                         profileData.display_name = ''; // не понимаю зачем этот параметр
-                        usersController.profileInformation(profileData);
+                        await usersController.profileInformation(profileData);
                     }
                 },
             },

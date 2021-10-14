@@ -190,7 +190,9 @@ class Chat extends Block {
     async componentDidMount() {
         await this.loadUserToProps();
         chatsController.getChats().then((chats) => {
-            this.loadChats(chats);
+            if (Array.isArray(chats)) {
+                this.loadChats(chats);
+            }
         });
     }
 

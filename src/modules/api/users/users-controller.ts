@@ -1,5 +1,6 @@
 import { IPassword, IProfileInformation, UsersApi } from './users-api';
 import { Router } from '../../router/router';
+import { state } from '../../state/state';
 
 const userApi = new UsersApi();
 const router = new Router();
@@ -8,6 +9,8 @@ class UsersController {
     public profileInformation(data: IProfileInformation) {
         return userApi.profileInformation(data).then((response) => {
             if (response.status === 200) {
+                state.save('user', JSON.parse(response.response));
+                console.log(state);
                 router.go('/profile');
             }
         }).catch((e) => console.error('Информация по профилю не получилось изменить', e));

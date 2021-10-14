@@ -74,13 +74,13 @@ class Profile extends Block {
         defaultValues,
     ) {
         for (let i = 0; i < defaultValues.length; i += 1) {
-            console.log(defaultValues[i]);
             defaultValues[i].props.value = userInfo[defaultValues[i].props.id];
         }
         return defaultValues;
     }
 
     async componentDidMount() {
+        console.log('mount');
         const userInfo = await authController.getUserInfo();
         if (userInfo !== null) {
             this.props.fullName = `${userInfo.first_name} ${userInfo.second_name}`;
