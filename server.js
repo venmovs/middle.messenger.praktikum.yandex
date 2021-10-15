@@ -1,9 +1,10 @@
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
+require('dotenv').config();
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT;
 
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000,

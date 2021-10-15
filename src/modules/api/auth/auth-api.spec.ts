@@ -1,6 +1,13 @@
 import sinon from 'sinon';
 import { expect } from 'chai';
-import { AuthApi, ILoginRequest, IRegistrationRequest } from './auth-api';
+import { ILoginRequest, IRegistrationRequest } from './auth-api';
+
+const FormData = require('form-data');
+const authApi = require('./auth-api');
+
+const { AuthApi } = authApi;
+
+global.FormData = FormData;
 
 describe('Auth API', () => {
     const requests: sinon.SinonFakeXMLHttpRequest[] = [];

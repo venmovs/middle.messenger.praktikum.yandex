@@ -49,9 +49,7 @@ class Profile extends Block {
             classes: 'button_red',
             events: {
                 click: async () => {
-                    await authController.logout().then(() => {
-                        router.go('/');
-                    });
+                    await authController.logout();
                 },
             },
         };
@@ -74,13 +72,13 @@ class Profile extends Block {
         defaultValues,
     ) {
         for (let i = 0; i < defaultValues.length; i += 1) {
-            console.log(defaultValues[i]);
             defaultValues[i].props.value = userInfo[defaultValues[i].props.id];
         }
         return defaultValues;
     }
 
     async componentDidMount() {
+        console.log('mount');
         const userInfo = await authController.getUserInfo();
         if (userInfo !== null) {
             this.props.fullName = `${userInfo.first_name} ${userInfo.second_name}`;
@@ -88,7 +86,7 @@ class Profile extends Block {
             if (userInfo.avatar) {
                 this.setProps({ userAvatar: `https://ya-praktikum.tech/api/v2/resources${userInfo?.avatar}` });
             } else {
-                this.setProps({ userAvatar: avatar});
+                this.setProps({ userAvatar: avatar });
             }
         }
     }

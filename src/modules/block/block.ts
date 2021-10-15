@@ -69,11 +69,9 @@ abstract class Block {
 
     private _componentDidUpdate(oldProps?: ProxyHandler<object>, newProps?: ProxyHandler<object>) {
         const response = this.componentDidUpdate(oldProps, newProps);
-        console.log(response);
         if (!response) {
             return;
         }
-        console.log('must render');
         this._render();
     }
 
@@ -93,7 +91,6 @@ abstract class Block {
         if (!nextProps) {
             return;
         }
-
         Object.assign(this.props, nextProps);
         this.eventBus.emit(EVENTS.FLOW_RENDER);
     };
@@ -191,6 +188,7 @@ abstract class Block {
     }
 
     protected show() {
+        this._componentDidMount();
         this.getContent().classList.remove('hidden');
     }
 

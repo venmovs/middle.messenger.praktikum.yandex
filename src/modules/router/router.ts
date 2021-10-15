@@ -52,8 +52,12 @@ class Router {
     }
 
     go(pathname: string) {
-        this.history.pushState({}, '', pathname);
-        this._onRoute(pathname);
+        console.log(window.location);
+        console.log(pathname);
+        if (pathname !== window.location.pathname) {
+            this.history.pushState({}, '', pathname);
+            this._onRoute(pathname);
+        }
     }
 
     back() {

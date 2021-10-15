@@ -29,23 +29,23 @@ class HTTPTransport {
     }
 
     public get = (url: string, options = {}) => {
-        return this.request(this.baseUri + url, { ...options, method: METHODS.GET });
+        return this.request(url, { ...options, method: METHODS.GET });
     };
 
     public post = (url: string, options = {}) => {
-        return this.request(this.baseUri + url, { ...options, method: METHODS.POST });
+        return this.request(url, { ...options, method: METHODS.POST });
     };
 
     public put = (url: string, options = {}) => {
-        return this.request(this.baseUri + url, { ...options, method: METHODS.PUT });
+        return this.request(url, { ...options, method: METHODS.PUT });
     };
 
     public patch = (url: string, options = {}) => {
-        return this.request(this.baseUri + url, { ...options, method: METHODS.PATCH });
+        return this.request(url, { ...options, method: METHODS.PATCH });
     };
 
     public delete = (url: string, options = {}) => {
-        return this.request(this.baseUri + url, { ...options, method: METHODS.DELETE });
+        return this.request(url, { ...options, method: METHODS.DELETE });
     };
 
     request = (url: string, options: TRequestOptions) => {
@@ -69,7 +69,7 @@ class HTTPTransport {
             const xhr = new XMLHttpRequest();
             xhr.withCredentials = true;
 
-            xhr.open(method, url + query);
+            xhr.open(method, this.baseUri + url + query);
 
             if (isFile) {
                 xhr.setRequestHeader('accept', 'application/json');
