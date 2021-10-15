@@ -84,9 +84,10 @@ class Login extends Block {
                     const formData = formValidation.check(event);
                     const changeLocation = async () => {
                         await authController.auth(formData).then((response) => {
-                            console.log(response)
-                        }).catch((e) => {
-                            console.log(e); //TODO обработать ошибку логина
+                            this.setProps({ title: 'Вход' });
+                            console.log(response);
+                        }).catch(() => {
+                            this.setProps({ title: 'Такого пользователя нет' });
                         });
                     };
                     formValidation.check(event, changeLocation);

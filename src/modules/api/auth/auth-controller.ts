@@ -10,7 +10,7 @@ class AuthController {
         return authApi.signUp(data).then((response) => {
             console.log('signUp', response);
             if (response.status === 200) {
-                route.go('/chats')
+                route.go('/chats');
                 return response;
             }
         }).catch((e) => console.error(e));
@@ -55,11 +55,14 @@ class AuthController {
     }
 
     public logout() {
+        state.save('user', null);
         return authApi.logout().then((response) => {
-            route.go('/');
             if (response.status === 200) {
                 return response;
             }
+        }).catch((e) => console.log(e))
+            .finally(() => {
+            route.go('/');
         });
     }
 }

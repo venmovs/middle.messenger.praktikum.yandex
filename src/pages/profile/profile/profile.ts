@@ -49,9 +49,7 @@ class Profile extends Block {
             classes: 'button_red',
             events: {
                 click: async () => {
-                    await authController.logout().then(() => {
-                        router.go('/');
-                    });
+                    await authController.logout();
                 },
             },
         };
@@ -88,7 +86,7 @@ class Profile extends Block {
             if (userInfo.avatar) {
                 this.setProps({ userAvatar: `https://ya-praktikum.tech/api/v2/resources${userInfo?.avatar}` });
             } else {
-                this.setProps({ userAvatar: avatar});
+                this.setProps({ userAvatar: avatar });
             }
         }
     }
