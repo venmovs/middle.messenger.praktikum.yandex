@@ -3,24 +3,25 @@ const chatTemplate: string = `
     <section class="bg-blur bg-blur_small">
         <div class="flex space-between">
             <div class="user-info flex">
-                <div class="user-info__avatar"></div>
-                <div class="user-info__name text-primary">Виген Мовсисян</div>
+                <img src="{{ userAvatar }}" alt="avatar" class="user-info__avatar">
+                <div class="user-info__name text-primary">{{ userName }}</div>
             </div>
-            <div id="buttonImageEditor"></div>
+            <div class="flex">
+                <div class="mr-1" id="buttonImageEditor"></div>
+                <div id="buttonCreateNewChat"></div>
+            </div>
         </div>
         <div id="users"></div>
-        <form class="chat__search flex align-item-end justify-content-center">
+    </section>
+    <section class="bg-blur bg-blur_big">
+        <div class="user-info flex w-100">
+            <form class="chat__search flex align-item-end justify-content-center" id="search-form">
             <label class="flex direction-column align-item-center mr-1">
-                <span class="text-primary text-primary_white">Поиск</span>
+                <span class="text-primary text-primary_white">Добавьте пользователя</span>
                 <input class="custom-text-input text-primary" type="text" id="search">
             </label>
             <div id="buttonImageSearch"></div>
         </form>
-    </section>
-    <section class="bg-blur bg-blur_big">
-        <div class="user-info flex w-100">
-            <div class="user-info__avatar"></div>
-            <div class="user-info__name text-primary">Виген Мовсисян</div>
         </div>
         <div class="message-field mb-1" id="message">
         </div>

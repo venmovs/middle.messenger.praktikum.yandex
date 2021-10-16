@@ -10,4 +10,5 @@ node_modules/
 *.lock
 dist
 .cache
+.env
 package-lock.json

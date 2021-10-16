@@ -1,14 +1,15 @@
 class FormValidation {
-    check(event: Event, actionIfValid?: (event: Event) => void): void {
+    check(event: Event, actionIfValid?: (event: Event) => void): void | Record<string, any> | null {
         event.preventDefault();
         const isValid: boolean = this.validate(event);
         if (isValid) {
             if (typeof actionIfValid === 'function') {
                 actionIfValid(event);
             } else {
-                this.actionIfValid(event);
+                return this.actionIfValid(event);
             }
         }
+        return null;
     }
 
     private validate(event: Event): boolean {
@@ -31,9 +32,11 @@ class FormValidation {
         const form = event.target as HTMLFormElement;
         if (form !== null) {
             const formData = new FormData(form);
+            const resultObject: Record<string, any> = {};
             formData.forEach((value, name) => {
-                console.log(`${name}: ${value}`);
+                resultObject[name] = value;
             });
+            return resultObject;
         }
     }
 }

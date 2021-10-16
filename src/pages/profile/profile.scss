@@ -1,6 +1,5 @@
-@import "../../styles/variables";
-
-@import "../../styles/mixins";
+@import "../../../static/styles/variables";
+@import "../../../static/styles/mixins";
 
 
 .profile {
@@ -12,7 +11,7 @@
   }
 
   &__bg {
-    background: url("../../images/background/profile-background.jpg") no-repeat center center fixed;
+    background: url("../../../static/images/background/profile-background.jpg") no-repeat center center fixed;
 
     @include sign-background;
   }
@@ -26,7 +25,8 @@
   &__avatar {
     width: 140px;
     height: 140px;
-    background-image: url("../../images/avatar/test-avatar.jpg");
+    position: relative;
+    margin-right: 20px;
 
     @include avatar;
 
@@ -45,7 +45,6 @@
   &__form {
     position: absolute;
     width: 500px;
-
     @include horizontal-center();
   }
 

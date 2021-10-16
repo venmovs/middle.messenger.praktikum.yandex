@@ -1,9 +1,13 @@
+import './error.scss';
+
 import { makeHtmlFromTemplate } from '../../utils/makeHtml';
 import { Block } from '../../modules/block/block';
-import { render } from '../../utils/render';
 import { ErrorMessage, IErrorMessage } from './error-message/error-message';
 import { Button, IButton } from '../../components/button/button';
 import { errorTemplate } from './error.tmpl';
+import { Router } from '../../modules/router/router';
+
+const router = new Router('#app');
 
 class Error extends Block {
     constructor() {
@@ -16,7 +20,7 @@ class Error extends Block {
           text: 'Назад к чатам',
           events: {
               click: () => {
-                 window.location.href = '/chat/chat.html';
+                  router.go('/chats');
               },
           },
         };
@@ -34,4 +38,4 @@ class Error extends Block {
     }
 }
 
-render('#root', new Error());
+export { Error };

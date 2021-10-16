@@ -7,6 +7,7 @@ interface IInput {
     name: string,
     type: string,
     error: string,
+    value: string,
     settings: Record<string, boolean>,
     events?: Record<string, (event: Event) => void>,
 }
