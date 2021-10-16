@@ -65,13 +65,13 @@ class HTTPTransport {
         }
 
         return new Promise((resolve, reject) => {
-            const isFile: boolean = data instanceof FormData;
+            const isFormData: boolean = data instanceof FormData;
             const xhr = new XMLHttpRequest();
             xhr.withCredentials = true;
 
             xhr.open(method, this.baseUri + url + query);
 
-            if (isFile) {
+            if (isFormData) {
                 xhr.setRequestHeader('accept', 'application/json');
             } else {
                 Object.entries(headers).forEach(([key, value]) => {

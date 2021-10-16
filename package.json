@@ -13,7 +13,7 @@
     "clear": "rimraf dist .cache",
     "eslint": "eslint src/**/*.ts",
     "stylelint": "stylelint static/**/*.scss",
-    "test": "mocha --require ts-node/register \\\"src/**/*.spec.ts\\\""
+    "test": "mocha --require ts-node/register \"src/**/*.spec.ts\""
   },
   "devDependencies": {
     "@types/chai": "4.2.22",
