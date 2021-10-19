@@ -7,6 +7,14 @@ import { Error } from './src/pages/error/error';
 import { ProfileEdit } from './src/pages/profile/profile-edit/profile-edit';
 import { ProfileEditPassword } from './src/pages/profile/profile-edit-password/profile-edit-password';
 
+import './static/styles/style.scss';
+import './static/styles/utils.scss';
+import './static/styles/button.scss';
+import './static/styles/fonts.scss';
+import './static/styles/inputs.scss';
+import './static/styles/mixins.scss';
+import './static/styles/variables.scss';
+
 const router = new Router('#app');
 
 router.use('/', Login);
