@@ -12,10 +12,9 @@
     "os": false
   },
   "scripts": {
-    "dev": "npx webpack-cli server --mode development --open --hot",
-    "build": "npm run cleanup && npx webpack --mode production",
-    "start": "npm run clear && ./node_modules/.bin/parcel build static/pages/**/*.html static/pages/*.html && node ./server.js",
     "clear": "rimraf dist .cache",
+    "dev": "npx webpack-cli server --mode development --open --hot",
+    "build": "npm run clear && npx webpack --mode production",
     "eslint": "eslint src/**/*.ts",
     "stylelint": "stylelint static/**/*.scss",
     "test": "mocha --require ts-node/register \"src/**/*.spec.ts\""
@@ -67,6 +66,8 @@
     "@babel/polyfill": "7.12.1",
     "@inventory/parcel-plugin-handlebars": "1.0.0",
     "autoprefixer": "^9.0.0",
+    "clean-webpack-plugin": "^4.0.0",
+    "copy-webpack-plugin": "^9.0.1",
     "dotenv": "10.0.0",
     "eslint-config-airbnb-base": "14.2.1",
     "eslint-config-airbnb-typescript": "12.3.1",

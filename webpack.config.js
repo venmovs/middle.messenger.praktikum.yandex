@@ -1,5 +1,8 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
     entry: './app.ts',
@@ -36,14 +39,8 @@ module.exports = {
                 ],
             },
             {
-                test: /\.(svg|png|jpg|gif|jpeg)$/i,
-                use: [{
-                    loader: 'file-loader',
-                    options: {
-                        name: '[name].[ext]',
-                        outputPath: 'img/',
-                    },
-                }],
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                type: 'asset/resource',
             },
             {
                 test: /\.(js|ts)x?$/,
@@ -57,5 +54,15 @@ module.exports = {
             inject: false,
             template: './index.html',
         }),
+        new MiniCssExtractPlugin(),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: './static/images/fav/favicon.png',
+                    to: 'favicon.png',
+                },
+            ],
+        }),
+        new CleanWebpackPlugin(),
     ],
 };
