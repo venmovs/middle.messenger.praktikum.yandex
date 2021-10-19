@@ -7,8 +7,8 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "dev": "webpack-dev-server --config webpack.config.js",
-    "build": "cross-env TS_NODE_PROJECT=\\\"tsconfig-for-webpack-config.json\\\" webpack NODE_ENV='production' webpack",
+    "dev": "webpack serve --mode development",
+    "build": "npm run cleanup && npx webpack --mode production",
     "start": "npm run clear && ./node_modules/.bin/parcel build static/pages/**/*.html static/pages/*.html && node ./server.js",
     "clear": "rimraf dist .cache",
     "eslint": "eslint src/**/*.ts",
