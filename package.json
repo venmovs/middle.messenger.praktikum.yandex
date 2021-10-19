@@ -15,9 +15,15 @@
     "clear": "rimraf dist .cache",
     "dev": "npx webpack-cli server --mode development --open --hot",
     "build": "npm run clear && npx webpack --mode production",
-    "eslint": "eslint src/**/*.ts",
-    "stylelint": "stylelint static/**/*.scss",
-    "test": "mocha --require ts-node/register \"src/**/*.spec.ts\""
+    "lint:eslint": "eslint src/**/*.ts",
+    "lint:stylelint": "stylelint static/**/*.scss",
+    "lint:test": "mocha --require ts-node/register \"src/**/*.spec.ts\""
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm-run-all test lint:all",
+      "pre-push": "npm run other command"
+    }
   },
   "devDependencies": {
     "@babel/cli": "7.12.1",
@@ -46,6 +52,7 @@
     "express": "4.17.1",
     "helmet": "4.6.0",
     "html-webpack-plugin": "5.4.0",
+    "husky": "^7.0.2",
     "jsdom": "17.0.0",
     "mocha": "9.1.2",
     "path": "^0.12.7",
