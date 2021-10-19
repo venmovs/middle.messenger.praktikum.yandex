@@ -15,15 +15,12 @@
     "clear": "rimraf dist .cache",
     "dev": "npx webpack-cli server --mode development --open --hot",
     "build": "npm run clear && npx webpack --mode production",
-    "lint:eslint": "eslint src/**/*.ts",
-    "lint:stylelint": "stylelint static/**/*.scss",
-    "lint:test": "mocha --require ts-node/register \"src/**/*.spec.ts\""
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm-run-all test lint:all",
-      "pre-push": "npm run other command"
-    }
+    "eslint": "eslint src/**/*.ts",
+    "stylelint": "stylelint static/**/*.scss",
+    "test": "mocha --require ts-node/register \"src/**/*.spec.ts\"",
+    "validate": "npm-run-all --parallel test stylelint eslint",
+    "precommit": "npm run validate",
+    "prepush": "npm run validate"
   },
   "devDependencies": {
     "@babel/cli": "7.12.1",
