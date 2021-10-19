@@ -12,7 +12,7 @@ module.exports = {
         extensions: ['.ts', '.js', '.json'],
     },
     devServer: {
-        contentBase: path.join(__dirname, 'dist'),
+        static: path.join(__dirname, 'dist'),
         compress: true,
         port: 3000,
     },
@@ -81,7 +81,6 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'bundle.css',
         }),
-
     ],
     mode: 'production',
 };
