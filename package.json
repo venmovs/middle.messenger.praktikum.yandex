@@ -18,10 +18,11 @@
     "eslint": "eslint src/**/*.ts",
     "stylelint": "stylelint static/**/*.scss",
     "test": "mocha --require ts-node/register \"src/**/*.spec.ts\"",
-    "validate": "npm-run-all --parallel test stylelint eslint",
-    "precommit": "npm run validate",
-    "prepush": "npm run validate",
-    "prepare": "husky install"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm-run-all test lint"
+    }
   },
   "devDependencies": {
     "@babel/cli": "7.12.1",
