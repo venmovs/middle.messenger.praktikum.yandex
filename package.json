@@ -20,7 +20,8 @@
     "test": "mocha --require ts-node/register \"src/**/*.spec.ts\"",
     "validate": "npm-run-all --parallel test stylelint eslint",
     "precommit": "npm run validate",
-    "prepush": "npm run validate"
+    "prepush": "npm run validate",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@babel/cli": "7.12.1",
