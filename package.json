@@ -17,11 +17,11 @@
     "build": "npm run clear && npx webpack --mode production",
     "eslint": "eslint src/**/*.ts",
     "stylelint": "stylelint static/**/*.scss",
-    "test": "mocha --require ts-node/register \"src/**/*.spec.ts\"",
+    "test": "mocha --require ts-node/register \"src/**/*.spec.ts\""
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm-run-all test lint"
+      "pre-commit": "npm-run-all test stylelint"
     }
   },
   "devDependencies": {
