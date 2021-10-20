@@ -1,17 +1,24 @@
 {
   "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "declaration": true,
     "outDir": "./dist",
-    "target": "es2017",
-    "declaration": false,
-    "module": "esNext",
+    "rootDir": "./src",
     "strict": true,
-    "esModuleInterop": true,
     "noImplicitAny": true,
+    "strictNullChecks": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "sourceMap": true,
-    "strictNullChecks": true
-  },
-
-  "include": ["./src/**/*"]
+    "esModuleInterop": true,
+    "inlineSourceMap": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": [
+      "dom",
+      "es5",
+      "scripthost",
+      "es2015.proxy"
+    ]
+  }
 }
