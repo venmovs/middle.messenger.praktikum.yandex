@@ -22,8 +22,8 @@ app.use(helmet.contentSecurityPolicy({
     },
 }));
 
-app.use('/*', (req, res) => {
-    res.status(404).redirect('/');
+app.use('/*', (request, response) => {
+    response.status(404).redirect('/');
 });
 
 app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`));
