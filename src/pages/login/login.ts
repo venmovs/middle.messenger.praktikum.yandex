@@ -98,7 +98,7 @@ class Login extends Block {
 
     async componentDidMount() {
         const userInfo = await authController.getUserInfo();
-        if (userInfo !== null || undefined) {
+        if (userInfo !== null) {
             router.go('/chats');
         }
     }
