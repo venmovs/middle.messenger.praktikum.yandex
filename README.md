@@ -1,9 +1,11 @@
 
 # Messenger
 
-## [ссылка на pull request третьего спринта](https://github.com/venmovs/middle.messenger.praktikum.yandex/pull/7)
+## [ссылка на pull request 4 спринта](https://github.com/venmovs/middle.messenger.praktikum.yandex/pull/12)
 
 ## [Netlify domain](https://angry-agnesi-d0e795.netlify.app)
+## [Heroku](https://doggy-chat.herokuapp.com)
+
 
 ## Команды npm
 1. npm run build - сборка прод версии;
