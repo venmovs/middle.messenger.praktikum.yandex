@@ -1,18 +1,17 @@
 
 # Messenger
 
-## [ссылка на pull request третьего спринта](https://github.com/venmovs/middle.messenger.praktikum.yandex/pull/7)
+## [ссылка на pull request 4 спринта](https://github.com/venmovs/middle.messenger.praktikum.yandex/pull/12)
 
 ## [Netlify domain](https://angry-agnesi-d0e795.netlify.app)
 ## [Heroku](https://doggy-chat.herokuapp.com)
 
 ## Команды npm
 1. npm run build - сборка прод версии;
-2. npm run start - запуск сервера на nodejs;
-3. npm run dev - запуск сборки для разработки;
-4. npm run eslint - запуск eslint;
-5. npm run stylelint - запуск stylelint;
-6. npm run test - запуск тестов;
+2. npm run dev - запуск сборки для разработки;
+3. npm run eslint - запуск eslint;
+4. npm run stylelint - запуск stylelint;
+5. npm run test - запуск тестов;
 
 
 ## Версия Node - 12.16.0
