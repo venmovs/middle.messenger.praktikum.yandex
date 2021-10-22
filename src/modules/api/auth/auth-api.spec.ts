@@ -1,6 +1,6 @@
-import sinon from 'sinon';
 import { expect } from 'chai';
 import { ILoginRequest, IRegistrationRequest } from './auth-api';
+import sinon from 'sinon';
 
 const FormData = require('form-data');
 const authApi = require('./auth-api');

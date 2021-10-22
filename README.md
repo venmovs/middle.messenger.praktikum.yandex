@@ -6,7 +6,6 @@
 ## [Netlify domain](https://angry-agnesi-d0e795.netlify.app)
 ## [Heroku](https://doggy-chat.herokuapp.com)
 
-
 ## Команды npm
 1. npm run build - сборка прод версии;
 2. npm run dev - запуск сборки для разработки;
